@@ -1,0 +1,14 @@
+*.pyc
+__pycache__/
+
+# Environment
+.env
+.env.*
+
+# Virtual Environment
+.venv/
+venv/
+
+# Ignore compiled pycache files in specified directories
+src/**/pycache/
+
