@@ -1,14 +1,4 @@
-*.pyc
-__pycache__/
-
-# Environment
-.env
-.env.*
-
-# Virtual Environment
-.venv/
-venv/
-
-# Ignore compiled pycache files in specified directories
-src/**/pycache/
-
+__pycache__/main.cpython-312.pyc
+*cpython-312.pyc
+.venv
+__pycache__

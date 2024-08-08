@@ -16,7 +16,7 @@ pip install -r requirements.txt
 pip freeze > requirements.txt
 
 <!-- uvicorn src.main:app --reload -->
-python .\app\main.py
+python .\src\main.py
 
 
 http://127.0.0.1:8000/docs
