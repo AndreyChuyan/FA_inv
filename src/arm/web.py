@@ -5,6 +5,7 @@ from error import Duplicate, Missing
 
 router = APIRouter(prefix="/arm")
 
+
 # @router.get("")
 @router.get("/")
 def get_all() -> list[Arm]:
@@ -18,6 +19,7 @@ def get_one(name) -> Arm | None:
     except Missing as exc:
         raise HTTPException(status_code=404, detail=exc.msg)
 
+
 @router.post("/")
 def create(arm: Arm) -> Arm:
     try:
@@ -25,12 +27,14 @@ def create(arm: Arm) -> Arm:
     except Duplicate as exc:
         raise HTTPException(status_code=404, detail=exc.msg)
 
+
 @router.patch("/")
 def modify(name: str, arm: Arm) -> Arm:
     try:
         return service.modify(name, arm)
     except Missing as exc:
         raise HTTPException(status_code=404, detail=exc.msg)
+
 
 @router.delete("/{name}")
 def delete(name: str):
