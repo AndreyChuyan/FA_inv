@@ -1,37 +1,37 @@
 ﻿from fastapi import APIRouter, HTTPException
-from .model import Arm
-from arm import service as service
+from .model import Worker
+from worker import service as service
 from error import Duplicate, Missing
 
-router = APIRouter(prefix="/arm")
+router = APIRouter(prefix="/worker")
 
+# --- CRUD
 # @router.get("")
 @router.get("/")
-def get_all() -> list[Arm]:
+def get_all() -> list[Worker]:
     return service.get_all()
 
-
 @router.get("/{name}")
-def get_one(name) -> Arm | None:
+def get_one(name) -> Worker | None:
     try:
         return service.get_one(name)
     except Missing as exc:
         raise HTTPException(status_code=404, detail=exc.msg)
 
-@router.post("/")
-def create(arm: Arm) -> Arm:
+@router.post("/", status_code=201)
+def create(worker: Worker) -> Worker:
     try:
-        return service.create(arm)
+        return service.create(worker)
     except Duplicate as exc:
         raise HTTPException(status_code=404, detail=exc.msg)
-
+        
 @router.patch("/")
-def modify(name: str, arm: Arm) -> Arm:
+def modify(name: str, worker: Worker) -> Worker:
     try:
-        return service.modify(name, arm)
+        return service.modify(name, worker)
     except Missing as exc:
         raise HTTPException(status_code=404, detail=exc.msg)
-
+        
 @router.delete("/{name}")
 def delete(name: str):
     try:

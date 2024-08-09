@@ -1,5 +1,5 @@
 ﻿from .model import Arm
-from .data import arm as data
+import data.arm as data
 
 def get_all() -> list[Arm]:
     return data.get_all()

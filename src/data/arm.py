@@ -1,5 +1,5 @@
-﻿from db.init import conn, curs, IntegrityError
-from .model import Arm
+﻿from data.init import conn, curs, IntegrityError
+from arm.model import Arm
 from error import Missing, Duplicate
 
 curs.execute("""create table if not exists arm(

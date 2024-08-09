@@ -6,7 +6,8 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
-from arm import arm
+from arm import web as arm
+from worker import web as worker
 
 # from data.database import create_tables
 # from user.router import router as user_router
@@ -35,7 +36,7 @@ app.add_middleware(SessionMiddleware, secret_key="your_secret_key")
 # Включает маршрутизаторы (routers)
 # app.include_router(worker.router)
 app.include_router(arm.router)
-
+app.include_router(worker.router)
 
 # Регистрирует обработчик исключений для пользовательского исключения RedirectException.
 #    - В случае возникновения этого исключения, обработчик будет возвращать RedirectResponse, перенаправляя клиента по указанному URL.
