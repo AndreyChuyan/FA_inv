@@ -27,7 +27,8 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-# верификацию токена доступа в формате JSON Web Token (JWT). 
+
+# верификацию токена доступа в формате JSON Web Token (JWT).
 # используется механизм генерации исключений для обработки ошибок верификации токена.
 def verify_token(token: str, credentials_exception):
     try:
@@ -38,6 +39,7 @@ def verify_token(token: str, credentials_exception):
         return user_name
     except JWTError:
         raise credentials_exception
+
 
 # функцию которая выполняет верификацию токена доступа
 # В случае успешной верификации токена и декодирования его содержимого, функция возвращает идентификатор пользователя

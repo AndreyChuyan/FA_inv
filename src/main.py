@@ -8,9 +8,13 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from database.database import create_tables
 from worker.router import router as worker_router
-# from frontend.router import router as frontend_router
+from frontend.router import router as frontend_router
 from exception import RedirectException
 
+# отладка
+import logging
+log = logging.getLogger("uvicorn")
+log.setLevel(logging.DEBUG)
 
 
 @asynccontextmanager
@@ -24,10 +28,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.add_middleware(SessionMiddleware, secret_key="your_secret_key")
 
-# app.mount("/assets", StaticFiles(directory="frontend/assets"), name="assets")
+app.mount("/assets", StaticFiles(directory="frontend/assets"), name="assets")
 
 app.include_router(worker_router)
-# app.include_router(frontend_router)
+app.include_router(frontend_router)
 
 
 @app.exception_handler(RedirectException)

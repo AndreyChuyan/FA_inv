@@ -12,7 +12,12 @@ from .dependency import get_current_worker, get_worker_by_id
 from .auth import hash_password, verify_password, create_access_token
 from .exceptions import exception_user_not_found, exception_auth, exception_unique_field
 
-router = APIRouter(prefix="/worker", tags=["tag_worker"])
+# отладка
+import logging
+
+log = logging.getLogger("uvicorn")
+
+router = APIRouter(prefix="/worker", tags=["worker"])
 
 
 # --- Авторизация
@@ -27,6 +32,7 @@ async def login_for_access_token(
     access_token = create_access_token(data={"sub": worker.name})
     return {"access_token": access_token, "token_type": "bearer"}
 
+
 @router.post("/auth")
 async def login_for_access_token_frontend(
     form_data: OAuth2PasswordRequestForm = Depends(),
@@ -34,12 +40,30 @@ async def login_for_access_token_frontend(
 ):
     user = await CRUDWorker.get_worker_by_name(session, form_data.username)
     if not user or not verify_password(form_data.password, user.password):
-        return RedirectResponse(url="/auth?not_auth=true", status_code=status.HTTP_303_SEE_OTHER)
-    access_token = create_access_token(data={"sub": user.username})
+        return RedirectResponse(
+            url="/auth?not_auth=true", status_code=status.HTTP_303_SEE_OTHER
+        )
+    access_token = create_access_token(data={"sub": user.name})
     response = RedirectResponse(url="/", status_code=status.HTTP_303_SEE_OTHER)
     response.set_cookie(key="access_token", value=access_token)
     return response
 
+
+# @router.post("/register")
+# async def register_user(
+#     name: str = Form(...),
+#     password: str = Form(...),
+#     email: str = Form(...),
+#     session: AsyncSession = Depends(get_session),
+# ):
+#     password = hash_password(password)
+#     data = {"username": username, "password": password, "email": email}
+#     user = await CRUDUser.create(session, data)
+#     access_token = create_access_token(data={"username": user.username})
+#     # print(access_token)repod1
+#     response = RedirectResponse(url="/auth", status_code=status.HTTP_303_SEE_OTHER)
+#     response.set_cookie(key="access_token", value=access_token)
+#     return response
 
 # --- Standart CRUD
 @router.post("/", response_model=WorkerOut, status_code=status.HTTP_201_CREATED)
@@ -58,6 +82,7 @@ async def create_user(user: WorkerCreate, session: AsyncSession = Depends(get_se
         await CRUDWorker.create(session, worker)
     return new_user
 
+
 @router.get("/{worker_id}", response_model=WorkerOut)
 async def get_user(
     worker: Worker = Depends(get_worker_by_id),
@@ -69,11 +94,12 @@ async def get_user(
     """
     return worker
 
+
 @router.get("/", response_model=list[WorkerOut])
 async def get_all_worker(session: AsyncSession = Depends(get_session)):
     """
     Получение списка всех пользователей.
     """
     users = await CRUDWorker.get_all(session)
+    # log.debug(f'Debug --- get_all_worker')
     return users
-

@@ -8,6 +8,7 @@ class Role(str, Enum):
     user = "user"
     guest = "guest"
 
+
 class WorkerBase(BaseModel):
     name: str
     role: str
@@ -15,8 +16,10 @@ class WorkerBase(BaseModel):
     deparment: str
     description: str
 
+
 class WorkerCreate(WorkerBase):
     password: str
+
 
 class WorkerOut(WorkerBase):
     id: int

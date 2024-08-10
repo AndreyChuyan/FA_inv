@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<title>{% block title %}Инвентарный учет{% endblock %}</title>
+
+<head>{% include 'base/head.html' %}</head>
+
+<body>
+  {% include 'base/nav.html' %}
+
+  <div class="container my-5">
+
+    {% block content %}{% endblock %}
+
+  </div>
+
+
+  {% include 'base/script.html' %}
+</body>
+
+</html>
