@@ -25,6 +25,7 @@ async def get_auth(
     worker: Worker | None = Depends(get_correct_worker_frontend)
 ):
     if worker:
+        log.debug(f"Debug --- get_correct_worker_frontend worker.name= {worker.name}")
         return templates.TemplateResponse("index.html", {"request": request, "worker": worker})
     else:
         return RedirectResponse(url="/auth", status_code=status.HTTP_301_MOVED_PERMANENTLY)

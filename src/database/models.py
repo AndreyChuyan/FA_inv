@@ -29,28 +29,28 @@ class Worker(Base):
     name = Column(String)
     role = Column(Enum(Role), default=Role.guest)
     password = Column(String)
-    deparment = Column(String)
+    department = Column(String)
     description = Column(String, default=None)
 
     conn_worker_inventory = relationship(
         "Inventory", back_populates="conn_inventory_worker"
     )
 
-    def __str__(self):
-        return f"Worker: {self.name} Email: {self.role} ID: {self.id}"
+    # def __str__(self):
+    #     return f"Worker: {self.name} Role: {self.role} ID: {self.id}"
 
 
 class Arm(Base):
     __tablename__ = "arm"
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
-    deparment = Column(String)
+    department = Column(String)
     description = Column(String, default=None)
 
     conn_arm_inventory = relationship("Inventory", back_populates="conn_inventory_arm")
 
-    def __str__(self):
-        return f"Arm: {self.name} Email: {self.deparment} ID: {self.id}"
+    # def __str__(self):
+    #     return f"Arm: {self.name} department: {self.department} ID: {self.id}"
 
 
 class Inventory(Base):

@@ -4,5 +4,5 @@
 class Arm(BaseModel):
     name: str
     number: str
-    deparment: str
+    department: str
     description: str

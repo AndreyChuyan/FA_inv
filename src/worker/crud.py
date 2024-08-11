@@ -19,7 +19,7 @@ class CRUDWorker(CRUDBase):
         query = select(Worker).filter(Worker.name == name)
         result = await session.execute(query)
         worker = result.scalar_one_or_none()
-        log.debug(f"Debug --- get_worker_by_name name= {worker.name}")
+        log.debug(f"Debug --- get_worker_by_name worker.name= {worker.name}")
         return worker
 
     # запросы к базе данных

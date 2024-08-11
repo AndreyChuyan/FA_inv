@@ -16,7 +16,8 @@ pip install -r requirements.txt
 pip freeze > requirements.txt
 
 <!-- uvicorn src.main:app --reload -->
-python .\src\main.py
+cd .\src\
+python main.py
 
 
 http://127.0.0.1:8000/docs
@@ -29,3 +30,6 @@ set PYTHONPATH=C:\Users\Noteburg\git\FA_inventory\src
 ### отладка 
 $path = 'user/'; (Invoke-WebRequest -Uri http://localhost:8000/$path).Content
 $path = 'user'; (Invoke-WebRequest -Uri http://localhost:8000/$path).Content
+
+<!-- для CSS - загрузить локально -->
+https://www.cleancss.com/css-beautify/3

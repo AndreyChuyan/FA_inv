@@ -13,7 +13,7 @@ class WorkerBase(BaseModel):
     name: str
     role: str
     password: str
-    deparment: str
+    department: str
     description: str
 
 

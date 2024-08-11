@@ -43,8 +43,8 @@ async def get_correct_worker_frontend(
         # вернем имя пользователя через токен
         username = verify_token_not_exception(token)
         if username:
-            user = await CRUDWorker.get_worker_by_name(session, username)
-            return user
+            worker = await CRUDWorker.get_worker_by_name(session, username)
+            return worker
 
 
 async def get_worker_by_id(user_id: int, session: AsyncSession = Depends(get_session)):
