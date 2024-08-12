@@ -15,3 +15,10 @@ async def get_worker_or_redirect(
         raise RedirectException(url="/auth")
     return worker
 
+
+# async def get_all_workers(
+#     request: Request, worker: Worker | None = Depends(get_all_workers)
+# ) -> Worker:
+#     if not worker:
+#         raise RedirectException(url="/")
+#     return worker

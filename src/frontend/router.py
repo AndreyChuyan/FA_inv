@@ -10,6 +10,8 @@ from database.models import Worker
 from database.database import get_session
 from .dependency import get_worker_or_redirect
 
+
+
 # отладка
 import logging
 log = logging.getLogger("uvicorn")
@@ -63,23 +65,24 @@ async def get_register(
 
 
 # вывод данных в шаблон пользователя
-@router.get("/worker")
-async def get_worker(
+@router.get("/workers")
+async def get_workers(
     request: Request,
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
-    data = await CRUDWorker.get_worker_arm(session, worker.name)
-
-    data = [{"id": i, **dct} for i, dct in enumerate(data, start=1)]
-    print(data)
-    workers = await CRUDWorker.get_all(session)
-    arms = await CRUDArm.get_all(session)
-    # disciplines = await CRUDDiscipline.get_all(session)
+    data = await CRUDWorker.get_all(session, worker.name)
+    log.debug(f"Debug --- /workers data= {data}")
+    log.debug(f"Debug --- /workers data[0][0].role= {data[0][0].role}")
+    # data = [{"id": i, **dct} for i, dct in enumerate(data, start=1)]
+    # print(data)
+    # workers = await CRUDWorker.get_all(session)
+    # arms = await CRUDArm.get_all(session)
+    # # disciplines = await CRUDDiscipline.get_all(session)
 
     return templates.TemplateResponse(
-        "student/student.html",
-        {"request": request, "workers": workers, "arms": arms},
+        "workers/base.html",
+        {"request": request, "worker": worker, "data": data},
     )
 
 

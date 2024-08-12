@@ -2,7 +2,7 @@
     <div class="container">
       <!-- Меню для авторизованного пользователя -->
       <a class="navbar-brand" href="/">
-        <img src="/assets/img/logo2.jpg" alt="Педагог Logo" id="brand-logo" style="max-height: 40px;"> Инвентарный учет
+        <img src="/assets/img/logo_min.jpg" alt="Педагог Logo" id="brand-logo" style="max-height: 40px;"> Инвентарный учет
       </a>
 
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -14,14 +14,14 @@
         <ul class="navbar-nav mx-auto">
           
 
-          {% if worker.role.value == 'admin' %}
+          {% if worker.role == 'admin' %}
           <li class="nav-item {% if request_path == '/worker' %}active{% endif %}">
             <a class="nav-link" href="/worker">Кабинет администратора</a>
           </li>
           {% endif %}
 
 
-          {% if user.user_type.value == 'user' %}
+          {% if worker.role == 'user' %}
           <li class="nav-item {% if request_path == '/prepod' %}active{% endif %}">
             <a class="nav-link" href="/prepod">Кабинет ответсвтенного за учет</a>
           </li>

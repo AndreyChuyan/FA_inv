@@ -61,13 +61,13 @@
       
 
       <div class="d-flex flex-wrap justify-content-around">
-        <a class="nav-link" href="/prepod1">
+        <a class="nav-link" href="/workers">
           <div class="card" style="width: 18rem; margin: 10px;">
-            <img src="../assets/img/prepod.jpg" class="card-img-top" alt="...">
+            <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               
-            <h3 class="card-title">Пользователи подразделения</h3>
-            <h5 class="card-title">{{ worker.name }}</h5>
+            <h3 class="card-title">Пользователи</h3>
+            <!-- <h5 class="card-title">{{ worker.name }}</h5> -->
             <p class="card-text">{{ worker.department }}</p>
         </div>
       </a>
@@ -77,9 +77,15 @@
           <a class="nav-link" href="/prepod2">
             <img src="../assets/img/prepod.jpg" class="card-img-top" alt="...">
             <div class="card-body">
-              <h3 class="card-title">Компьютеры подразделения</h3>
-              <h5 class="card-title">{{ worker.name }}</h5>
+              <h3 class="card-title">Компьютеры</h3>
               <p class="card-text">{{ worker.department }}</p>
+              <!-- <h5 class="card-title">{{ worker.name }}</h5>
+              {% for portfolio in data %}
+              <tr>
+                <td>{{worker.name}}</td>
+
+              </tr> -->
+              {% endfor %}
             </div>
           </a>
         </div>

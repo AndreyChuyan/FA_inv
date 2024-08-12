@@ -14,6 +14,16 @@ class CRUDWorker(CRUDBase):
     model = Worker
 
     @staticmethod
+    async def get_all(session: AsyncSession, name: str) -> Worker:
+        """Получение всех пользователей"""
+        query = select(Worker)
+        result = await session.execute(query)
+        worker = result.all()
+        log.debug(f"Debug --- get_all worker= {worker}")
+        return worker
+
+
+    @staticmethod
     async def get_worker_by_name(session: AsyncSession, name: str) -> Worker:
         """Получение пользователя по имени пользователя."""
         query = select(Worker).filter(Worker.name == name)
@@ -22,25 +32,25 @@ class CRUDWorker(CRUDBase):
         log.debug(f"Debug --- get_worker_by_name worker.name= {worker.name}")
         return worker
 
-    # запросы к базе данных
-    @staticmethod
-    async def get_worker_arm(session: AsyncSession, username: str) -> Worker:
-        """Получение компьютера работника"""
-        query = (
-            select(Worker.name, Arm.name)
-            .select_from(Worker)
-            .join(Arm, Worker.id == Arm.id)
-            .where(Worker.name == username)
-        )
-        log.debug(f"Debug --- get_worker_arm query={query}")
-        result = await session.execute(query)
-        rows = result.fetchall()
-        print(rows)
-        if rows:
-            result = [{"worker_name": row[0], "arm_name": row[1]} for row in rows]
-            return result
-        else:
-            return []
+    # # запросы к базе данных
+    # @staticmethod
+    # async def get_worker_arm(session: AsyncSession, username: str) -> Worker:
+    #     """Получение компьютера работника"""
+    #     query = (
+    #         select(Worker.name, Arm.name)
+    #         .select_from(Worker)
+    #         .join(Arm, Worker.id == Arm.id)
+    #         .where(Worker.name == username)
+    #     )
+    #     log.debug(f"Debug --- get_worker_arm query={query}")
+    #     result = await session.execute(query)
+    #     rows = result.fetchall()
+    #     print(rows)
+    #     if rows:
+    #         result = [{"worker_name": row[0], "arm_name": row[1]} for row in rows]
+    #         return result
+    #     else:
+    #         return []
 
 
 class CRUDArm(CRUDBase):

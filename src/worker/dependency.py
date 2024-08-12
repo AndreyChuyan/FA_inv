@@ -52,3 +52,10 @@ async def get_worker_by_id(user_id: int, session: AsyncSession = Depends(get_ses
     if user is None:
         raise exception_user_not_found
     return user
+
+# #получение списка всех пользователй
+# async def get_all_workers(session: AsyncSession = Depends(get_session)):
+#     workers = await CRUDWorker.get_all(session)
+#     if workers is None:
+#         raise exception_user_not_found
+#     return workers
