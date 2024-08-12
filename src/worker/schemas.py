@@ -10,10 +10,12 @@ class Role(str, Enum):
 
 
 class WorkerBase(BaseModel):
-    name: str
     role: str
+    login: str
+    name: str
     password: str
     department: str
+    position: str
     description: str
 
 

@@ -1,5 +1,14 @@
 {% extends "base/base.html" %}
 
+
+
+
+
+
+
+
+
+
 {% block title %}Все пользователи{% endblock %}
 
 
@@ -24,9 +33,11 @@
       <table class="table table-hover table-shadow table-rounded">
         <thead>
           <tr>
-            <th scope="col" style="width: 40%;">Имя</th>
-            <th scope="col">Логин</th>
-            <th scope="col">Роль</th>
+            <th scope="col" style="width: 5%;">Роль</th>
+            <th scope="col" style="width: 10%;">Логин</th>
+            <th scope="col" style="width: 20%;">Имя</th>
+            <th scope="col" style="width: 30%;">Должность</th>
+            <th scope="col" >Описание</th>
             <th scope="col" style="width: 10%;">Действия</th>
           </tr>
         </thead>
@@ -35,16 +46,25 @@
             {% set workers = worker_tuple[0] %}
               {% if workers.department == worker.department %}
                 <tr class="table-success">
-                  <td>{{ workers.name }}</td>
-                  <td>{{ workers.description }}</td>
                   <td>{{ workers.role.name }}</td>
+                  <td>{{ workers.login }}</td>
+                  <td>{{ workers.name }}</td>
+                  <td>{{ workers.position }}</td>
+                  <td>{{ workers.description }}</td>
                   <td>
                     <!-- Кнопка для редактирования -->
-                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;" onclick="editWorker('{{ workers.id }}')">
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
+                      data-bs-toggle="modal" 
+                      data-bs-target="#updateModal" 
+                      data-bs-workername="{{workers.name}}" 
+                      data-bs-workerlogin="{{workers.login}}"
+                      data-bs-workerposition="{{workers.position}}"
+                      data-bs-workerdescription="{{workers.description}}">
                       Редактировать
                     </button>
                     <!-- Кнопка для удаления -->
-                    <button type="button" class="btn btn-danger btn-sm" style="color: white;" onclick="deleteWorker('{{ workers.id }}')">
+                    <button type="button" class="btn btn-danger btn-sm" style="color: white;" 
+                      onclick="deleteWorker('{{ workers.id }}')">
                       Удалить
                     </button>
                   </td>
@@ -62,10 +82,10 @@
   function editWorker(workerId) {
     // Здесь вы можете перейти на страницу редактирования или открыть модальное окно для редактирования пользователя.
     // Пример с переходом на страницу редактирования:
-    window.location.href = `/edit-worker/${workerId}`;
+    // window.location.href = `/edit-worker/${workerId}`;
     
     // Пример с открытием модального окна (предполагается, что у вас есть HTML и CSS для модального окна):
-    // openEditModal(workerId);
+    openEditModal(workerId);
   }
 
   function deleteWorker(workerId) {
@@ -89,6 +109,43 @@
     }
   }
 </script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateModalLabel">Updade_worker</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="worker-login" class="col-form-label">Логин:</label>
+            <input type="text" class="form-control" id="worker-login">
+          </div>
+          <div class="mb-3">
+            <label for="worker-name" class="col-form-label">Имя:</label>
+            <input type="text" class="form-control" id="worker-name">
+          </div>
+          <div class="mb-3">
+            <label for="worker-position" class="col-form-label">Должность:</label>
+            <input type="text" class="form-control" id="worker-position">
+          </div>
+          <div class="mb-3">
+            <label for="worker-description" class="col-form-label">Описание:</label>
+            <input type="text" class="form-control" id="worker-description">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
