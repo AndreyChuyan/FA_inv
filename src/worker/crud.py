@@ -32,6 +32,17 @@ class CRUDWorker(CRUDBase):
         log.debug(f"Debug --- get_worker_by_name worker.name= {worker.name}")
         return worker
 
+    @staticmethod
+    async def worker_update_by_id(session: AsyncSession, name: str) -> Worker:
+        """Обновление сотрудника по id"""
+        # query = select(Worker).filter(Worker.name == name)
+        # result = await session.execute(query)
+        # worker = result.scalar_one_or_none()
+        # log.debug(f"Debug --- get_worker_by_name worker.name= {worker.name}")
+        # return worker
+    
+    
+    
     # # запросы к базе данных
     # @staticmethod
     # async def get_worker_arm(session: AsyncSession, username: str) -> Worker:
