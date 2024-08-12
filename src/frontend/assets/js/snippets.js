@@ -7,7 +7,7 @@ if (updateModal) {
   updateModal.addEventListener('show.bs.modal', event => {
     // Получает кнопку, которая вызвала модальное окно, и сохраняет её в переменную button.
     const button = event.relatedTarget
-    // Извлекает информацию из атрибута data-bs-whatever кнопки, которая вызвала модальное окно, и сохраняет это значение в переменную name
+    // Извлекает информацию из атрибута  кнопки, которая вызвала модальное окно, и сохраняет это значение в переменную name
     const name = button.getAttribute('data-bs-workername')
     const login = button.getAttribute('data-bs-workerlogin')
     const position = button.getAttribute('data-bs-workerposition')

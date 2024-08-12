@@ -59,7 +59,8 @@
                       data-bs-workername="{{workers.name}}" 
                       data-bs-workerlogin="{{workers.login}}"
                       data-bs-workerposition="{{workers.position}}"
-                      data-bs-workerdescription="{{workers.description}}">
+                      data-bs-workerdescription="{{workers.description}}"
+                      data-bs-workerid= "{{workers.id}}">
                       Редактировать
                     </button>
                     <!-- Кнопка для удаления -->
@@ -121,6 +122,8 @@
       </div>
       <div class="modal-body">
         <form>
+          <!-- Скрытое поле для хранения значения worker-id -->
+          <input type="hidden" id="worker-id">
           <div class="mb-3">
             <label for="worker-login" class="col-form-label">Логин:</label>
             <input type="text" class="form-control" id="worker-login">
