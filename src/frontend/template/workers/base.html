@@ -60,7 +60,8 @@
                       data-bs-workerlogin="{{workers.login}}"
                       data-bs-workerposition="{{workers.position}}"
                       data-bs-workerdescription="{{workers.description}}"
-                      data-bs-workerid= "{{workers.id}}">
+                      data-bs-workerid= "{{workers.id}}"
+                      data-bs-workerdepartment= "{{workers.department}}">
                       Редактировать
                     </button>
                     <!-- Кнопка для удаления -->
@@ -80,14 +81,9 @@
 </div>
 
 <script>
-  function editWorker(workerId) {
-    // Здесь вы можете перейти на страницу редактирования или открыть модальное окно для редактирования пользователя.
-    // Пример с переходом на страницу редактирования:
-    // window.location.href = `/edit-worker/${workerId}`;
-    
-    // Пример с открытием модального окна (предполагается, что у вас есть HTML и CSS для модального окна):
-    openEditModal(workerId);
-  }
+
+
+  
 
   function deleteWorker(workerId) {
     if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {
@@ -122,8 +118,14 @@
       </div>
       <div class="modal-body">
         <form>
-          <!-- Скрытое поле для хранения значения worker-id -->
-          <input type="hidden" id="worker-id">
+          <!-- скрытое поле для хранения значения -->
+          <div>
+            <input type="hidden" id="worker-id">
+          </div>
+          <div>
+            <input type="hidden" id="worker-department">
+          </div>
+          <!-- поля значений -->
           <div class="mb-3">
             <label for="worker-login" class="col-form-label">Логин:</label>
             <input type="text" class="form-control" id="worker-login">

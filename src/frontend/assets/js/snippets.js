@@ -7,18 +7,23 @@ if (updateModal) {
   updateModal.addEventListener('show.bs.modal', event => {
     // Получает кнопку, которая вызвала модальное окно, и сохраняет её в переменную button.
     const button = event.relatedTarget
-    // Извлекает информацию из атрибута  кнопки, которая вызвала модальное окно, и сохраняет это значение в переменную name
+    // Извлекает информацию из атрибута  кнопки, которая вызвала модальное окно, и сохраняет это значение в переменные
     const name = button.getAttribute('data-bs-workername')
     const login = button.getAttribute('data-bs-workerlogin')
     const position = button.getAttribute('data-bs-workerposition')
     const description = button.getAttribute('data-bs-workerdescription')
-    
+    const id = button.getAttribute('data-bs-workerid')
+    const department = button.getAttribute('data-bs-workerdepartment')
+
+
     // Обновляет содержимое заголовка модального окна (modalTitle) текстом "New message to " и значением переменной name
     const modalTitle = updateModal.querySelector('.modal-title')
     const modalBodyInputName = updateModal.querySelector('#worker-name')
     const modalBodyInputLogin = updateModal.querySelector('#worker-login')
     const modalBodyInputPosition = updateModal.querySelector('#worker-position')
     const modalBodyInputDescription = updateModal.querySelector('#worker-description')
+    const modalBodyInputId = updateModal.querySelector('#worker-id')
+    const modalBodyInputDepartment = updateModal.querySelector('#worker-department')
 
     // формирует текст  и устанавливает его в соответствующий элемент модального окна modalTitle.
     modalTitle.textContent = `редактирование ${name}`
@@ -27,5 +32,8 @@ if (updateModal) {
     modalBodyInputLogin.value = login
     modalBodyInputPosition.value = position
     modalBodyInputDescription.value = description
+    modalBodyInputId.value = id
+    modalBodyInputDepartment.value = department
+
   })
 }
