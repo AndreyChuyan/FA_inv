@@ -47,7 +47,13 @@ class Arm(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
     department = Column(String)
+    location = Column(String)
+    model = Column(String)
+    serial = Column(String)
+    inventarial = Column(String)
     description = Column(String, default=None)
+    description2 = Column(String, default=None)
+    description3 = Column(String, default=None)
 
     conn_arm_inventory = relationship("Inventory", back_populates="conn_inventory_arm")
 

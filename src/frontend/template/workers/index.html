@@ -1,0 +1,118 @@
+{% extends "base/base.html" %}
+
+
+{% block title %}Все пользователи{% endblock %}
+
+
+{% block content %}
+
+<!-- карточка для создания пользователя -->
+<div class="d-flex flex-wrap justify-content-center align-items-center">
+  <a class="nav-link " href="#"
+  data-bs-toggle="modal"
+  data-bs-target="#createWorkerModal" 
+  data-bs-workerdepartment= "{{worker.department}}"
+  >
+    <div class="card" style="width: 18rem; margin: 10px;">
+      <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title" style="text-align: center;">Создать нового пользователя</h5>
+    </div>
+  </a>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
+    <!-- Заголовок таблицы-->
+    <h3 class="mb-4"></h3>
+    <h3 class="mb-4">Пользователи: {{ worker.department }}</h3>
+    <!-- Таблица -->
+    <div class="table-responsive">
+      <table class="table table-hover table-shadow table-rounded">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 5%;">Роль</th>
+            <th scope="col" style="width: 10%;">Логин</th>
+            <th scope="col" style="width: 20%;">Имя</th>
+            <th scope="col" style="width: 30%;">Должность</th>
+            <th scope="col" >Описание</th>
+            <th scope="col" style="width: 10%;">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for worker_tuple in data %}
+            {% set workers = worker_tuple[0] %}
+              {% if workers.department == worker.department %}
+                <tr class="table-success">
+                  <td>{{ workers.role.name }}</td>
+                  <td>{{ workers.login }}</td>
+                  <td>{{ workers.name }}</td>
+                  <td>{{ workers.position }}</td>
+                  <td>{{ workers.description }}</td>
+                  <td>
+                    <!-- Кнопка для редактирования -->
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
+                      data-bs-toggle="modal" 
+                      data-bs-target="#updateModal" 
+                      data-bs-workername="{{workers.name}}" 
+                      data-bs-workerlogin="{{workers.login}}"
+                      data-bs-workerposition="{{workers.position}}"
+                      data-bs-workerdescription="{{workers.description}}"
+                      data-bs-workerid= "{{workers.id}}"
+                      data-bs-workerdepartment= "{{workers.department}}"
+                      data-bs-workerrole= "{{workers.role}}">
+                      Редактировать
+                    </button>
+                    <!-- Кнопка для удаления -->
+                    <button type="button" class="btn btn-danger btn-sm" style="color: white;" 
+                      onclick="deleteWorker('{{ workers.id }}')">
+                      Удалить
+                    </button>
+                  </td>
+                </tr>
+              </tr>
+                {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  function deleteWorker(workerId) {
+    if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {
+      // Здесь вы можете выполнить AJAX-запрос для удаления пользователя
+      console.log('Deleting worker with ID:', workerId);
+      // Например, можно использовать fetch для отправки запроса на сервер
+      fetch(`/worker/${workerId}`, {
+        method: 'DELETE'
+      }).then(response => {
+        if (response.ok) {
+          // Перезагрузка страницы или обновление таблицы после успешного удаления
+          location.reload();
+        } else {
+          alert('Ошибка при удалении пользователя.');
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка при удалении пользователя.');
+      });
+    }
+  }
+</script>
+
+<script>
+  var card = document.querySelector('.card');
+  var modal = document.getElementById('myModal');
+  var closeBtn = document.querySelector('.close');
+
+</script>
+
+{% include "workers/modal_mode.html" %}
+{% include "workers/modal_create.html" %}
+
+
+
+{% endblock %}

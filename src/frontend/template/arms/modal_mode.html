@@ -1,0 +1,46 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateModalLabel">Updade_worker</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!-- скрытое поле для хранения значения -->
+          <div>
+            <input type="hidden" id="worker-id">
+          </div>
+          <div>
+            <input type="hidden" id="worker-department">
+          </div>
+          <div>
+            <input type="hidden" id="worker-role">
+          </div>
+          <!-- поля значений -->
+          <div class="mb-3">
+            <label for="worker-login" class="col-form-label">Логин:</label>
+            <input type="text" class="form-control" id="worker-login">
+          </div>
+          <div class="mb-3">
+            <label for="worker-name" class="col-form-label">Имя:</label>
+            <input type="text" class="form-control" id="worker-name">
+          </div>
+          <div class="mb-3">
+            <label for="worker-position" class="col-form-label">Должность:</label>
+            <input type="text" class="form-control" id="worker-position">
+          </div>
+          <div class="mb-3">
+            <label for="worker-description" class="col-form-label">Описание:</label>
+            <input type="text" class="form-control" id="worker-description">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

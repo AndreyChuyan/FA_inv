@@ -50,7 +50,7 @@
     <div class="row">
       <div class="col-12">
         <h1>Привет ответственный за учет!</h1>
-        <h3>В приложении ты можешь редактировать ПЭВМ своего подразделения для содержания учета в актуальном состоянии</h1>
+        <h3>В приложении ты можешь редактировать пользователей и компьютеры подразделения для их актуального учета</h1>
         <h4>Твое имя: {{ worker.name }}</h5>
         <h4>Твое подразделение: {{ worker.department }}</h5>
       </div>
@@ -73,24 +73,21 @@
       </a>
       </div>
         
-        <div class="card" style="width: 18rem; margin: 10px;">
-          <a class="nav-link" href="/prepod2">
-            <img src="../assets/img/prepod.jpg" class="card-img-top" alt="...">
+      <div class="d-flex flex-wrap justify-content-around">
+        <a class="nav-link" href="/arms">
+          <div class="card" style="width: 18rem; margin: 10px;">
+            <img src="../assets/img/arm.jpg" class="card-img-top" alt="...">
             <div class="card-body">
-              <h3 class="card-title">Компьютеры</h3>
-              <p class="card-text">{{ worker.department }}</p>
-              <!-- <h5 class="card-title">{{ worker.name }}</h5>
-              {% for portfolio in data %}
-              <tr>
-                <td>{{worker.name}}</td>
-
-              </tr> -->
-              {% endfor %}
-            </div>
-          </a>
+              
+            <h3 class="card-title">Компьютеры</h3>
+            <!-- <h5 class="card-title">{{ worker.name }}</h5> -->
+            <p class="card-text">{{ worker.department }}</p>
         </div>
+      </a>
       </div>
+
     </div>
+  </div>
 
   </a>
 </li>
@@ -101,3 +98,4 @@
 
 
 {% endblock %}
+

@@ -4,8 +4,9 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from worker.dependency import get_correct_worker_frontend, get_current_worker
-from worker.crud import CRUDWorker, CRUDArm, CRUDInventory
-from database.crud_base import CRUDBase
+from worker.crud import CRUDWorker
+from worker.arm import CRUDArm
+# from database.crud_base import CRUDBase
 from database.models import Worker
 from database.database import get_session
 from .dependency import get_worker_or_redirect
@@ -81,9 +82,29 @@ async def get_workers(
     # # disciplines = await CRUDDiscipline.get_all(session)
 
     return templates.TemplateResponse(
-        "workers/base.html",
+        "workers/index.html",
         {"request": request, "worker": worker, "data": data},
     )
+    
+# @router.get("/arms")
+# async def get_arms(
+#     request: Request,
+#     worker: Worker = Depends(get_worker_or_redirect),
+#     session: AsyncSession = Depends(get_session),
+# ):
+#     data = await CRUDArm.get_all(session, worker.name)
+#     log.debug(f"Debug --- /workers data= {data}")
+#     log.debug(f"Debug --- /workers data[0][0].role= {data[0][0].role}")
+#     # data = [{"id": i, **dct} for i, dct in enumerate(data, start=1)]
+#     # print(data)
+#     # workers = await CRUDWorker.get_all(session)
+#     # arms = await CRUDArm.get_all(session)
+#     # # disciplines = await CRUDDiscipline.get_all(session)
+
+#     return templates.TemplateResponse(
+#         "workers/index.html",
+#         {"request": request, "worker": worker, "data": data},
+#     )
 
 
 
