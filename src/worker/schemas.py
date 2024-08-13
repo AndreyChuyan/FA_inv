@@ -29,7 +29,7 @@ class WorkerOut(WorkerBase):
     name: str
 
 class WorkerForm(BaseModel):
-    role: str = 'guest'
+    # role: str = 'guest'
     login: str
     name: str
     department: str

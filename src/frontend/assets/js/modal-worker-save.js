@@ -9,11 +9,12 @@ saveButton.addEventListener('click', () => {
   const description = document.querySelector('#worker-description').value;
   const id = document.querySelector('#worker-id').value;
   const department = document.querySelector('#worker-department').value;
+  const role = document.querySelector('#worker-role').value;
 
   // Передает значения полей в роутер с параметрами
   // Собрать данные, которые вы хотите отправить на сервер, в объект JavaScript:
   const data = {
-    role: "guest",
+    // role: role,
     login: login,
     name: name,
     // password: "",
