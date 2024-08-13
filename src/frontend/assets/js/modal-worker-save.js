@@ -22,35 +22,34 @@ saveButton.addEventListener('click', () => {
     position: position,
     description: description
   };
-  // console.log(data)
+  console.log(data)
 
   // создать объект запроса и настроить его для отправки POST-запроса с данными в формате JSON
-  fetch('/worker/update/' + id, {
+  fetch('/worker/' + id, {
   method: 'PUT',
   headers: {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify(data)
-})
-.then(response => {
+  })
+  .then(response => {
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
   return response.json();
-})
-.then(data => {
+  })
+  .then(data => {
   console.log('Response from server:', data);
-})
+  })
 
- // Закрываем модальное окно после успешного запроса
-const modal = document.querySelector('#updateModal');
-const bsModal = new bootstrap.Modal(modal);
-bsModal.hide();
+    // Закрываем модальное окно после успешного запроса
+    const modal = document.querySelector('#updateModal');
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.hide();
 
-// Обновляем текущую страницу
-window.location.reload();
-})
-
-.catch(error => {
-  console.error('There was a problem with fetch operation:', error);
-});
+    // Обновляем текущую страницу
+    window.location.reload();
+    })
+    // .catch(error => {
+    //   console.error('There was a problem with fetch operation:', error);
+    // });

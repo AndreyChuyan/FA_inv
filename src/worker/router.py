@@ -105,7 +105,7 @@ async def get_all_worker(session: AsyncSession = Depends(get_session)):
     return users
 
 
-@router.put("/update/{id}", response_model=WorkerOut)
+@router.put("/{id}", response_model=WorkerOut)
 async def worker_update_by_id(
     id: int,
     user: WorkerForm, 
@@ -120,7 +120,7 @@ async def worker_update_by_id(
     # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')
     return user
 
-@router.delete("/delete/{id}", response_model=bool)
+@router.delete("/{id}", response_model=bool)
 async def worker_delete_by_id(
     id: int,
     session: AsyncSession = Depends(get_session)

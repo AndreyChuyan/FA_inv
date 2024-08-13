@@ -1,39 +1,40 @@
 ﻿<!-- Modal -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+<div class="modal fade" id="createWorkerModal" tabindex="-1" aria-labelledby="CreateModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="updateModalLabel">Updade_worker</h1>
+        <h1 class="modal-title fs-5" id="createWorkerModal">Создание пользователя</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <!-- скрытое поле для хранения значения -->
           <div>
-            <input type="hidden" id="worker-id">
-          </div>
-          <div>
-            <input type="hidden" id="worker-department">
-          </div>
-          <div>
-            <input type="hidden" id="worker-role">
+            <input type="hidden" id="worker-cr-department">
           </div>
           <!-- поля значений -->
           <div class="mb-3">
-            <label for="worker-login" class="col-form-label">Логин:</label>
-            <input type="text" class="form-control" id="worker-login">
+            <label for="worker-login" class="col-form-label">Подразделение: {{worker.department}}</label>
           </div>
           <div class="mb-3">
-            <label for="worker-name" class="col-form-label">Имя:</label>
-            <input type="text" class="form-control" id="worker-name">
+            <label for="worker_cr_login" class="col-form-label">Логин:</label>
+            <input type="text" class="form-control" id="worker_cr_login">
           </div>
           <div class="mb-3">
-            <label for="worker-position" class="col-form-label">Должность:</label>
-            <input type="text" class="form-control" id="worker-position">
+            <label for="worker-cr-name" class="col-form-label">Имя:</label>
+            <input type="text" class="form-control" id="worker-cr-name">
           </div>
           <div class="mb-3">
-            <label for="worker-description" class="col-form-label">Описание:</label>
-            <input type="text" class="form-control" id="worker-description">
+            <label for="worker-cr-name" class="col-form-label">Пароль:</label>
+            <input type="text" class="form-control" id="worker-cr-password">
+          </div>
+          <div class="mb-3">
+            <label for="worker-cr-position" class="col-form-label">Должность:</label>
+            <input type="text" class="form-control" id="worker-cr-position">
+          </div>
+          <div class="mb-3">
+            <label for="worker-cr-description" class="col-form-label">Описание:</label>
+            <input type="text" class="form-control" id="worker-cr-description">
           </div>
         </form>
       </div>
