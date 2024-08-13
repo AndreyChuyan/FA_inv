@@ -12,66 +12,64 @@ import logging
 log = logging.getLogger("uvicorn")
 
 
-class CRUDWorker(CRUDBase):
-    model = Worker
+class CRUDArm(CRUDBase):
+    model = Arm
+
+    # @staticmethod
+    # async def get_all_arm(session: AsyncSession) -> Arm:
+    #     """Получение всех пользователей"""
+    #     query = select(Arm)
+    #     log.debug(f"Debug --- get_all query= {query}")
+    #     result = await session.execute(query)
+    #     objects = result.all()
+    #     log.debug(f"Debug --- get_all objects= {objects}")
+    #     return objects
+
+
+    # @staticmethod
+    # async def get_arm(session: AsyncSession, id: int) -> Worker:
+    #     """Получение компьютера по имени пользователя"""
+    #     query = select(Arm).filter(Arm.id == id)
+    #     result = await session.execute(query)
+    #     object = result.scalar_one_or_none()
+    #     # log.debug(f"Debug --- get_worker_by_name worker.name= {worker.name}")
+    #     return object
 
     @staticmethod
-    async def get_all(session: AsyncSession, name: str) -> Worker:
-        """Получение всех пользователей"""
-        query = select(Worker)
-        result = await session.execute(query)
-        worker = result.all()
-        log.debug(f"Debug --- get_all worker= {worker}")
-        return worker
-
-
-    @staticmethod
-    async def get_worker_by_name(session: AsyncSession, name: str) -> Worker:
-        """Получение пользователя по имени пользователя."""
-        query = select(Worker).filter(Worker.name == name)
-        result = await session.execute(query)
-        worker = result.scalar_one_or_none()
-        # log.debug(f"Debug --- get_worker_by_name worker.name= {worker.name}")
-        return worker
-
-    @staticmethod
-    async def worker_update_by_id(session: AsyncSession, id: int, data: dict) -> Worker:
-        """Обновление сотрудника по id"""
-        # log.debug(f"Debug --- worker_update_by_id id, data= {id} {data}")
+    async def arm_update_by_id(session: AsyncSession, id: int, data: dict) -> Worker:
+        """Обновление компьютера по id"""
+        # log.debug(f"Debug --- arm_update_by_id id, data= {id} {data}")
         query = (
-            select(Worker)
-            .filter(Worker.id == id)
+            select(Arm)
+            .filter(Arm.id == id)
             )
         result = await session.execute(query)
-        worker = result.scalar_one_or_none()
-        if worker is None:
-            log.debug(f"Debug --- worker_update_by_id: No worker found with id= {id}")
+        object = result.scalar_one_or_none()
+        if object is None:
+            log.debug(f"Debug --- arm_update_by_id: No worker found with id= {id}")
             return None
         for key, value in data.items():
-            setattr(worker, key, value)
+            setattr(object, key, value)
         await session.commit()
-        log.debug(f"Debug --- worker_update_by_id: Updated worker id= {id}")
-        return worker
+        log.debug(f"Debug --- arm_update_by_id: Updated worker id= {id}")
+        return object
     
     @staticmethod
-    async def worker_delete_by_id(session: AsyncSession, id: int) -> bool:
-        """Удаление сотрудника по id"""
+    async def arm_delete_by_id(session: AsyncSession, id: int) -> bool:
+        """Удаление компьютера по id"""
         query = (
-            delete(Worker)
-            .where(Worker.id == id)
+            delete(Arm)
+            .where(Arm.id == id)
         )
         result = await session.execute(query)
         if result.rowcount == 1:
             await session.commit()
-            log.debug(f"Debug --- worker_delete_by_id: Deleted worker with id= {id}")
+            log.debug(f"Debug --- arm_delete_by_id: Deleted arm with id= {id}")
             return True
         else:
-            log.debug(f"Debug --- worker_delete_by_id: No worker found with id= {id}")
+            log.debug(f"Debug --- arm_delete_by_id: No arm found with id= {id}")
             return False
 
-
-class CRUDArm(CRUDBase):
-    model = Arm
 
 
 class CRUDInventory(CRUDBase):

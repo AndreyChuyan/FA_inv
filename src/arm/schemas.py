@@ -5,7 +5,7 @@ from enum import Enum
 
 class ArmBase(BaseModel):
     name: str
-    department: str
+    department_arm: str
     location: str
     model: str
     serial: str

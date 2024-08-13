@@ -6,9 +6,20 @@ from .database import Base
 from .models import Arm, Worker, Inventory
 from sqlalchemy import update
 
+# отладка
+import logging
+log = logging.getLogger("uvicorn")
 
 class CRUDBase:
     model: Base = Base
+
+    @classmethod
+    async def get_all(cls, session: AsyncSession) -> list[model]:
+        """Получение всех объектов"""
+        query = select(cls.model)
+        log.debug(f'Debug --- get_all query={query}')
+        result = await session.execute(query)
+        return result.scalars().all()
 
     # для создания нового объекта model и его сохранения в базе данных через асинхронный сеанс session
     @classmethod
@@ -23,13 +34,6 @@ class CRUDBase:
         except IntegrityError:
             await session.rollback()
             return None
-
-    @classmethod
-    async def get_all(cls, session: AsyncSession) -> list[model]:
-        """Получение всех объектов"""
-        query = select(cls.model)
-        result = await session.execute(query)
-        return result.scalars().all()
 
     @classmethod
     async def get_by_id(cls, session: AsyncSession, id: int) -> model | None:

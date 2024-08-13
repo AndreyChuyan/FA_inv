@@ -46,7 +46,7 @@ class Arm(Base):
     __tablename__ = "arm"
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
-    department = Column(String)
+    department_arm = Column(String)
     location = Column(String)
     model = Column(String)
     serial = Column(String)
