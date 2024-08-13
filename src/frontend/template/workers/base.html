@@ -10,17 +10,17 @@
   <div class="card" style="width: 18rem;">
     <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
     <div class="card-body">
-      <h5 class="card-title">{{ worker.department }}</h5>
+      <h5 class="card-title" style="text-align: center;">Создать нового пользователя</h5>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-12">
-    <!-- Заголовок таблицы Портфели -->
+    <!-- Заголовок таблицы-->
     <h3 class="mb-4"></h3>
-    <h3 class="mb-4">Пользователи:</h3>
-    <!-- Таблица Портфели -->
+    <h3 class="mb-4">Пользователи: {{ worker.department }}</h3>
+    <!-- Таблица -->
     <div class="table-responsive">
       <table class="table table-hover table-shadow table-rounded">
         <thead>
@@ -96,7 +96,22 @@
   }
 </script>
 
+<script>
+  var card = document.querySelector('.card');
+  var modal = document.getElementById('myModal');
+  var closeBtn = document.querySelector('.close');
+
+  card.addEventListener('click', function() {
+    modal.style.display = 'block';
+  });
+
+  closeBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+  });
+</script>
+
 {% include "workers/modal_mode.html" %}
+{% include "workers/modal_create.html" %}
 
 
 
