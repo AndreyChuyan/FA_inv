@@ -3,6 +3,8 @@ from sqlalchemy.future import select
 from sqlalchemy.exc import NoResultFound
 from database.models import Worker, Arm, Inventory
 from database.crud_base import CRUDBase
+from sqlalchemy import update, delete
+
 
 # отладка
 import logging
@@ -33,35 +35,39 @@ class CRUDWorker(CRUDBase):
         return worker
 
     @staticmethod
-    async def worker_update_by_id(session: AsyncSession, name: str) -> Worker:
+    async def worker_update_by_id(session: AsyncSession, id: int, data: dict) -> Worker:
         """Обновление сотрудника по id"""
-        # query = select(Worker).filter(Worker.name == name)
-        # result = await session.execute(query)
-        # worker = result.scalar_one_or_none()
-        # log.debug(f"Debug --- get_worker_by_name worker.name= {worker.name}")
-        # return worker
+        # log.debug(f"Debug --- worker_update_by_id id, data= {id} {data}")
+        query = (
+            select(Worker)
+            .filter(Worker.id == id)
+            )
+        result = await session.execute(query)
+        worker = result.scalar_one_or_none()
+        if worker is None:
+            log.debug(f"Debug --- worker_update_by_id: No worker found with id= {id}")
+            return None
+        for key, value in data.items():
+            setattr(worker, key, value)
+        await session.commit()
+        log.debug(f"Debug --- worker_update_by_id: Updated worker id= {id}")
+        return worker
     
-    
-    
-    # # запросы к базе данных
-    # @staticmethod
-    # async def get_worker_arm(session: AsyncSession, username: str) -> Worker:
-    #     """Получение компьютера работника"""
-    #     query = (
-    #         select(Worker.name, Arm.name)
-    #         .select_from(Worker)
-    #         .join(Arm, Worker.id == Arm.id)
-    #         .where(Worker.name == username)
-    #     )
-    #     log.debug(f"Debug --- get_worker_arm query={query}")
-    #     result = await session.execute(query)
-    #     rows = result.fetchall()
-    #     print(rows)
-    #     if rows:
-    #         result = [{"worker_name": row[0], "arm_name": row[1]} for row in rows]
-    #         return result
-    #     else:
-    #         return []
+    @staticmethod
+    async def worker_delete_by_id(session: AsyncSession, id: int) -> bool:
+        """Удаление сотрудника по id"""
+        query = (
+            delete(Worker)
+            .where(Worker.id == id)
+        )
+        result = await session.execute(query)
+        if result.rowcount == 1:
+            await session.commit()
+            log.debug(f"Debug --- worker_delete_by_id: Deleted worker with id= {id}")
+            return True
+        else:
+            log.debug(f"Debug --- worker_delete_by_id: No worker found with id= {id}")
+            return False
 
 
 class CRUDArm(CRUDBase):

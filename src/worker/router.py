@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse, Response
 
 from database.database import get_session
 from database.models import Worker
-from .schemas import WorkerCreate, WorkerOut
+from .schemas import WorkerCreate, WorkerOut, WorkerForm
 from .crud import CRUDWorker
 from .dependency import get_current_worker, get_worker_by_id
 
@@ -103,3 +103,30 @@ async def get_all_worker(session: AsyncSession = Depends(get_session)):
     users = await CRUDWorker.get_all(session)
     # log.debug(f'Debug --- get_all_worker')
     return users
+
+
+@router.put("/update/{id}", response_model=WorkerOut)
+async def worker_update_by_id(
+    id: int,
+    user: WorkerForm, 
+    session: AsyncSession = Depends(get_session)
+):
+    """
+    Обновление пользователя
+    """
+    log.debug(f'Debug --- worker_update_by_id user.name={user.name}')
+    data = user.dict()
+    user = await CRUDWorker.worker_update_by_id(session, id, data)
+    # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')
+    return user
+
+@router.delete("/delete/{id}", response_model=bool)
+async def worker_delete_by_id(
+    id: int,
+    session: AsyncSession = Depends(get_session)
+):
+    """
+    Удаление пользователя по ID
+    """
+    success = await CRUDWorker.worker_delete_by_id(session, id)
+    return success

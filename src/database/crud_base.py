@@ -37,3 +37,22 @@ class CRUDBase:
         query = select(cls.model).filter(cls.model.id == id)
         result = await session.execute(query)
         return result.scalar_one_or_none()
+
+    # @classmethod
+    # async def update_by_id(cls, session: AsyncSession, id: int, update_data: dict) -> model | None:
+    #     """Обновление объекта по ID"""
+    #     try:
+    #         # Найти объект по ID
+    #         query = select(cls.model).filter(cls.model.id == id)
+    #         result = await session.execute(query)
+    #         if result is None:
+    #             return None
+    #         # Обновить атрибуты объекта на основе переданных данных
+    #         for key, value in update_data.items():
+    #             setattr(result, key, value)
+    #         await session.commit()
+    #         return result
+    #     except IntegrityError:
+    #         await session.rollback()
+    #         return None
+        

@@ -1,6 +1,5 @@
 ﻿// Получает кнопку "Сохранить" в модальном окне и сохраняет её в переменную saveButton
 const saveButton = document.querySelector('#updateModal .btn-primary');
-//document.querySelector('#worker-id').value = workerId
 // Добавляет обработчик события клика на кнопку "Сохранить"
 saveButton.addEventListener('click', () => {
   // Получает значения полей ввода из модального окна
@@ -17,7 +16,7 @@ saveButton.addEventListener('click', () => {
     role: "guest",
     login: login,
     name: name,
-    password: "",
+    // password: "",
     department: department,
     position: position,
     description: description
@@ -26,7 +25,7 @@ saveButton.addEventListener('click', () => {
 
   // создать объект запроса и настроить его для отправки POST-запроса с данными в формате JSON
   fetch('/worker/update/' + id, {
-  method: 'POST',
+  method: 'PUT',
   headers: {
     'Content-Type': 'application/json'
   },
@@ -41,9 +40,16 @@ saveButton.addEventListener('click', () => {
 .then(data => {
   console.log('Response from server:', data);
 })
+
+ // Закрываем модальное окно после успешного запроса
+const modal = document.querySelector('#updateModal');
+const bsModal = new bootstrap.Modal(modal);
+bsModal.hide();
+
+// Обновляем текущую страницу
+window.location.reload();
+})
+
 .catch(error => {
   console.error('There was a problem with fetch operation:', error);
-});
-  // Замените /your-route на путь к вашему роутеру
-  // window.location.href = `/your-route?id=${id}&login=${login}&name=${name}&position=${position}&description=${description}`;
 });

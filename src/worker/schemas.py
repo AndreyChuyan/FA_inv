@@ -10,7 +10,7 @@ class Role(str, Enum):
 
 
 class WorkerBase(BaseModel):
-    role: str
+    role: str = 'guest'
     login: str
     name: str
     password: str
@@ -27,3 +27,11 @@ class WorkerOut(WorkerBase):
     id: int
     role: str
     name: str
+
+class WorkerForm(BaseModel):
+    role: str = 'guest'
+    login: str
+    name: str
+    department: str
+    position: str
+    description: str
