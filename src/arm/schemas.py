@@ -23,7 +23,7 @@ class ArmBase(BaseModel):
 class ArmOut(ArmBase):
     id: int
     title: str
-    serial: str
+    num_serial: str
 
 class ArmForm(BaseModel):
     title: str
@@ -31,9 +31,9 @@ class ArmForm(BaseModel):
     name: str
     model: str
     release: str
-    serial: str
-    inventarial: str 
-    service: str
+    num_serial: str
+    num_invent: str
+    num_service: str
     price: str
     formular: str
     state: str

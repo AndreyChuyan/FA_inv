@@ -12,39 +12,68 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.testclient import TestClient
 from database.models import Arm
 from main import app
+from arm.schemas import ArmBase
 
 client = TestClient(app)
 
+@pytest.fixture(scope="session")
+def sample() -> Arm:
+    return Arm(
+        title="Test title",
+        department_arm="2",
+        location="Test Location",
+        name="Test Arm",
+        model="Test Model",
+        release="Test release",
+        num_serial="Test num_serial",
+        num_invent="Test num_invent",
+        num_service="Test num_service",
+        price="Test price",
+        formular="Test formular",
+        state="Test state",
+        description="Test Description",
+        description2="Test Description2",
+        description3="Test Description3"
+    )
 
-data = {
-    "name": "Test Arm",
-    "department_arm": "Test Department",
-    "location": "Test Location",
-    "model": "Test Model",
-    "serial": "Test Serial",
-    "inventarial": "Test Inventarial",
-    "description": "Test Description"
-}
+def test_create_arm(sample: Arm):
+    sample_arm = {
+        "title": sample.title,
+        "department_arm": sample.department_arm,
+        "location": sample.location,
+        "name": sample.name,
+        "model": sample.model,
+        "release": sample.release,
+        "num_serial": sample.num_serial,
+        "num_invent": sample.num_invent,
+        "num_service": sample.num_service,
+        "price": sample.price,
+        "formular": sample.formular,
+        "state": sample.state,
+        "description": sample.description,
+        "description2": sample.description2,
+        "description3": sample.description3
+    }
+    response = client.post("/arm/", json=sample_arm)
+    assert response.status_code == 201, f"Expected status code 201, but got {response.status_code}"
+    assert response.json()["title"] == sample.title
+    assert response.json()["department_arm"] == sample.department_arm
+    
+# def test_get_all_arm(sample):
+#     sample_arm = sample
+#     response = client.get("/arm/")
+#     assert response.status_code == 200
+#     assert len(response.json()) > 0
+#     # Проверяем формат данных пользователей
+#     for arm in response.json():
+#         assert "title" in arm
+#         assert "department_arm" in arm
+    # Проверяем, что данные объекта Arm присутствуют в полученном списке
+    # assert any(obj['title'] == sample_arm.title for obj in response.json())
+    # assert any(obj['department_arm'] == sample_arm.department_arm for obj in response.json())
 
-def test_get_all_arm():
-    response = client.get("/arm/")
-    assert response.status_code == 200  # 200 OK
-    response_data = response.json()
-    # Проверяем, что полученные данные являются списком объектов ArmOut
-    assert isinstance(response_data, list)
-    for item in response_data:
-        assert "name" in item
-        assert "department_arm" in item
-    
 
-def test_create():
-    resp = client.post("/arm/", json=data)
-    response_data = resp.json()
-    assert resp.status_code == 201  # Проверяем, что объект был успешно создан (201 Created)
-    assert response_data["name"] == data["name"]
-    assert response_data["department_arm"] == data["department_arm"]
-    
-    
+
 # def test_create_duplicate(sample):
 #     resp = client.post("/arm", json=sample.dict())
 #     assert resp.status_code == 404

@@ -24,14 +24,14 @@ async def create_arm(arm: ArmBase, session: AsyncSession = Depends(get_session))
     Создание нового пользователя.
     """
     data = arm.dict()
-    worker = data.pop("arm", None)
-    object = await CRUDArm.create(session, data)
-    if object is None:
+    object = data.pop("arm", None)
+    object_resp = await CRUDArm.create(session, data)
+    if object_resp is None:
         raise exception_unique_field
-    if worker:
-        arm["id"] = object.id
-        await CRUDArm.create(session, worker)
-    return object
+    if object:
+        arm["id"] = object_resp.id
+        await CRUDArm.create(session, object)
+    return object_resp
 
 
 @router.get("/{worker_id}", response_model=ArmOut)

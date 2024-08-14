@@ -92,7 +92,7 @@ async def get_arms(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
-    data = await CRUDArm.get_all(session, worker.name)
+    data = await CRUDArm.get_all(session)
     log.debug(f"Debug --- /arms data= {data}")
     # log.debug(f"Debug --- /arms data.dict()= {data.dict()}")
     return templates.TemplateResponse(

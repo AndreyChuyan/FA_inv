@@ -22,22 +22,24 @@
 </div>
 
 
+
 <div class="row">
   <div class="col-12">
     <!-- Заголовок таблицы-->
     <h3 class="mb-4"></h3>
-    <h3 class="mb-4">Пользователи: {{ worker.department }}</h3>
+    <h3 class="mb-4">Ваш логин: {{ worker.login }}</h3>
+    <h3 class="mb-4">Подразделение: {{ worker.department }}</h3>
     <!-- Таблица -->
     <div class="table-responsive">
       <table class="table table-hover table-shadow table-rounded">
         <thead>
           <tr>
-            <th scope="col" style="width: 5%;">Роль</th>
-            <th scope="col" style="width: 10%;">Логин</th>
-            <th scope="col" style="width: 20%;">Имя</th>
-            <th scope="col" style="width: 30%;">Должность</th>
+            <th scope="col" >Роль</th>
+            <th scope="col" >Логин</th>
+            <th scope="col" >Имя</th>
+            <th scope="col" >Должность</th>
             <th scope="col" >Описание</th>
-            <th scope="col" style="width: 10%;">Действия</th>
+            <th scope="col" >Действия</th>
           </tr>
         </thead>
         <tbody>
