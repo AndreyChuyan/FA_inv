@@ -14,7 +14,7 @@
   data-bs-workerdepartment= "{{worker.department}}"
   >
     <div class="card" style="width: 18rem; margin: 10px;">
-      <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
+      <img src="../assets/img/arm.jpg" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title" style="text-align: center;">Создать новый компьютер</h5>
     </div>
@@ -26,53 +26,67 @@
   <div class="col-12">
     <!-- Заголовок таблицы-->
     <h3 class="mb-4"></h3>
-    <h3 class="mb-4">Пользователи: {{ worker.department }}</h3>
+    <h3 class="mb-4">Компьютеры: {{ worker.department }}</h3>
     <!-- Таблица -->
     <div class="table-responsive">
       <table class="table table-hover table-shadow table-rounded">
         <thead>
           <tr>
-            <th scope="col" style="width: 5%;">Роль</th>
-            <th scope="col" style="width: 10%;">Логин</th>
-            <th scope="col" style="width: 20%;">Имя</th>
-            <th scope="col" style="width: 30%;">Должность</th>
+            <th scope="col" >Учетное имя</th>
+            <th scope="col" >Расположение</th>
+            <th scope="col" >Название</th>
+            <th scope="col" >Модель</th>
+            <th scope="col" >Год выпуска</th>
+            <th scope="col" >Заводской номер</th>
+            <th scope="col" >Инвентарный номер</th>
+            <th scope="col" >Сервисный номер</th>
+            <th scope="col" >Стоимость</th>
+            <th scope="col" >Номер формуляра</th>
+            <th scope="col" >Состояние</th>
             <th scope="col" >Описание</th>
-            <th scope="col" style="width: 10%;">Действия</th>
+            <th scope="col" >Действия</th>
           </tr>
         </thead>
         <tbody>
-          {% for worker_tuple in data %}
-            {% set workers = worker_tuple[0] %}
-              {% if workers.department == worker.department %}
+          {% for tuple in data %}
+            {% set object = tuple %}
+              {% if object.department_arm == worker.department %}
                 <tr class="table-success">
-                  <td>{{ workers.role.name }}</td>
-                  <td>{{ workers.login }}</td>
-                  <td>{{ workers.name }}</td>
-                  <td>{{ workers.position }}</td>
-                  <td>{{ workers.description }}</td>
+                  <td>{{ object.title }}</td>
+                  <td>{{ object.location }}</td>
+                  <td>{{ object.name }}</td>
+                  <td>{{ object.model }}</td>
+                  <td>{{ object.release }}</td>
+                  <td>{{ object.num_serial }}</td>
+                  <td>{{ object.num_invent }}</td>
+                  <td>{{ object.num_service }}</td>
+                  <td>{{ object.price }}</td>
+                  <td>{{ object.formular }}</td>
+                  <td>{{ object.state }}</td>
+                  <td>{{ object.description }}</td>
                   <td>
                     <!-- Кнопка для редактирования -->
                     <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
                       data-bs-toggle="modal" 
                       data-bs-target="#updateModal" 
-                      data-bs-workername="{{workers.name}}" 
-                      data-bs-workerlogin="{{workers.login}}"
-                      data-bs-workerposition="{{workers.position}}"
-                      data-bs-workerdescription="{{workers.description}}"
-                      data-bs-workerid= "{{workers.id}}"
-                      data-bs-workerdepartment= "{{workers.department}}"
-                      data-bs-workerrole= "{{workers.role}}">
+                      data-bs-workername="{{object.name}}" 
+                      data-bs-workerlogin="{{object.login}}"
+                      data-bs-workerposition="{{object.position}}"
+                      data-bs-workerdescription="{{object.description}}"
+                      data-bs-workerid= "{{object.id}}"
+                      data-bs-workerdepartment= "{{object.department}}"
+                      data-bs-workerrole= "{{object.role}}">
                       Редактировать
                     </button>
                     <!-- Кнопка для удаления -->
                     <button type="button" class="btn btn-danger btn-sm" style="color: white;" 
-                      onclick="deleteWorker('{{ workers.id }}')">
+                      onclick="deleteWorker('{{ object.id }}')">
                       Удалить
                     </button>
                   </td>
                 </tr>
               </tr>
-                {% endif %}
+            {% endif %}
           {% endfor %}
         </tbody>
       </table>

@@ -94,8 +94,7 @@ async def get_arms(
 ):
     data = await CRUDArm.get_all(session, worker.name)
     log.debug(f"Debug --- /arms data= {data}")
-    log.debug(f"Debug --- /arms data[0][0].role= {data[0][0].role}")
-    
+    # log.debug(f"Debug --- /arms data.dict()= {data.dict()}")
     return templates.TemplateResponse(
         "arms/index.html",
         {"request": request, "worker": worker, "data": data},

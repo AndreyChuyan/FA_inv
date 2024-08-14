@@ -14,7 +14,7 @@ class CRUDBase:
     model: Base = Base
 
     @classmethod
-    async def get_all(cls, session: AsyncSession) -> list[model]:
+    async def get_all(cls, session: AsyncSession, name: str) -> list[model]:
         """Получение всех объектов"""
         query = select(cls.model)
         log.debug(f'Debug --- get_all query={query}')

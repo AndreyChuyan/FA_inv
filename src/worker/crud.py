@@ -24,7 +24,6 @@ class CRUDWorker(CRUDBase):
         log.debug(f"Debug --- get_all worker= {worker}")
         return worker
 
-
     @staticmethod
     async def get_worker_by_name(session: AsyncSession, name: str) -> Worker:
         """Получение пользователя по имени пользователя."""

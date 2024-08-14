@@ -2,7 +2,7 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 
-DATABASE_URL = "sqlite+aiosqlite:///./db/inventory.db"  # Путь к вашей базе данных
+DATABASE_URL = "sqlite+aiosqlite:///../db/inventory.db"  # Путь к вашей базе данных
 
 engine = create_async_engine(DATABASE_URL)
 

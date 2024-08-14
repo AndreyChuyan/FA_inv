@@ -4,24 +4,39 @@ from enum import Enum
 
 
 class ArmBase(BaseModel):
-    name: str
+    title: str
     department_arm: str
     location: str
+    name: str
     model: str
-    serial: str
-    inventarial: str
+    release: str
+    num_serial: str
+    num_invent: str
+    num_service: str
+    price: str
+    formular: str
+    state: str
     description: str
-
+    description2: str
+    description3: str
 
 class ArmOut(ArmBase):
     id: int
-    name: str
+    title: str
     serial: str
 
 class ArmForm(BaseModel):
-    name: str
+    title: str
     location: str
+    name: str
     model: str
+    release: str
     serial: str
-    inventarial: str
+    inventarial: str 
+    service: str
+    price: str
+    formular: str
+    state: str
     description: str
+    description2: str
+    description3: str
