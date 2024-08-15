@@ -2,7 +2,7 @@ from fastapi import HTTPException, status, Depends
 from fastapi.responses import RedirectResponse
 from starlette.requests import Request
 
-from worker.dependency import get_correct_worker_frontend
+from objects.worker.dependency import get_correct_worker_frontend
 from database.models import Worker
 from exception import RedirectException
 

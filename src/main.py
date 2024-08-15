@@ -7,9 +7,9 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
 from database.database import create_tables
-from worker.router import router as worker_router
+from objects.worker.router import router as worker_router
 from frontend.router import router as frontend_router
-from arm.router import router as arm_router
+from objects.arm.router import router as arm_router
 from exception import RedirectException
 
 # отладка

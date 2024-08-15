@@ -3,9 +3,9 @@ from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from worker.dependency import get_correct_worker_frontend, get_current_worker
-from worker.crud import CRUDWorker
-from arm.crud import CRUDArm
+from objects.worker.dependency import get_correct_worker_frontend, get_current_worker
+from objects.worker.crud import CRUDWorker
+from objects.arm.crud import CRUDArm
 # from database.crud_base import CRUDBase
 from database.models import Worker
 from database.database import get_session
