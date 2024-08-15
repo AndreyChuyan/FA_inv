@@ -30,7 +30,7 @@
 <div class="d-flex flex-wrap justify-content-center align-items-center">
   <a class="nav-link " href="#"
   data-bs-toggle="modal"
-  data-bs-target="#createModal" 
+  data-bs-target="#modal_create" 
   data-bs-workerdepartment= "{{worker.department}}"
   >
     <div class="card" style="width: 18rem; margin: 10px;">
@@ -104,19 +104,19 @@
                     <!-- Кнопка для редактирования -->
                     <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
                       data-bs-toggle="modal" 
-                      data-bs-target="#updateModal" 
+                      data-bs-target="#modal_mode" 
                       data-bs-workername="{{object.name}}" 
                       data-bs-workerlogin="{{object.login}}"
                       data-bs-workerposition="{{object.position}}"
                       data-bs-workerdescription="{{object.description}}"
                       data-bs-workerid= "{{object.id}}"
-                      data-bs-workerdepartment= "{{object.department}}"
+                      data-bs-workerdepartment= "{{worker.department}}"
                       data-bs-workerrole= "{{object.role}}">
                       Редактировать
                     </button>
                     <!-- Кнопка для удаления -->
                     <button type="button" class="btn btn-danger btn-sm" style="color: white;" 
-                      onclick="deleteWorker('{{ object.id }}')">
+                      onclick="deleteArm('{{ object.id }}')">
                       Удалить
                     </button>
                   </td>

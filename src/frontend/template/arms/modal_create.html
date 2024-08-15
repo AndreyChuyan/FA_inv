@@ -7,7 +7,7 @@
   }
 </style>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="CreateLabel" aria-hidden="true">
+<div class="modal fade" id="modal_create" tabindex="-1" aria-labelledby="CreateLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -18,7 +18,7 @@
         <form>
           <!-- скрытое поле для хранения значения -->
           <div>
-            <input type="hidden" id="cr_department">
+            <input type="hidden" id="worker-cr-department">
           </div>
           <!-- поля значений -->
           <div class="mb-3">
@@ -26,10 +26,14 @@
           </div>
           <div class="mb-3">
             <!-- Выпадающий список -->
+            <label for="cr_login" class="col-form-label">Пользователь:</label>
             <select class="form-control" id="cr_login">
-              <option value="user1">Пользователь 1</option>
-              <option value="user2">Пользователь 2</option>
-              <option value="user3">Пользователь 3</option>
+              {% for tuple_worker in data_worker %}
+                {% if tuple_worker.department == worker.department %}  
+                  {{tuple_worker.name}}
+                  <option value="{{tuple_worker.name}}">{{tuple_worker.name}}</option>
+                {% endif %}
+              {% endfor %}
               <!-- Добавьте дополнительные элементы, если нужно -->
             </select>
           </div>

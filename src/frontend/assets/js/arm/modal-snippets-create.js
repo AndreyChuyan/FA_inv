@@ -1,4 +1,4 @@
-﻿const createModal = document.getElementById('createWorkerModal')
+﻿const createModal = document.getElementById('modal_create')
 // Проверяет, существует ли вообще такой элемент модального окна. Если элемент найден, то выполняются следующие действия:
 if (createModal) {
   // Добавляет обработчик события 'show.bs.modal' на модальное окно updateModal. 
@@ -8,7 +8,6 @@ if (createModal) {
     const button = event.relatedTarget
     // Извлекает информацию из атрибута  кнопки, которая вызвала модальное окно, и сохраняет это значение в переменные
     const department = button.getAttribute('data-bs-workerdepartment')
-
 
     // Обновляет содержимое заголовка модального окна (modalTitle) текстом "New message to " и значением переменной name
     const modalTitle = createModal.querySelector('.modal-title')
