@@ -51,6 +51,7 @@
       <table class="table table-hover table-shadow table-rounded">
         <thead>
           <tr>
+            <th scope="col" >Пользователь</th>
             <th scope="col" >Учетное имя</th>
             <th scope="col" >Расположение</th>
             <th scope="col" >Название</th>
@@ -71,6 +72,21 @@
             {% set object = tuple %}
               {% if object.department_arm == worker.department %}
                 <tr class="table-success">
+                  <td>
+                    <!-- Кнопка для выбора -->
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#Modal_choice_user" 
+                    data-bs-workername="{{object.name}}"
+                    >
+                      <!-- {{data_worker[2].name}} -->
+                      {% for tuple2 in data_worker %}
+                        {% if tuple2.id == 4  %}  
+                        {{tuple2.name}}
+                        {% endif %}
+                      {% endfor %}
+                    </button>
+                  </td>
                   <td>{{ object.title }}</td>
                   <td>{{ object.location }}</td>
                   <td>{{ object.name }}</td>

@@ -33,3 +33,10 @@ $path = 'user'; (Invoke-WebRequest -Uri http://localhost:8000/$path).Content
 
 <!-- для CSS - загрузить локально -->
 https://www.cleancss.com/css-beautify/3
+
+<!-- Удалить локальные изменения -->
+git add .
+git commit -m "Сообщение коммита"
+git clean -f
+git fetch origin main
+git reset --hard origin/main

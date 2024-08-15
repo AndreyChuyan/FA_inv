@@ -44,7 +44,7 @@
         </thead>
         <tbody>
           {% for worker_tuple in data %}
-            {% set workers = worker_tuple[0] %}
+            {% set workers = worker_tuple %}
               {% if workers.department == worker.department %}
                 <tr class="table-success">
                   <td>{{ workers.role.name }}</td>

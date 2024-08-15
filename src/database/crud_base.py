@@ -17,7 +17,7 @@ class CRUDBase:
     async def get_all(cls, session: AsyncSession) -> list[model]:
         """Получение всех объектов"""
         query = select(cls.model)
-        log.debug(f'Debug --- get_all query={query}')
+        # log.debug(f'Debug --- get_all query={query}')
         result = await session.execute(query)
         return result.scalars().all()
 

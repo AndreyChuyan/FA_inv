@@ -15,14 +15,14 @@ log = logging.getLogger("uvicorn")
 class CRUDWorker(CRUDBase):
     model = Worker
 
-    @staticmethod
-    async def get_all(session: AsyncSession, name: str) -> Worker:
-        """Получение всех пользователей"""
-        query = select(Worker)
-        result = await session.execute(query)
-        worker = result.all()
-        log.debug(f"Debug --- get_all worker= {worker}")
-        return worker
+    # @staticmethod
+    # async def get_all(session: AsyncSession, name: str) -> Worker:
+    #     """Получение всех пользователей"""
+    #     query = select(Worker)
+    #     result = await session.execute(query)
+    #     worker = result.all()
+    #     log.debug(f"Debug --- get_all worker= {worker}")
+    #     return worker
 
     @staticmethod
     async def get_worker_by_name(session: AsyncSession, name: str) -> Worker:

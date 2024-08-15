@@ -72,9 +72,9 @@ async def get_workers(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
-    data = await CRUDWorker.get_all(session, worker.name)
-    # log.debug(f"Debug --- /workers data= {data}")
-    # log.debug(f"Debug --- /workers data[0][0].role= {data[0][0].role}")
+    data = await CRUDWorker.get_all(session)
+    # log.debug(f"Debug --- /workers data_users= {data_users}")
+    # log.debug(f"Debug --- /workers data_users[0][0].name= {data_users[0][0].name}")
     # data = [{"id": i, **dct} for i, dct in enumerate(data, start=1)]
     # print(data)
     # workers = await CRUDWorker.get_all(session)
@@ -93,11 +93,14 @@ async def get_arms(
     session: AsyncSession = Depends(get_session),
 ):
     data = await CRUDArm.get_all(session)
+    data_worker = await CRUDWorker.get_all(session)
+    
     log.debug(f"Debug --- /arms data= {data}")
-    # log.debug(f"Debug --- /arms data.dict()= {data.dict()}")
+    log.debug(f"Debug --- /arms data_users= {data_worker}")
+    log.debug(f"Debug --- /arms data_users[0].name= {data_worker[0].name}")
     return templates.TemplateResponse(
         "arms/index.html",
-        {"request": request, "worker": worker, "data": data},
+        {"request": request, "worker": worker, "data": data, "data_worker": data_worker},
     )
 
 
