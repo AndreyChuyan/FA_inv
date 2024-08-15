@@ -4,9 +4,9 @@ from fastapi.responses import RedirectResponse, Response
 from .exceptions import exception_user_not_found, exception_auth, exception_unique_field
 
 from database.database import get_session
-from database.models import Arm, Worker
-from .schemas import ArmBase, ArmOut, ArmForm
-from .crud import CRUDArm
+from database.models import Inventory
+from .schemas import InventoryBase, InventoryOut, InventoryForm
+from .crud import CRUDInventory
 from database.crud_base import CRUDBase
 
 
@@ -15,26 +15,26 @@ import logging
 
 log = logging.getLogger("uvicorn")
 
-router = APIRouter(prefix="/arm", tags=["arm"])
+router = APIRouter(prefix="/inventory", tags=["inventory"])
 
 # --- Standart CRUD
-@router.post("/", response_model=ArmOut, status_code=status.HTTP_201_CREATED)
-async def create(arm: ArmBase, session: AsyncSession = Depends(get_session)):
+@router.post("/", response_model=InventoryOut, status_code=status.HTTP_201_CREATED)
+async def create(inventory: InventoryBase, session: AsyncSession = Depends(get_session)):
     """
     Создание нового пользователя.
     """
-    data = arm.dict()
-    object = data.pop("arm", None)
-    object_resp = await CRUDArm.create(session, data)
+    data = inventory.dict()
+    object = data.pop("inventory", None)
+    object_resp = await CRUDInventory.create(session, data)
     if object_resp is None:
         raise exception_unique_field
     if object:
-        arm["id"] = object_resp.id
-        await CRUDArm.create(session, object)
+        inventory["id"] = object_resp.id
+        await CRUDInventory.create(session, object)
     return object_resp
 
 
-@router.get("/{worker_id}", response_model=ArmOut)
+@router.get("/{inventory_id}", response_model=InventoryBase)
 async def get_by_id(
     id: int,
     session: AsyncSession = Depends(get_session),
@@ -42,34 +42,33 @@ async def get_by_id(
     """
     Получение информации о пользователе по ID.
     """
-    object = await CRUDArm.get_by_id(session, id)
-    log.debug(f'Debug --- get_arm_by_id object={object}')
+    object = await CRUDInventory.get_by_id(session, id)
+    log.debug(f'Debug --- get_inventory_by_id object={object}')
     return object
 
 
-@router.get("/", response_model=list[ArmOut])
+@router.get("/", response_model=list[InventoryOut])
 async def get_all(session: AsyncSession = Depends(get_session)):
     """
     Получение списка всех пользователей.
     """
-    object = await CRUDArm.get_all(session)
-    log.debug(f'Debug --- get_all_arm users={object}')
+    object = await CRUDInventory.get_all(session)
+    log.debug(f'Debug --- get_all_inventory users={object}')
     return object
 
 
-@router.put("/{id}", response_model=ArmOut)
+@router.put("/{id}", response_model=InventoryOut)
 async def update_by_id(
     id: int,
-    schema: ArmForm, 
+    schema: InventoryForm, 
     session: AsyncSession = Depends(get_session)
 ):
     """
     Обновление компьютера
     """
-    log.debug(f'Debug --- arm_update_by_id object.name={schema.name}')
     data = schema.dict()
-    object = await CRUDArm.update_by_id(session, id, data)
-    # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')
+    object = await CRUDInventory.update_by_id(session, id, data)
+    # log.debug(f'Debug --- inventory_update_by_id session, id, data= {session} {id} {data}')
     return object
 
 @router.delete("/{id}", response_model=bool)
@@ -78,7 +77,7 @@ async def delete_by_id(
     session: AsyncSession = Depends(get_session)
 ):
     """
-    Удаление компьютера по ID
+    Удаление инвента по ID
     """
-    success = await CRUDArm.delete_by_id(session, id)
+    success = await CRUDInventory.delete_by_id(session, id)
     return success

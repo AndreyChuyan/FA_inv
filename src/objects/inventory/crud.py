@@ -12,6 +12,11 @@ import logging
 log = logging.getLogger("uvicorn")
 
 
-class CRUDArm(CRUDBase):
-    model = Arm
+class CRUDInventory(CRUDBase):
+    model = Inventory
+
+
+
+
+
 

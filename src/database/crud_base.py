@@ -1,10 +1,10 @@
 ﻿from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, NoResultFound
 from fastapi import HTTPException
 from .database import Base
 from .models import Arm, Worker, Inventory
-from sqlalchemy import update
+from sqlalchemy import update, delete
 
 # отладка
 import logging
@@ -42,21 +42,34 @@ class CRUDBase:
         result = await session.execute(query)
         return result.scalar_one_or_none()
 
-    # @classmethod
-    # async def update_by_id(cls, session: AsyncSession, id: int, update_data: dict) -> model | None:
-    #     """Обновление объекта по ID"""
-    #     try:
-    #         # Найти объект по ID
-    #         query = select(cls.model).filter(cls.model.id == id)
-    #         result = await session.execute(query)
-    #         if result is None:
-    #             return None
-    #         # Обновить атрибуты объекта на основе переданных данных
-    #         for key, value in update_data.items():
-    #             setattr(result, key, value)
-    #         await session.commit()
-    #         return result
-    #     except IntegrityError:
-    #         await session.rollback()
-    #         return None
+    @classmethod
+    async def delete_by_id(cls, session: AsyncSession, id: int) -> None:
+        """Удаление объекта по ID"""
+        query = delete(cls.model).where(cls.model.id == id)
+        result = await session.execute(query)
+        if result.rowcount == 1:
+            await session.commit()
+            log.debug(f"Debug --- worker_delete_by_id: Deleted worker with id= {id}")
+            return True
+        else:
+            log.debug(f"Debug --- worker_delete_by_id: No worker found with id= {id}")
+            return False
+
+    @classmethod
+    async def update_by_id(cls, session: AsyncSession, id: int, data: dict) -> model | None:
+        """Обновление существующего объекта по ID"""
+        try:
+            obj = await session.get(cls.model, id)
+            if not obj:
+                return None
+            for key, value in data.items():
+                setattr(obj, key, value)
+            await session.commit()
+            await session.refresh(obj)
+            return obj
+        except IntegrityError:
+            await session.rollback()
+            return None
+        except NoResultFound:
+            return None
         

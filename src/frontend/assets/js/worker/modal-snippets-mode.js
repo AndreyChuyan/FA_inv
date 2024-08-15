@@ -8,32 +8,33 @@ if (updateModal) {
     // Получает кнопку, которая вызвала модальное окно, и сохраняет её в переменную button.
     const button = event.relatedTarget
     // Извлекает информацию из атрибута  кнопки, которая вызвала модальное окно, и сохраняет это значение в переменные
-    const name = button.getAttribute('data-bs-workername')
-    const login = button.getAttribute('data-bs-workerlogin')
-    const position = button.getAttribute('data-bs-workerposition')
-    const description = button.getAttribute('data-bs-workerdescription')
-    const id = button.getAttribute('data-bs-workerid')
-    const department = button.getAttribute('data-bs-workerdepartment')
+    const name = button.getAttribute('data-bs-1')
+    const login = button.getAttribute('data-bs-2')
+    const position = button.getAttribute('data-bs-3')
+    const description = button.getAttribute('data-bs-4')
+    const id = button.getAttribute('data-bs-5')
+    const department = button.getAttribute('data-bs-6')
+    
 
 
-    // Обновляет содержимое заголовка модального окна (modalTitle) текстом "New message to " и значением переменной name
+    // Обновляет содержимое заголовка модального окна (modalTitle) 
     const modalTitle = updateModal.querySelector('.modal-title')
-    const modalBodyInputName = updateModal.querySelector('#worker-name')
-    const modalBodyInputLogin = updateModal.querySelector('#worker-login')
-    const modalBodyInputPosition = updateModal.querySelector('#worker-position')
-    const modalBodyInputDescription = updateModal.querySelector('#worker-description')
-    const modalBodyInputId = updateModal.querySelector('#worker-id')
-    const modalBodyInputDepartment = updateModal.querySelector('#worker-department')
+    const modalBodyInput_Name = updateModal.querySelector('#worker-name')
+    const modalBodyInput_Login = updateModal.querySelector('#worker-login')
+    const modalBodyInput_Position = updateModal.querySelector('#worker-position')
+    const modalBodyInput_Description = updateModal.querySelector('#worker-description')
+    const modalBodyInput_Id = updateModal.querySelector('#worker-id')
+    const modalBodyInput_Department = updateModal.querySelector('#worker-department')
 
     // формирует текст  и устанавливает его в соответствующий элемент модального окна modalTitle.
     modalTitle.textContent = `редактирование ${name}`
     // Устанавливает значение в поле ввода (input) модального окна (modalBodyInputName) равным значению переменной name.
-    modalBodyInputName.value = name
-    modalBodyInputLogin.value = login
-    modalBodyInputPosition.value = position
-    modalBodyInputDescription.value = description
-    modalBodyInputId.value = id
-    modalBodyInputDepartment.value = department
+    modalBodyInput_Name.value = name
+    modalBodyInput_Login.value = login
+    modalBodyInput_Position.value = position
+    modalBodyInput_Description.value = description
+    modalBodyInput_Id.value = id
+    modalBodyInput_Department.value = department
 
   })
 }

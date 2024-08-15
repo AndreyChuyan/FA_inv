@@ -1,40 +1,89 @@
 ﻿<!-- Modal -->
-<div class="modal fade" id="createWorkerModal" tabindex="-1" aria-labelledby="CreateModalLabel" aria-hidden="true">
+<style>
+  /* Ограниение высоты модального окна */
+  .modal-content {
+    max-height: 90vh; /* 80% высоты видимого окна */
+    overflow-y: auto; /* Включить вертикальный скроллинг */
+  }
+</style>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="CreateLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createWorkerModal">Создание пользователя</h1>
+        <h1 class="modal-title fs-5" id="createWorkerModal">Создание компьютера</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <!-- скрытое поле для хранения значения -->
           <div>
-            <input type="hidden" id="worker-cr-department">
+            <input type="hidden" id="cr_department">
           </div>
           <!-- поля значений -->
           <div class="mb-3">
-            <label for="worker-login" class="col-form-label">Подразделение: {{worker.department}}</label>
+            <label for="login" class="col-form-label">Подразделение: {{worker.department}}</label>
           </div>
           <div class="mb-3">
-            <label for="worker_cr_login" class="col-form-label">Логин:</label>
-            <input type="text" class="form-control" id="worker_cr_login">
+            <!-- Выпадающий список -->
+            <select class="form-control" id="cr_login">
+              <option value="user1">Пользователь 1</option>
+              <option value="user2">Пользователь 2</option>
+              <option value="user3">Пользователь 3</option>
+              <!-- Добавьте дополнительные элементы, если нужно -->
+            </select>
           </div>
           <div class="mb-3">
-            <label for="worker-cr-name" class="col-form-label">Имя:</label>
-            <input type="text" class="form-control" id="worker-cr-name">
+            <label for="cr-title" class="col-form-label">Учетное имя:</label>
+            <input type="text" class="form-control" id="cr-title">
           </div>
           <div class="mb-3">
-            <label for="worker-cr-name" class="col-form-label">Пароль:</label>
-            <input type="text" class="form-control" id="worker-cr-password">
+            <label for="cr-location" class="col-form-label">Расположение (кабинет):</label>
+            <input type="text" class="form-control" id="cr-location">
           </div>
           <div class="mb-3">
-            <label for="worker-cr-position" class="col-form-label">Должность:</label>
-            <input type="text" class="form-control" id="worker-cr-position">
+            <label for="cr_position" class="col-form-label">Название:</label>
+            <input type="text" class="form-control" id="cr-name">
           </div>
           <div class="mb-3">
-            <label for="worker-cr-description" class="col-form-label">Описание:</label>
-            <input type="text" class="form-control" id="worker-cr-description">
+            <label for="cr_description" class="col-form-label">Модель:</label>
+            <input type="text" class="form-control" id="cr-model">
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Год выпуска:</label>
+            <input type="text" class="form-control" id="cr-release">
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Заводской номер:</label>
+            <input type="text" class="form-control" id="cr-num_serial">
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Инвентарный номер:</label>
+            <input type="text" class="form-control" id="cr-num_invent">
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Сервисный номер:</label>
+            <input type="text" class="form-control" id="cr-num_service">
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Стоимость:</label>
+            <input type="text" class="form-control" id="cr-price">
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Номер формуляра:</label>
+            <input type="text" class="form-control" id="cr-formular">
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Состояние:</label>
+            <select class="form-control" id="cr-state">
+              <option value="user1">В работе</option>
+              <option value="user2">Неисправен</option>
+              <!-- Добавьте дополнительные элементы, если нужно -->
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="cr_description" class="col-form-label">Описание:</label>
+            <input type="text" class="form-control" id="cr-description">
           </div>
         </form>
       </div>

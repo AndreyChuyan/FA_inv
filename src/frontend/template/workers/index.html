@@ -1,10 +1,14 @@
 {% extends "base/base.html" %}
 
 
+
 {% block title %}Все пользователи{% endblock %}
 
 
 {% block content %}
+
+
+
 
 <!-- карточка для создания пользователя -->
 <div class="d-flex flex-wrap justify-content-center align-items-center">
@@ -57,13 +61,13 @@
                     <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
                       data-bs-toggle="modal" 
                       data-bs-target="#updateModal" 
-                      data-bs-workername="{{workers.name}}" 
-                      data-bs-workerlogin="{{workers.login}}"
-                      data-bs-workerposition="{{workers.position}}"
-                      data-bs-workerdescription="{{workers.description}}"
-                      data-bs-workerid= "{{workers.id}}"
-                      data-bs-workerdepartment= "{{workers.department}}"
-                      data-bs-workerrole= "{{workers.role}}">
+                      data-bs-1="{{workers.name}}" 
+                      data-bs-2="{{workers.login}}"
+                      data-bs-3="{{workers.position}}"
+                      data-bs-4="{{workers.description}}"
+                      data-bs-5= "{{workers.id}}"
+                      data-bs-6= "{{workers.department}}"
+                      data-bs-7= "{{workers.role}}">
                       Редактировать
                     </button>
                     <!-- Кнопка для удаления -->
@@ -114,7 +118,7 @@
 
 {% include "workers/modal_mode.html" %}
 {% include "workers/modal_create.html" %}
-
+{% include "workers/scripts.html" %}
 
 
 {% endblock %}

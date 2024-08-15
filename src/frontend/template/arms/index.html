@@ -6,6 +6,7 @@
 
 {% block content %}
 
+
 <head>
   <style>
       /* Изменение шрифта для таблицы */
@@ -29,7 +30,7 @@
 <div class="d-flex flex-wrap justify-content-center align-items-center">
   <a class="nav-link " href="#"
   data-bs-toggle="modal"
-  data-bs-target="#createWorkerModal" 
+  data-bs-target="#createModal" 
   data-bs-workerdepartment= "{{worker.department}}"
   >
     <div class="card" style="width: 18rem; margin: 10px;">
@@ -76,7 +77,7 @@
                     <!-- Кнопка для выбора -->
                     <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
                     data-bs-toggle="modal" 
-                    data-bs-target="#Modal_choice_user" 
+                    data-bs-target="#choiceModal" 
                     data-bs-workername="{{object.name}}"
                     >
                       <!-- {{data_worker[2].name}} -->
@@ -159,9 +160,9 @@
 
 </script>
 
-{% include "workers/modal_mode.html" %}
-{% include "workers/modal_create.html" %}
-
+{% include "arms/modal_mode.html" %}
+{% include "arms/modal_create.html" %}
+{% include "arms/scripts.html" %}
 
 
 {% endblock %}
