@@ -3,7 +3,7 @@ from sqlalchemy.future import select
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from fastapi import HTTPException
 from .database import Base
-from .models import Arm, Worker, Inventory
+from .models import Arm, Worker
 from sqlalchemy import update, delete
 
 # отладка

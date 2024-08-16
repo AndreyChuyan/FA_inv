@@ -7,22 +7,22 @@
   }
 </style>
 
-<div class="modal fade" id="modal_create" tabindex="-1" aria-labelledby="CreateLabel" aria-hidden="true">
+<div class="modal fade" id="modalCreateArm" tabindex="-1" aria-labelledby="CreateLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="createWorkerModal">Создание компьютера</h1>
+        <h1 class="modal-title fs-5" id="modalCreateArm">Создание компьютера</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <!-- скрытое поле для хранения значения -->
           <div>
-            <input type="hidden" id="worker-cr-department">
+            <input type="hidden" id="cr-department-arm">
           </div>
           <!-- поля значений -->
           <div class="mb-3">
-            <label for="login" class="col-form-label">Подразделение: {{worker.department}}</label>
+            <h1 class="modal-title fs-5" id="modalCreateArm">Подразделение: {{worker.department}}</h1>
           </div>
           <div class="mb-3">
             <!-- Выпадающий список -->
@@ -31,7 +31,7 @@
               {% for tuple_worker in data_worker %}
                 {% if tuple_worker.department == worker.department %}  
                   {{tuple_worker.name}}
-                  <option value="{{tuple_worker.name}}">{{tuple_worker.name}}</option>
+                  <option value="{{tuple_worker.id}}">{{tuple_worker.name}}</option>
                 {% endif %}
               {% endfor %}
               <!-- Добавьте дополнительные элементы, если нужно -->
@@ -46,47 +46,47 @@
             <input type="text" class="form-control" id="cr-location">
           </div>
           <div class="mb-3">
-            <label for="cr_position" class="col-form-label">Название:</label>
+            <label for="cr-name" class="col-form-label">Название:</label>
             <input type="text" class="form-control" id="cr-name">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Модель:</label>
+            <label for="cr-model" class="col-form-label">Модель:</label>
             <input type="text" class="form-control" id="cr-model">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Год выпуска:</label>
+            <label for="cr-release" class="col-form-label">Год выпуска:</label>
             <input type="text" class="form-control" id="cr-release">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Заводской номер:</label>
+            <label for="cr-num_serial" class="col-form-label">Заводской номер:</label>
             <input type="text" class="form-control" id="cr-num_serial">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Инвентарный номер:</label>
+            <label for="cr-num_invent" class="col-form-label">Инвентарный номер:</label>
             <input type="text" class="form-control" id="cr-num_invent">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Сервисный номер:</label>
+            <label for="cr-num_service" class="col-form-label">Сервисный номер:</label>
             <input type="text" class="form-control" id="cr-num_service">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Стоимость:</label>
+            <label for="cr-price" class="col-form-label">Стоимость:</label>
             <input type="text" class="form-control" id="cr-price">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Номер формуляра:</label>
+            <label for="cr-formular" class="col-form-label">Номер формуляра:</label>
             <input type="text" class="form-control" id="cr-formular">
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Состояние:</label>
+            <label for="cr-state" class="col-form-label">Состояние:</label>
             <select class="form-control" id="cr-state">
-              <option value="user1">В работе</option>
-              <option value="user2">Неисправен</option>
+              <option value="В работе">В работе</option>
+              <option value="Неисправен">Неисправен</option>
               <!-- Добавьте дополнительные элементы, если нужно -->
             </select>
           </div>
           <div class="mb-3">
-            <label for="cr_description" class="col-form-label">Описание:</label>
+            <label for="cr-description" class="col-form-label">Описание:</label>
             <input type="text" class="form-control" id="cr-description">
           </div>
         </form>

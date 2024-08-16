@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from objects.worker.dependency import get_correct_worker_frontend, get_current_worker
 from objects.worker.crud import CRUDWorker
 from objects.arm.crud import CRUDArm
+
 # from database.crud_base import CRUDBase
 from database.models import Worker
 from database.database import get_session
@@ -94,7 +95,7 @@ async def get_arms(
 ):
     data = await CRUDArm.get_all(session)
     data_worker = await CRUDWorker.get_all(session)
-    
+
     log.debug(f"Debug --- /arms data= {data}")
     log.debug(f"Debug --- /arms data_users= {data_worker}")
     log.debug(f"Debug --- /arms data_users[0].name= {data_worker[0].name}")

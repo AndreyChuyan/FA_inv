@@ -1,5 +1,5 @@
 ﻿<!-- Modal -->
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,30 +10,82 @@
         <form>
           <!-- скрытое поле для хранения значения -->
           <div>
-            <input type="hidden" id="worker-id">
+            <input type="hidden" id="arm-id">
           </div>
           <div>
-            <input type="hidden" id="worker-department">
-          </div>
-          <div>
-            <input type="hidden" id="worker-role">
+            <input type="hidden" id="arm-department">
           </div>
           <!-- поля значений -->
+
           <div class="mb-3">
-            <label for="worker-login" class="col-form-label">Логин:</label>
-            <input type="text" class="form-control" id="worker-login">
+            <!-- Выпадающий список -->
+            <label for="arm-user" class="col-form-label">Пользователь:</label>
+            <select class="form-control" id="arm-user">
+              {% for tuple_worker in data_worker %}
+                {% if tuple_worker.department == worker.department %}  
+                  {{tuple_worker.name}}
+                  <option value="{{tuple_worker.id}}">{{tuple_worker.name}}</option>
+                {% endif %}
+              {% endfor %}
+              <!-- Добавьте дополнительные элементы, если нужно -->
+            </select>
+
           </div>
           <div class="mb-3">
-            <label for="worker-name" class="col-form-label">Имя:</label>
-            <input type="text" class="form-control" id="worker-name">
+            <label for="arm-title" class="col-form-label">Учетное имя:</label>
+            <input type="text" class="form-control" id="arm-title">
           </div>
           <div class="mb-3">
-            <label for="worker-position" class="col-form-label">Должность:</label>
-            <input type="text" class="form-control" id="worker-position">
+            <label for="arm-location" class="col-form-label">Расположение:</label>
+            <input type="text" class="form-control" id="arm-location">
           </div>
           <div class="mb-3">
-            <label for="worker-description" class="col-form-label">Описание:</label>
-            <input type="text" class="form-control" id="worker-description">
+            <label for="arm-name" class="col-form-label">Название:</label>
+            <input type="text" class="form-control" id="arm-name">
+          </div>
+          <div class="mb-3">
+            <label for="arm-model" class="col-form-label">Модель:</label>
+            <input type="text" class="form-control" id="arm-model">
+          </div>
+          <div class="mb-3">
+            <label for="arm-release" class="col-form-label">Год выпуска:</label>
+            <input type="text" class="form-control" id="arm-release">
+          </div>
+          <div class="mb-3">
+            <label for="arm-num_serial" class="col-form-label">Заводской номер:</label>
+            <input type="text" class="form-control" id="arm-num_serial">
+          </div>
+          <div class="mb-3">
+            <label for="arm-num_invent" class="col-form-label">Инвентарный номер:</label>
+            <input type="text" class="form-control" id="arm-num_invent">
+          </div>
+          <div class="mb-3">
+            <label for="arm-num_service" class="col-form-label">Сервисный номер:</label>
+            <input type="text" class="form-control" id="arm-num_service">
+          </div>
+          <div class="mb-3">
+            <label for="arm-price" class="col-form-label">Стоимость:</label>
+            <input type="text" class="form-control" id="arm-price">
+          </div>
+          <div class="mb-3">
+            <label for="arm-formular" class="col-form-label">Номер формуляра:</label>
+            <input type="text" class="form-control" id="arm-formular">
+          </div>
+
+
+          <div class="mb-3">
+            <label for="arm-state" class="col-form-label">Состояние:</label>
+            <select class="form-control" id="arm-state">
+              <option value="В работе">В работе</option>
+              <option value="Неисправен">Неисправен</option>
+              <!-- Добавьте дополнительные элементы, если нужно -->
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="arm-description" class="col-form-label">Описание:</label>
+            <input type="text" class="form-control" id="arm-description">
           </div>
         </form>
       </div>

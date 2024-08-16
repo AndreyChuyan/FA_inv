@@ -47,9 +47,9 @@ saveButton.addEventListener('click', () => {
     const bsModal = new bootstrap.Modal(modal);
     bsModal.hide();
 
+  // Устанавливаем задержку перед обновлением страницы
+  setTimeout(() => {
     // Обновляем текущую страницу
     window.location.reload();
-    })
-    // .catch(error => {
-    //   console.error('There was a problem with fetch operation:', error);
-    // });
+  }, 500); // 1 секунда
+})

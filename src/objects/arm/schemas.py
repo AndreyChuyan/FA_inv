@@ -19,6 +19,7 @@ class ArmBase(BaseModel):
     description: str
     description2: str
     description3: str
+    id_worker: int
 
 class ArmOut(ArmBase):
     id: int
@@ -40,3 +41,4 @@ class ArmForm(BaseModel):
     description: str
     description2: str
     description3: str
+    id_worker: int

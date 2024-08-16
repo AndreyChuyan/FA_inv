@@ -39,9 +39,14 @@ saveButton_create.addEventListener('click', () => {
     const bsModal = new bootstrap.Modal(modal);
     bsModal.hide();
 
-    window.location.reload();
-  })
-  .catch(error => {
-    console.error('There was a problem with fetch operation:', error);
+      // Устанавливаем задержку перед обновлением страницы
+      setTimeout(() => {
+        // Обновляем текущую страницу
+        window.location.reload();
+      }, 500); // 1 секунда
+  
+    })
+    .catch(error => {
+      console.error('There was a problem with fetch operation:', error);
+    });
   });
-});

@@ -26,12 +26,12 @@
   </style>
 </head>
 
-<!-- карточка для создания пользователя -->
+<!-- карточка для создания -->
 <div class="d-flex flex-wrap justify-content-center align-items-center">
   <a class="nav-link " href="#"
   data-bs-toggle="modal"
-  data-bs-target="#modal_create" 
-  data-bs-workerdepartment= "{{worker.department}}"
+  data-bs-target="#modalCreateArm" 
+  data-bs-department-arm= "{{worker.department}}"
   >
     <div class="card" style="width: 18rem; margin: 10px;">
       <img src="../assets/img/arm.jpg" class="card-img-top" alt="...">
@@ -72,56 +72,68 @@
           {% for tuple in data %}
             {% set object = tuple %}
               {% if object.department_arm == worker.department %}
-                <tr class="table-success">
-                  <td>
-                    <!-- Кнопка для выбора -->
-                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#choiceModal" 
-                    data-bs-workername="{{object.name}}"
-                    >
-                      <!-- {{data_worker[2].name}} -->
-                      {% for tuple2 in data_worker %}
-                        {% if tuple2.id == 4  %}  
-                        {{tuple2.name}}
-                        {% endif %}
-                      {% endfor %}
-                    </button>
-                  </td>
-                  <td>{{ object.title }}</td>
-                  <td>{{ object.location }}</td>
-                  <td>{{ object.name }}</td>
-                  <td>{{ object.model }}</td>
-                  <td>{{ object.release }}</td>
-                  <td>{{ object.num_serial }}</td>
-                  <td>{{ object.num_invent }}</td>
-                  <td>{{ object.num_service }}</td>
-                  <td>{{ object.price }}</td>
-                  <td>{{ object.formular }}</td>
-                  <td>{{ object.state }}</td>
-                  <td>{{ object.description }}</td>
-                  <td>
-                    <!-- Кнопка для редактирования -->
-                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
-                      data-bs-toggle="modal" 
-                      data-bs-target="#modal_mode" 
-                      data-bs-workername="{{object.name}}" 
-                      data-bs-workerlogin="{{object.login}}"
-                      data-bs-workerposition="{{object.position}}"
-                      data-bs-workerdescription="{{object.description}}"
-                      data-bs-workerid= "{{object.id}}"
-                      data-bs-workerdepartment= "{{worker.department}}"
-                      data-bs-workerrole= "{{object.role}}">
-                      Редактировать
-                    </button>
-                    <!-- Кнопка для удаления -->
-                    <button type="button" class="btn btn-danger btn-sm" style="color: white;" 
-                      onclick="deleteArm('{{ object.id }}')">
-                      Удалить
-                    </button>
-                  </td>
-                </tr>
-              </tr>
+                {% for tuple2 in data_worker %}
+                  {% if tuple2.id == object.id_worker %}
+                    <tr class="table-success">
+                      <td>
+                        <!-- Кнопка для выбора -->
+                        <div style="display: flex;">
+                          <!-- Выделенный текст -->
+                          <span style="background-color: #0b79c2; color: white; padding: 5px;">
+      
+                                {% set varUserName = tuple2.name %}
+                                {{varUserName}}
+
+                            </span>
+                        </div>
+                      </td>
+                      <td>{{ object.title }}</td>
+                      <td>{{ object.location }}</td>
+                      <td>{{ object.name }}</td>
+                      <td>{{ object.model }}</td>
+                      <td>{{ object.release }}</td>
+                      <td>{{ object.num_serial }}</td>
+                      <td>{{ object.num_invent }}</td>
+                      <td>{{ object.num_service }}</td>
+                      <td>{{ object.price }}</td>
+                      <td>{{ object.formular }}</td>
+                      <td>{{ object.state }}</td>
+                      <td>{{ object.description }}</td>
+                      <td>
+                        <!-- Кнопка для редактирования -->
+                        <div style="display: flex;">
+                          <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white; font-size: 12px;"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#modalUpdate"
+                            data-bs-id="{{object.id}}"
+                            data-bs-user="{{varUserName}}" 
+                            data-bs-title="{{object.title}}"
+                            data-bs-location="{{object.location}}"
+                            data-bs-name="{{object.name}}"
+                            data-bs-model="{{object.model}}"
+                            data-bs-release="{{object.release}}"
+                            data-bs-num_serial="{{object.num_serial}}"
+                            data-bs-num_invent="{{object.num_invent}}"
+                            data-bs-num_service="{{object.num_service}}"
+                            data-bs-price="{{object.price}}"
+                            data-bs-formular="{{object.formular}}"
+                            data-bs-state="{{object.state}}"
+                            data-bs-description="{{object.description}}"
+                            data-bs-workerdepartment= "{{worker.department}}"
+                            >
+                            Редактировать
+                          </button>
+                          <!-- Кнопка для удаления -->
+                          <button type="button" class="btn btn-danger btn-sm" style="color: white; font-size: 12px;" 
+                            onclick="deleteArm('{{ object.id }}')">
+                            Удалить
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tr>
+                {% endif %}
+              {% endfor %}
             {% endif %}
           {% endfor %}
         </tbody>
@@ -131,12 +143,12 @@
 </div>
 
 <script>
-  function deleteWorker(workerId) {
+  function deleteArm(Id) {
     if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {
       // Здесь вы можете выполнить AJAX-запрос для удаления пользователя
-      console.log('Deleting worker with ID:', workerId);
+      console.log('Deleting worker with ID:', Id);
       // Например, можно использовать fetch для отправки запроса на сервер
-      fetch(`/worker/${workerId}`, {
+      fetch(`/arm/${Id}`, {
         method: 'DELETE'
       }).then(response => {
         if (response.ok) {

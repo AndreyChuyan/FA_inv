@@ -8,9 +8,26 @@
 {% block content %}
 
 
+<head>
+  <style>
+      /* Изменение шрифта для таблицы */
+      table {
+          font-family: Arial, sans-serif; /* Новый шрифт */
+          /* Другие стили таблицы */
+      }
+      td {
+          font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
+          /* Другие стили для ячеек таблицы */
+      }
+          th {
+            text-align: center; /* Выравнивание текста в надписях по центру */
+            font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
+          /* Другие стили для ячеек таблицы */
+      }
+  </style>
+</head>
 
-
-<!-- карточка для создания пользователя -->
+<!-- карточка для создания -->
 <div class="d-flex flex-wrap justify-content-center align-items-center">
   <a class="nav-link " href="#"
   data-bs-toggle="modal"
