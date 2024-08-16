@@ -67,7 +67,11 @@ async def login_for_access_token_frontend(
 
 # --- Standart CRUD
 @router.post("/", response_model=WorkerOut, status_code=status.HTTP_201_CREATED)
-async def create(user: WorkerCreate, session: AsyncSession = Depends(get_session)):
+async def create(
+    user: WorkerCreate, 
+    session: AsyncSession = Depends(get_session),
+    current_user: Worker = Depends(get_current_worker),
+    ):
     """
     Создание нового пользователя.
     """
@@ -96,7 +100,10 @@ async def get_user(
 
 
 @router.get("/", response_model=list[WorkerOut])
-async def get_all(session: AsyncSession = Depends(get_session)):
+async def get_all(
+    session: AsyncSession = Depends(get_session),
+    current_user: Worker = Depends(get_current_worker),
+    ):
     """
     Получение списка всех пользователей.
     """
@@ -109,7 +116,8 @@ async def get_all(session: AsyncSession = Depends(get_session)):
 async def update_by_id(
     id: int,
     user: WorkerForm, 
-    session: AsyncSession = Depends(get_session)
+    session: AsyncSession = Depends(get_session),
+    current_user: Worker = Depends(get_current_worker),
 ):
     """
     Обновление пользователя
@@ -123,7 +131,8 @@ async def update_by_id(
 @router.delete("/{id}", response_model=bool)
 async def delete_by_id(
     id: int,
-    session: AsyncSession = Depends(get_session)
+    session: AsyncSession = Depends(get_session),
+    current_user: Worker = Depends(get_current_worker),
 ):
     """
     Удаление пользователя по ID

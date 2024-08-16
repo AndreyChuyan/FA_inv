@@ -1,11 +1,4 @@
 # FA_inv
-## Создаем о туториалу
-https://habr.com/ru/companies/amvera/articles/826196/ Создание собственного API на Python (FastAPI): Знакомство и первые функции
-https://habr.com/ru/articles/827134/ Создание собственного API на Python (FastAPI): Гайд по POST, PUT, DELETE запросам и моделям Pydantic
-https://habr.com/ru/articles/827222/ Создание собственного API на Python (FastAPI): структура проекта, SQLAlchemy PostgreSQL, миграции и первые модели таблиц
-https://habr.com/ru/articles/828328/ Создание собственного API на Python (FastAPI): Router и асинхронные запросы в PostgreSQL (SQLAlchemy)
-https://habr.com/ru/articles/829742/ Создание собственного API на Python (FastAPI): Авторизация, Аутентификация и роли пользователей
-https://habr.com/ru/articles/831386/ Создание собственного API на Python (FastAPI): Подключаем фронтенд и статические файлы
 
 ## start
 python -m venv .venv
@@ -40,3 +33,8 @@ git commit -m "Сообщение коммита"
 git clean -f
 git fetch origin main
 git reset --hard origin/main
+
+- сменить имя на логин в тексте
+- создать страницу для роли admin и окно создания ответственных за учет
+- создать скрипт и кнопку для выгрузки базы данных таблицей xcl
+- создать страницу для роли guest и запрете создания без пароля

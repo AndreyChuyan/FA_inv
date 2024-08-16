@@ -8,7 +8,7 @@ from database.models import Arm, Worker
 from .schemas import ArmBase, ArmOut, ArmForm
 from .crud import CRUDArm
 from database.crud_base import CRUDBase
-
+from objects.worker.dependency import get_current_worker
 
 # отладка
 import logging
@@ -19,7 +19,11 @@ router = APIRouter(prefix="/arm", tags=["arm"])
 
 # --- Standart CRUD
 @router.post("/", response_model=ArmOut, status_code=status.HTTP_201_CREATED)
-async def create(arm: ArmBase, session: AsyncSession = Depends(get_session)):
+async def create(
+    arm: ArmBase, 
+    session: AsyncSession = Depends(get_session),
+    
+    ):
     """
     Создание нового пользователя.
     """
@@ -48,7 +52,10 @@ async def get_by_id(
 
 
 @router.get("/", response_model=list[ArmOut])
-async def get_all(session: AsyncSession = Depends(get_session)):
+async def get_all(
+    session: AsyncSession = Depends(get_session),
+    current_user: Worker = Depends(get_current_worker),
+    ):
     """
     Получение списка всех пользователей.
     """
