@@ -11,16 +11,20 @@
   <style>
       /* Изменение шрифта для таблицы */
       table {
-          font-family: Arial, sans-serif; /* Новый шрифт */
+          font-family: Arial, sans-serif;
+           /* Новый шрифт */
           /* Другие стили таблицы */
       }
+      .table th, .table td {
+        max-width: 90px; /* Задайте максимальную ширину для ячеек */
+      }
       td {
-          font-size: 11px; /* Размер шрифта для заголовков и данных таблицы */
+          font-size: 10px; /* Размер шрифта для заголовков и данных таблицы */
           /* Другие стили для ячеек таблицы */
       }
           th {
             text-align: center; /* Выравнивание текста в надписях по центру */
-            font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
+            font-size: 11px; /* Размер шрифта для заголовков и данных таблицы */
           /* Другие стили для ячеек таблицы */
       }
   </style>
@@ -46,7 +50,7 @@
   <div class="col-12">
     <!-- Заголовок таблицы-->
     <h3 class="mb-4"></h3>
-    <h3 class="mb-4">Компьютеры: {{ worker.department }}</h3>
+    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Подразделение: {{ worker.department }}</h3>
     <!-- Таблица -->
     <div class="table-responsive">
       <table class="table table-hover table-shadow table-rounded">
@@ -68,7 +72,7 @@
             <th scope="col" >Действия</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
           {% for tuple in data %}
             {% set object = tuple %}
               {% if object.department_arm == worker.department %}
@@ -80,11 +84,9 @@
                         <div style="display: flex;">
                           <!-- Выделенный текст -->
                           <span style="background-color: #0b79c2; color: white; padding: 5px;">
-      
-                                {% set varUserName = tuple2.name %}
-                                {{varUserName}}
-
-                            </span>
+                              {% set varUserName = tuple2.name %}
+                              {{varUserName}}
+                          </span>
                         </div>
                       </td>
                       <td>{{ object.title }}</td>
@@ -102,7 +104,7 @@
                       <td>
                         <!-- Кнопка для редактирования -->
                         <div style="display: flex;">
-                          <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white; font-size: 12px;"
+                          <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white; font-size: 11px;"
                             data-bs-toggle="modal" 
                             data-bs-target="#modalUpdate"
                             data-bs-id="{{object.id}}"
@@ -121,12 +123,12 @@
                             data-bs-description="{{object.description}}"
                             data-bs-workerdepartment= "{{worker.department}}"
                             >
-                            Редактировать
+                            Редакт
                           </button>
                           <!-- Кнопка для удаления -->
-                          <button type="button" class="btn btn-danger btn-sm" style="color: white; font-size: 12px;" 
+                          <button type="button" class="btn btn-danger btn-sm" style="color: white; font-size: 11px;" 
                             onclick="deleteArm('{{ object.id }}')">
-                            Удалить
+                            Уд
                           </button>
                         </div>
                       </td>
