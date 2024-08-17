@@ -36,7 +36,7 @@ async def get_auth(
 
 
 @router.get("/auth")
-async def get_login(
+async def get_fio(
     request: Request,
     user: Worker | None = Depends(get_correct_worker_frontend),
     not_auth: bool | None = None,

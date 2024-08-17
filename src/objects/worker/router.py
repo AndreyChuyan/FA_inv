@@ -22,7 +22,7 @@ router = APIRouter(prefix="/worker", tags=["worker"])
 
 # --- Авторизация
 @router.post("/token")
-async def login_for_access_token(
+async def fio_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: AsyncSession = Depends(get_session),
 ):
@@ -34,7 +34,7 @@ async def login_for_access_token(
 
 
 @router.post("/auth")
-async def login_for_access_token_frontend(
+async def fio_for_access_token_frontend(
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: AsyncSession = Depends(get_session),
 ):
@@ -70,7 +70,7 @@ async def login_for_access_token_frontend(
 async def create(
     user: WorkerCreate, 
     session: AsyncSession = Depends(get_session),
-    current_user: Worker = Depends(get_current_worker),
+    # current_user: Worker = Depends(get_current_worker),
     ):
     """
     Создание нового пользователя.
@@ -91,7 +91,7 @@ async def create(
 async def get_user(
     worker: Worker = Depends(get_worker_by_id),
     session: AsyncSession = Depends(get_session),
-    current_user: Worker = Depends(get_current_worker),
+    # current_user: Worker = Depends(get_current_worker),
 ):
     """
     Получение информации о пользователе по ID.
@@ -117,7 +117,7 @@ async def update_by_id(
     id: int,
     user: WorkerForm, 
     session: AsyncSession = Depends(get_session),
-    current_user: Worker = Depends(get_current_worker),
+    # current_user: Worker = Depends(get_current_worker),
 ):
     """
     Обновление пользователя
@@ -132,7 +132,7 @@ async def update_by_id(
 async def delete_by_id(
     id: int,
     session: AsyncSession = Depends(get_session),
-    current_user: Worker = Depends(get_current_worker),
+    # current_user: Worker = Depends(get_current_worker),
 ):
     """
     Удаление пользователя по ID

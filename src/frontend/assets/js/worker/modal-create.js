@@ -1,7 +1,7 @@
 ﻿const saveButton_create = document.querySelector('#createWorkerModal .btn-primary');
 
 saveButton_create.addEventListener('click', () => {
-  const cr_login = document.querySelector('#worker_cr_login').value;
+  const cr_fio = document.querySelector('#worker_cr_fio').value;
   const cr_name = document.querySelector('#worker-cr-name').value;
   const cr_position = document.querySelector('#worker-cr-position').value;
   const cr_description = document.querySelector('#worker-cr-description').value;
@@ -10,7 +10,7 @@ saveButton_create.addEventListener('click', () => {
   const cr_password = document.querySelector('#worker-cr-password').value;
 
   const data = {
-    login: cr_login,
+    fio: cr_fio,
     name: cr_name,
     password: cr_password,
     department: cr_department,

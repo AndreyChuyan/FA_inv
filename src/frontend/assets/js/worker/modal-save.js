@@ -3,7 +3,7 @@ const saveButton = document.querySelector('#updateModal .btn-primary');
 // Добавляет обработчик события клика на кнопку "Сохранить"
 saveButton.addEventListener('click', () => {
   // Получает значения полей ввода из модального окна
-  const login = document.querySelector('#worker-login').value;
+  const fio = document.querySelector('#worker-fio').value;
   const name = document.querySelector('#worker-name').value;
   const position = document.querySelector('#worker-position').value;
   const description = document.querySelector('#worker-description').value;
@@ -15,7 +15,7 @@ saveButton.addEventListener('click', () => {
   // Собрать данные, которые вы хотите отправить на сервер, в объект JavaScript:
   const data = {
     // role: role,
-    login: login,
+    fio: fio,
     name: name,
     // password: "",
     department: department,

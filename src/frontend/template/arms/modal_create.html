@@ -26,8 +26,8 @@
           </div>
           <div class="mb-3">
             <!-- Выпадающий список -->
-            <label for="cr_login" class="col-form-label">Пользователь:</label>
-            <select class="form-control" id="cr_login">
+            <label for="cr_fio" class="col-form-label">Пользователь:</label>
+            <select class="form-control" id="cr_fio">
               {% for tuple_worker in data_worker %}
                 {% if tuple_worker.department == worker.department %}  
                   {{tuple_worker.name}}

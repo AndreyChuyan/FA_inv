@@ -27,7 +27,7 @@ class Worker(Base):
     __tablename__ = "worker"
     id = Column(Integer, primary_key=True)
     role = Column(Enum(Role), default=Role.guest)
-    login = Column(String)
+    fio = Column(String)
     name = Column(String)
     password = Column(String)
     department = Column(String)

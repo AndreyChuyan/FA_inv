@@ -9,7 +9,7 @@ if (updateModal) {
     const button = event.relatedTarget
     // Извлекает информацию из атрибута  кнопки, которая вызвала модальное окно, и сохраняет это значение в переменные
     const name = button.getAttribute('data-bs-1')
-    const login = button.getAttribute('data-bs-2')
+    const fio = button.getAttribute('data-bs-2')
     const position = button.getAttribute('data-bs-3')
     const description = button.getAttribute('data-bs-4')
     const id = button.getAttribute('data-bs-5')
@@ -20,7 +20,7 @@ if (updateModal) {
     // Обновляет содержимое заголовка модального окна (modalTitle) 
     const modalTitle = updateModal.querySelector('.modal-title')
     const modalBodyInput_Name = updateModal.querySelector('#worker-name')
-    const modalBodyInput_Login = updateModal.querySelector('#worker-login')
+    const modalBodyInput_fio = updateModal.querySelector('#worker-fio')
     const modalBodyInput_Position = updateModal.querySelector('#worker-position')
     const modalBodyInput_Description = updateModal.querySelector('#worker-description')
     const modalBodyInput_Id = updateModal.querySelector('#worker-id')
@@ -30,7 +30,7 @@ if (updateModal) {
     modalTitle.textContent = `редактирование ${name}`
     // Устанавливает значение в поле ввода (input) модального окна (modalBodyInputName) равным значению переменной name.
     modalBodyInput_Name.value = name
-    modalBodyInput_Login.value = login
+    modalBodyInput_fio.value = fio
     modalBodyInput_Position.value = position
     modalBodyInput_Description.value = description
     modalBodyInput_Id.value = id

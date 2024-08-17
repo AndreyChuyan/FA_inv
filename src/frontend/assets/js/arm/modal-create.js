@@ -14,7 +14,7 @@ saveButton_create.addEventListener('click', () => {
   const cr11  = document.querySelector('#cr-state').value;
   const cr12  = document.querySelector('#cr-description').value;
   const cr13  = document.querySelector('#cr-department-arm').value;
-  const cr14  = document.querySelector('#cr_login').value;
+  const cr14  = document.querySelector('#cr_fio').value;
 
   if (!cr1.trim()) { // Проверка на пустое значение (и пробелы)
     alert("Пожалуйста, заполните поле - Учетное имя:.");
