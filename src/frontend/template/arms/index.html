@@ -85,6 +85,7 @@
                           <!-- Выделенный текст -->
                           <span style="background-color: #0b79c2; color: white; padding: 5px;">
                               {% set varUserName = tuple2.name %}
+                              {% set varUserId = tuple2.id %}
                               {{varUserName}}
                           </span>
                         </div>
@@ -122,6 +123,8 @@
                             data-bs-state="{{object.state}}"
                             data-bs-description="{{object.description}}"
                             data-bs-workerdepartment= "{{worker.department}}"
+                            data-bs-user_id="{{varUserId}}"
+                            console.log(data-bs-user)
                             >
                             Редакт
                           </button>

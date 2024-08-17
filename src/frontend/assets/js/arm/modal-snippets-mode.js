@@ -23,8 +23,11 @@ if (updateModal) {
     const state             = button.getAttribute('data-bs-state')
     const description       = button.getAttribute('data-bs-description')
     const workerdepartment  = button.getAttribute('data-bs-workerdepartment')
+    const user_id           = button.getAttribute('data-bs-user_id')
+      
 
-    // Обновляет содержимое заголовка модального окна 
+    
+    // Обновляет содержимое модального окна 
     const modalTitle = updateModal.querySelector('.modal-title')
     const modalBodyInput_01  = updateModal.querySelector('#arm-id')
     const modalBodyInput_02 = updateModal.querySelector('#arm-department')
@@ -43,11 +46,14 @@ if (updateModal) {
     const modalBodyInput_23 = updateModal.querySelector('#arm-description')
 
 
+    const selectElement = document.getElementById('arm-user')
+
+    console.log(user_id)
     // формирует текст  и устанавливает его в соответствующий элемент модального окна modalTitle.
     modalTitle.textContent = `редактирование компьютера ${title}`
     // Устанавливает значение в поле ввода (input) модального окна 
     modalBodyInput_01.value = id
-    modalBodyInput_11.value = user            
+    modalBodyInput_11.value = user
     modalBodyInput_12.value = title           
     modalBodyInput_13.value = location        
     modalBodyInput_14.value = name            
@@ -61,6 +67,9 @@ if (updateModal) {
     modalBodyInput_22.value = state           
     modalBodyInput_23.value = description     
     modalBodyInput_02.value = workerdepartment
+
+    // значение id пользователя по умолчанию
+    selectElement.value = user_id
 
   })
 }

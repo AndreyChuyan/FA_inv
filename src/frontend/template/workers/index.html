@@ -45,7 +45,7 @@
   <div class="col-12">
     <!-- Заголовок таблицы-->
     <h3 class="mb-4"></h3>
-    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Ваш логин: {{ worker.fio }}</h3>
+    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Ваш логин: {{ worker.name }}</h3>
     <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Подразделение: {{ worker.department }}</h3>
     <!-- Таблица -->
     <div class="table-responsive">
@@ -66,8 +66,8 @@
               {% if workers.department == worker.department %}
                 <tr class="table-success " >
                   <td>{{ workers.role.name }}</td>
-                  <td>{{ workers.fio }}</td>
                   <td>{{ workers.name }}</td>
+                  <td>{{ workers.fio }}</td>
                   <td>{{ workers.position }}</td>
                   <td>{{ workers.description }}</td>
                   <td>
@@ -75,8 +75,8 @@
                     <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
                       data-bs-toggle="modal" 
                       data-bs-target="#updateModal" 
-                      data-bs-1="{{workers.name}}" 
-                      data-bs-2="{{workers.fio}}"
+                      data-bs-1="{{workers.fio}}" 
+                      data-bs-2="{{workers.name}}"
                       data-bs-3="{{workers.position}}"
                       data-bs-4="{{workers.description}}"
                       data-bs-5= "{{workers.id}}"

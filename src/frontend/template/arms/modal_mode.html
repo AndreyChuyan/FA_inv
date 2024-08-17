@@ -17,20 +17,21 @@
           </div>
           <!-- поля значений -->
 
+
           <div class="mb-3">
-            <!-- Выпадающий список -->
-            <label for="arm-user" class="col-form-label">Пользователь:</label>
+            <label for="arm-user" class="col-form-label">Пользователь: </label>
             <select class="form-control" id="arm-user">
+              <!-- <option value="1" selected>obi</option> -->
               {% for tuple_worker in data_worker %}
-                {% if tuple_worker.department == worker.department %}  
-                  {{tuple_worker.name}}
+                {% if tuple_worker.department == worker.department %}
                   <option value="{{tuple_worker.id}}">{{tuple_worker.name}}</option>
                 {% endif %}
               {% endfor %}
-              <!-- Добавьте дополнительные элементы, если нужно -->
             </select>
-
           </div>
+
+
+          
           <div class="mb-3">
             <label for="arm-title" class="col-form-label">Учетное имя:</label>
             <input type="text" class="form-control" id="arm-title">
