@@ -9,6 +9,7 @@ from .schemas import ArmBase, ArmOut, ArmForm
 from .crud import CRUDArm
 from database.crud_base import CRUDBase
 from objects.worker.dependency import get_current_worker
+from exception import DuplicateObjectException
 
 # отладка
 import logging
@@ -29,9 +30,14 @@ async def create(
     """
     data = arm.dict()
     object = data.pop("arm", None)
-    object_resp = await CRUDArm.create(session, data)
+    object_resp, error_info = await CRUDArm.create(session, data)
+    # обработка ошибки
     if object_resp is None:
-        raise exception_unique_field
+        if "UNIQUE constraint failed: arm.title" in error_info:
+            raise DuplicateObjectException("UNIQUE constraint failed: arm.title")
+        else:
+        # Обработка других типов ошибок
+            raise HTTPException(status_code=400, detail="Failed to create arm")
     if object:
         arm["id"] = object_resp.id
         await CRUDArm.create(session, object)

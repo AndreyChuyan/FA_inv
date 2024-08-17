@@ -10,7 +10,8 @@ from .crud import CRUDWorker
 from .dependency import get_current_worker, get_worker_by_id
 
 from .auth import hash_password, verify_password, create_access_token
-from .exceptions import exception_user_not_found, exception_auth, exception_unique_field
+from .exceptions import exception_user_not_found, exception_auth
+from exception import DuplicateObjectException
 
 # отладка
 import logging
@@ -66,6 +67,26 @@ async def fio_for_access_token_frontend(
 #     return response
 
 # --- Standart CRUD
+# @router.post("/", response_model=WorkerOut, status_code=status.HTTP_201_CREATED)
+# async def create(
+#     user: WorkerCreate, 
+#     session: AsyncSession = Depends(get_session),
+#     # current_user: Worker = Depends(get_current_worker),
+#     ):
+#     """
+#     Создание нового пользователя.
+#     """
+#     user.password = hash_password(user.password)
+#     data = user.dict()
+#     worker = data.pop("worker", None)
+#     new_user = await CRUDWorker.create(session, data)
+#     if new_user is None:
+#         raise exception_unique_field
+#     if worker:
+#         user["id"] = new_user.id
+#         await CRUDWorker.create(session, worker)
+#     return new_user
+
 @router.post("/", response_model=WorkerOut, status_code=status.HTTP_201_CREATED)
 async def create(
     user: WorkerCreate, 
@@ -78,14 +99,18 @@ async def create(
     user.password = hash_password(user.password)
     data = user.dict()
     worker = data.pop("worker", None)
-    new_user = await CRUDWorker.create(session, data)
+    new_user, error_info = await CRUDWorker.create(session, data)
     if new_user is None:
-        raise exception_unique_field
+        log.debug(f'Debug --- router create - error_info {error_info}')
+        if "UNIQUE constraint failed: worker.name" in error_info:
+            raise DuplicateObjectException("UNIQUE constraint failed: worker.name")
+        else:
+        # Обработка других типов ошибок
+            raise HTTPException(status_code=400, detail="Failed to create user")
     if worker:
         user["id"] = new_user.id
         await CRUDWorker.create(session, worker)
     return new_user
-
 
 @router.get("/{worker_id}", response_model=WorkerOut)
 async def get_user(

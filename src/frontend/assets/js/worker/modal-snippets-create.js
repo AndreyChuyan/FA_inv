@@ -15,7 +15,7 @@ if (createModal) {
     const modalBodyInputDepartment = createModal.querySelector('#worker-cr-department')
 
     // формирует текст  и устанавливает его в соответствующий элемент модального окна modalTitle.
-    modalTitle.textContent = `редактирование ${name}`
+    modalTitle.textContent = `Создание нового пользователя`
     // Устанавливает значение в поле ввода (input) модального окна (modalBodyInputName) равным значению переменной name.
     modalBodyInputDepartment.value = department
 

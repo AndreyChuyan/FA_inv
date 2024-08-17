@@ -23,17 +23,19 @@ class CRUDBase:
 
     # для создания нового объекта model и его сохранения в базе данных через асинхронный сеанс session
     @classmethod
-    async def create(cls, session: AsyncSession, data: dict) -> model | None:
+    async def create(cls, session: AsyncSession, data: dict) -> tuple[model | None, str | None]:
         """Создание нового объекта"""
         try:
             obj = cls.model(**data)
             session.add(obj)
             await session.commit()
             await session.refresh(obj)
-            return obj
-        except IntegrityError:
+            return obj, None
+        except IntegrityError as e:
             await session.rollback()
-            return None
+            error_info = str(e.orig)
+            log.debug(f'Debug --- create error_info={error_info}')
+            return None, error_info
 
     @classmethod
     async def get_by_id(cls, session: AsyncSession, id: int) -> model | None:

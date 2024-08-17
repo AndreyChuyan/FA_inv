@@ -14,3 +14,11 @@ exception_user_not_found = HTTPException(status_code=404, detail="User not found
 exception_unique_field = HTTPException(
     status_code=400, detail="Unique field already exists."
 )
+
+
+
+        
+# exception_duplicate = HTTPException(
+#     status_code=400, 
+#     detail="A record with this data already exists."
+# )

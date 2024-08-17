@@ -28,7 +28,7 @@ class Worker(Base):
     id = Column(Integer, primary_key=True)
     role = Column(Enum(Role), default=Role.guest)
     fio = Column(String)
-    name = Column(String)
+    name = Column(String, unique=True)
     password = Column(String)
     department = Column(String)
     position = Column(String)

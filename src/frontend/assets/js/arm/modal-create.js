@@ -16,10 +16,13 @@ saveButton_create.addEventListener('click', () => {
   const cr13  = document.querySelector('#cr-department-arm').value;
   const cr14  = document.querySelector('#cr_fio').value;
 
-  if (!cr1.trim()) { // Проверка на пустое значение (и пробелы)
+  // Проверки на пустое значение (и пробелы)
+  if (!cr1.trim()) { 
     alert("Пожалуйста, заполните поле - Учетное имя:.");
-    return; // Прерываем выполнение функции
+    return; 
   }
+
+
 
   const data = {
     title:          cr1,
@@ -44,31 +47,41 @@ saveButton_create.addEventListener('click', () => {
   fetch('/arm/', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  })
+})
+// проверка на конфликт дублирования
   .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
+      if (!response.ok) {
+          return response.json().then(data => {
+              if (data.message === 'UNIQUE constraint failed: arm.title') {
+                  alert('Компьютер с таким учетным именем уже существует. Пожалуйста, выберите другое имя.');
+                  throw new Error('Duplicate object');
+              } else {
+                  throw new Error('Network response was not ok');
+              }
+          });
+      }
+      // только если запрос прошел успешно, возвращаем данные
+      return response.json();
   })
   .then(data => {
-    console.log('Response from server:', data);
+      console.log('Response from server:', data);
 
-    const modal = document.querySelector('#modalCreateArm');
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.hide();
-
+      const modal = document.querySelector('#modalCreateArm');
+      const bsModal = bootstrap.Modal.getInstance(modal);
+      
+      // только если запрос прошел успешно без конфликтов, закрываем модальное окно
+      bsModal.hide();
+      
       // Устанавливаем задержку перед обновлением страницы
-  setTimeout(() => {
-      // Обновляем текущую страницу
-      window.location.reload();
-    }, 500); // 1 секунда
-
+      setTimeout(() => {
+          // Обновляем текущую страницу
+          window.location.reload();
+      }, 500); // 0.5 секунды
   })
   .catch(error => {
-    console.error('There was a problem with fetch operation:', error);
+      console.error('There was a problem with fetch operation:', error);
   });
 });

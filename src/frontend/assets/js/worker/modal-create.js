@@ -9,6 +9,18 @@ saveButton_create.addEventListener('click', () => {
   const cr_department = document.querySelector('#worker-cr-department').value;
   const cr_password = document.querySelector('#worker-cr-password').value;
 
+  // Проверки на пустое значение (и пробелы)
+  if (!cr_name.trim()) { 
+    alert("Пожалуйста, заполните поле - Логин:");
+    return; 
+  }
+
+  // Проверки на пустое значение (и пробелы)
+  if (!cr_password.trim()) { 
+    alert("Пожалуйста, заполните поле - Пароль:");
+    return; 
+  }  
+
   const data = {
     fio: cr_fio,
     name: cr_name,
@@ -26,27 +38,36 @@ saveButton_create.addEventListener('click', () => {
     },
     body: JSON.stringify(data)
   })
+
+  // проверка на конфликт дублирования
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      return response.json().then(data => {
+        if (data.message === 'UNIQUE constraint failed: worker.name') {
+          alert('Пользователь с таким логином уже существует. Пожалуйста, выберите другой логин.');
+          throw new Error('Duplicate object');
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      });
     }
     return response.json();
   })
   .then(data => {
     console.log('Response from server:', data);
-
+    
     const modal = document.querySelector('#createWorkerModal');
-    const bsModal = new bootstrap.Modal(modal);
+    const bsModal = bootstrap.Modal.getInstance(modal);
     bsModal.hide();
+
 
       // Устанавливаем задержку перед обновлением страницы
       setTimeout(() => {
         // Обновляем текущую страницу
         window.location.reload();
       }, 500); // 1 секунда
-  
-    })
-    .catch(error => {
-      console.error('There was a problem with fetch operation:', error);
-    });
+  })
+  .catch(error => {
+    console.error('There was a problem with fetch operation:', error);
   });
+});

@@ -3,13 +3,21 @@ const saveButton = document.querySelector('#updateModal .btn-primary');
 // Добавляет обработчик события клика на кнопку "Сохранить"
 saveButton.addEventListener('click', () => {
   // Получает значения полей ввода из модального окна
-  const fio = document.querySelector('#worker-fio').value;
-  const name = document.querySelector('#worker-name').value;
-  const position = document.querySelector('#worker-position').value;
+  const fio         = document.querySelector('#worker-fio').value;
+  const name        = document.querySelector('#worker-name').value;
+  const position    = document.querySelector('#worker-position').value;
   const description = document.querySelector('#worker-description').value;
-  const id = document.querySelector('#worker-id').value;
-  const department = document.querySelector('#worker-department').value;
-  const role = document.querySelector('#worker-role').value;
+  const id          = document.querySelector('#worker-id').value;
+  const department  = document.querySelector('#worker-department').value;
+  const role        = document.querySelector('#worker-role').value;
+
+  // Проверки на пустое значение (и пробелы)
+  if (!name.trim()) { 
+    alert("Пожалуйста, заполните поле - Логин:");
+    return; 
+  }
+
+
 
   // Передает значения полей в роутер с параметрами
   // Собрать данные, которые вы хотите отправить на сервер, в объект JavaScript:

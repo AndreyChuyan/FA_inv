@@ -2,3 +2,4 @@ __pycache__/main.cpython-312.pyc
 *cpython-312.pyc
 .venv
 __pycache__
+.env
