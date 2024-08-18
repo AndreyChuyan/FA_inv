@@ -147,10 +147,22 @@ async def update_by_id(
     """
     Обновление пользователя
     """
-    log.debug(f'Debug --- worker_update_by_id user.name={user.name}')
+    # если пароль не введен в форму - он в базе данных не меняется
+    if user.password == "":
+        user.password = None
+    else:
+        user.password = hash_password(user.password)
+    log.debug(f'Debug --- worker_update_by_id user.password={user.password}')
     data = user.dict()
-    user = await CRUDWorker.update_by_id(session, id, data)
+    user, error_info = await CRUDWorker.update_by_id(session, id, data)
     # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')
+    if user is None:
+        log.debug(f'Debug --- router create - error_info {error_info}')
+        if "UNIQUE constraint failed: worker.name" in error_info:
+            raise DuplicateObjectException("UNIQUE constraint failed: worker.name")
+        else:
+        # Обработка других типов ошибок
+            raise HTTPException(status_code=400, detail="Failed to create user")
     return user
 
 @router.delete("/{id}", response_model=bool)

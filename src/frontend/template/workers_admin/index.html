@@ -24,6 +24,15 @@
             font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
           /* Другие стили для ячеек таблицы */
       }
+
+      .orange-bold-text {
+        color: rgb(204, 99, 7);
+        font-weight: bold;
+      }
+      .red-bold-text {
+        color: rgb(254, 63, 0);
+        font-weight: bold;
+      }
   </style>
 </head>
 
@@ -33,13 +42,11 @@
     <div class="card" style="width: 18rem; margin: 10px;">
       <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title" style="text-align: center;">Создать нового ответственного за учет</h5>
+        <h5 class="card-title" style="text-align: center;">Создать нового пользователя или ответственного</h5>
       </div>
     </div>
   </a>
 </div>
-
-
 
 <div class="row ">
   <div class="col-12">
@@ -64,9 +71,8 @@
         <tbody class="text-center">
           {% for worker_tuple in data %}
             {% set workers = worker_tuple %}
-              {% if workers.role.name == "user" %}
                 <tr class="table-success " >
-                  <td>{{ workers.role.name }}</td>
+                  <td>{% if workers.role.name == 'user' %}<span class="orange-bold-text">Ответственный</span>{% elif workers.role.name == 'admin' %}<span class="red-bold-text">Администратор</span> {% else %}Пользователь{% endif %}</td>
                   <td>{{ workers.department }}</td>
                   <td>{{ workers.name }}</td>
                   <td>{{ workers.fio }}</td>
@@ -76,14 +82,14 @@
                     <!-- Кнопка для редактирования -->
                     <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
                       data-bs-toggle="modal" 
-                      data-bs-target="#updateModal" 
-                      data-bs-1="{{workers.fio}}" 
-                      data-bs-2="{{workers.name}}"
-                      data-bs-3="{{workers.position}}"
-                      data-bs-4="{{workers.description}}"
-                      data-bs-5= "{{workers.id}}"
-                      data-bs-6= "{{workers.department}}"
-                      data-bs-7= "{{workers.role}}">
+                      data-bs-target="#modal_update" 
+                      data-bs1="{{workers.fio}}" 
+                      data-bs2="{{workers.name}}"
+                      data-bs3="{{workers.position}}"
+                      data-bs4="{{workers.description}}"
+                      data-bs5= "{{workers.id}}"
+                      data-bs6= "{{workers.department}}"
+                      data-bs7= "{{workers.role.name}}">
                       Редакт
                     </button>
                     <!-- Кнопка для удаления -->
@@ -94,7 +100,6 @@
                   </td>
                 </tr>
               </tr>
-                {% endif %}
           {% endfor %}
         </tbody>
       </table>

@@ -58,6 +58,24 @@ class CRUDBase:
             return False
 
     @classmethod
+    
+        # async def update_by_id(cls, session: AsyncSession, id: int, data: dict) -> model | None:
+        # """Обновление существующего объекта по ID"""
+        # try:
+        #     obj = await session.get(cls.model, id)
+        #     if not obj:
+        #         return None
+        #     for key, value in data.items():
+        #         setattr(obj, key, value)
+        #     await session.commit()
+        #     await session.refresh(obj)
+        #     return obj
+        # except IntegrityError:
+        #     await session.rollback()
+        #     return None
+        # except NoResultFound:
+        #     return None
+    
     async def update_by_id(cls, session: AsyncSession, id: int, data: dict) -> model | None:
         """Обновление существующего объекта по ID"""
         try:
@@ -65,13 +83,17 @@ class CRUDBase:
             if not obj:
                 return None
             for key, value in data.items():
+                if key == "password" and value is None:
+                    continue  # Пропускаем обновление пароля, если он не предоставлен
                 setattr(obj, key, value)
             await session.commit()
             await session.refresh(obj)
-            return obj
-        except IntegrityError:
+            return obj, None
+        except IntegrityError as e:
             await session.rollback()
-            return None
+            error_info = str(e.orig)
+            log.debug(f'Debug --- create error_info={error_info}')
+            return None, error_info
         except NoResultFound:
             return None
         

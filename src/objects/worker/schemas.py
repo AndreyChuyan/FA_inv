@@ -1,4 +1,4 @@
-﻿from pydantic import BaseModel
+﻿from pydantic import BaseModel, Field
 from typing import Optional
 from enum import Enum
 
@@ -29,9 +29,10 @@ class WorkerOut(WorkerBase):
     name: str
 
 class WorkerForm(BaseModel):
-    # role: str = 'guest'
+    role: str = 'guest'
     fio: str
     name: str
     department: str
     position: str
     description: str
+    password: Optional[str] = Field(default=None, description="Password")
