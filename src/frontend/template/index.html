@@ -21,26 +21,47 @@
 {% if worker.role.value == 'admin' %}
 
 <li class="nav-item {% if request_path == '/worker' %}active{% endif %}">
-  <a class="nav-link" href="/worker">
+  <!-- <a class="nav-link" href="/worker"> -->
     <div class="row">
-      <div class="col-12">
-        <h1>Привет Админ!</h1>
-        <h4>Приложение предназначено для инвентаризации вычислительной техники в подразделении</h4>
+      <div class="col-12 text-center">
+        <h1>Привет администратор!</h1>
+        <h4>На этой странице ты можешь создавать и редактировать ответственных за учет</h1>
+        <h3>Твой логин: {{ worker.name }}</h5>
+        <h3>Твое подразделение: {{ worker.department }}</h5>
       </div>
     </div>
 
     <div class="d-flex justify-content-center">
-      <div class="card" style="width: 18rem;">
-        <img src="../assets/img/student.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Админ</h3>
-
-        </div>
+      <div class="d-flex flex-wrap justify-content-around">
+        <a class="nav-link" href="/workers_admin">
+          
+          <div class="card text-center" style="width: 18rem; margin: 10px;">
+            <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              
+            <h3 class="card-title">Ответственные за учет</h3>
+            <!-- <h5 class="card-title">{{ worker.name }}</h5> -->
+            </div>
+        </a>
       </div>
+        
+      <div class="d-flex flex-wrap justify-content-around">
+        <a class="nav-link" href="/arms">
+          <div class="card text-center" style="width: 18rem; margin: 10px;">
+            <img src="../assets/img/arm.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              
+            <h3 class="card-title">Экспорт даннных в exel</h3>
+            <!-- <h5 class="card-title">{{ worker.name }}</h5> -->
+          </div>
+        </a>
+      </div>
+
     </div>
-  
+  </div>
+
   </a>
-</li> 
+</li>
 {% endif %}
 
 
@@ -49,21 +70,18 @@
   <!-- <a class="nav-link" href="/prepod"> -->
     
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 text-center">
         <h1>Привет ответственный за учет!</h1>
-        <h3>В приложении ты можешь редактировать пользователей и компьютеры подразделения для их актуального учета</h1>
-        <h4>Твой логин: {{ worker.name }}</h5>
-        <h4>Твое подразделение: {{ worker.department }}</h5>
+        <h4>В приложении ты можешь редактировать пользователей и компьютеры подразделения для их актуального учета</h1>
+        <h3>Твой логин: {{ worker.name }}</h5>
+        <h3>Твое подразделение: {{ worker.department }}</h5>
       </div>
     </div>
 
     <div class="d-flex justify-content-center">
-
-      
-
       <div class="d-flex flex-wrap justify-content-around">
         <a class="nav-link" href="/workers">
-          <div class="card" style="width: 18rem; margin: 10px;">
+          <div class="card text-center" style="width: 18rem; margin: 10px;">
             <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               
@@ -76,7 +94,7 @@
         
       <div class="d-flex flex-wrap justify-content-around">
         <a class="nav-link" href="/arms">
-          <div class="card" style="width: 18rem; margin: 10px;">
+          <div class="card text-center" style="width: 18rem; margin: 10px;">
             <img src="../assets/img/arm.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               

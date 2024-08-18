@@ -1,0 +1,140 @@
+{% extends "base/base.html" %}
+
+
+
+{% block title %}Все пользователи{% endblock %}
+
+
+{% block content %}
+
+
+<head>
+  <style>
+      /* Изменение шрифта для таблицы */
+      table {
+          font-family: Arial, sans-serif; /* Новый шрифт */
+          /* Другие стили таблицы */
+      }
+      td {
+          font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
+          /* Другие стили для ячеек таблицы */
+      }
+          th {
+            text-align: center; /* Выравнивание текста в надписях по центру */
+            font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
+          /* Другие стили для ячеек таблицы */
+      }
+  </style>
+</head>
+
+<!-- карточка для создания -->
+<div class="d-flex justify-content-center align-items-center">
+  <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal_create" bs-department="{{worker.department}}">
+    <div class="card" style="width: 18rem; margin: 10px;">
+      <img src="../assets/img/workers.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title" style="text-align: center;">Создать нового ответственного за учет</h5>
+      </div>
+    </div>
+  </a>
+</div>
+
+
+
+<div class="row ">
+  <div class="col-12">
+    <!-- Заголовок таблицы-->
+    <h3 class="mb-4"></h3>
+    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Ваш логин: {{ worker.name }}</h3>
+    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Подразделение: {{ worker.department }}</h3>
+    <!-- Таблица -->
+    <div class="table-responsive">
+      <table class="table table-hover table-shadow table-rounded ">
+        <thead>
+          <tr>
+            <th scope="col" >Роль</th>
+            <th scope="col" >Подразделение</th>
+            <th scope="col" >Логин</th>
+            <th scope="col" >Имя</th>
+            <th scope="col" >Должность</th>
+            <th scope="col" >Описание</th>
+            <th scope="col" >Действия</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          {% for worker_tuple in data %}
+            {% set workers = worker_tuple %}
+              {% if workers.role.name == "user" %}
+                <tr class="table-success " >
+                  <td>{{ workers.role.name }}</td>
+                  <td>{{ workers.department }}</td>
+                  <td>{{ workers.name }}</td>
+                  <td>{{ workers.fio }}</td>
+                  <td>{{ workers.position }}</td>
+                  <td>{{ workers.description }}</td>
+                  <td>
+                    <!-- Кнопка для редактирования -->
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white;"
+                      data-bs-toggle="modal" 
+                      data-bs-target="#updateModal" 
+                      data-bs-1="{{workers.fio}}" 
+                      data-bs-2="{{workers.name}}"
+                      data-bs-3="{{workers.position}}"
+                      data-bs-4="{{workers.description}}"
+                      data-bs-5= "{{workers.id}}"
+                      data-bs-6= "{{workers.department}}"
+                      data-bs-7= "{{workers.role}}">
+                      Редакт
+                    </button>
+                    <!-- Кнопка для удаления -->
+                    <button type="button" class="btn btn-danger btn-sm" style="color: white;" 
+                      onclick="deleteWorker('{{ workers.id }}')">
+                      Уд
+                    </button>
+                  </td>
+                </tr>
+              </tr>
+                {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  function deleteWorker(workerId) {
+    if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {
+      // Здесь вы можете выполнить AJAX-запрос для удаления пользователя
+      console.log('Deleting worker with ID:', workerId);
+      // Например, можно использовать fetch для отправки запроса на сервер
+      fetch(`/worker/${workerId}`, {
+        method: 'DELETE'
+      }).then(response => {
+        if (response.ok) {
+          // Перезагрузка страницы или обновление таблицы после успешного удаления
+          location.reload();
+        } else {
+          alert('Ошибка при удалении пользователя.');
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка при удалении пользователя.');
+      });
+    }
+  }
+</script>
+
+<script>
+  var card = document.querySelector('.card');
+  var modal = document.getElementById('myModal');
+  var closeBtn = document.querySelector('.close');
+
+</script>
+
+{% include "workers_admin/modal_mode.html" %}
+{% include "workers_admin/modal_create.html" %}
+{% include "workers_admin/scripts.html" %}
+
+
+{% endblock %}

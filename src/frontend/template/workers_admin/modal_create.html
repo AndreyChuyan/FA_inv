@@ -1,0 +1,48 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="modal_create" tabindex="-1" aria-labelledby="CreateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal_create">Создание пользователя</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!-- скрытое поле для хранения значения -->
+          <div>
+            <input type="hidden" id="cr-department">
+          </div>
+          <!-- поля значений -->
+          <div class="mb-3">
+            <label for="worker-cr-department" class="col-form-label">Подразделение: </label>
+            <input type="text" class="form-control" id="worker-cr-department">
+          </div>
+          <div class="mb-3">
+            <label for="worker-cr-name" class="col-form-label">Логин:</label>
+            <input type="text" class="form-control" id="worker-cr-name">
+          </div>
+          <div class="mb-3">
+            <label for="worker_cr_fio" class="col-form-label">Имя:</label>
+            <input type="text" class="form-control" id="worker_cr_fio">
+          </div>
+          <div class="mb-3">
+            <label for="worker-cr-name" class="col-form-label">Пароль:</label>
+            <input type="text" class="form-control" id="worker-cr-password">
+          </div>
+          <div class="mb-3">
+            <label for="worker-cr-position" class="col-form-label">Должность:</label>
+            <input type="text" class="form-control" id="worker-cr-position">
+          </div>
+          <div class="mb-3">
+            <label for="worker-cr-description" class="col-form-label">Описание:</label>
+            <input type="text" class="form-control" id="worker-cr-description">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
