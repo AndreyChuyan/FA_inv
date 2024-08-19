@@ -24,6 +24,14 @@
             font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
           /* Другие стили для ячеек таблицы */
       }
+      .orange-bold-text {
+        color: rgb(204, 99, 7);
+        font-weight: bold;
+      }
+      .red-bold-text {
+        color: rgb(254, 63, 0);
+        font-weight: bold;
+      }
   </style>
 </head>
 
@@ -63,9 +71,9 @@
         <tbody class="text-center">
           {% for worker_tuple in data %}
             {% set workers = worker_tuple %}
-              {% if workers.department == worker.department %}
+              {% if workers.department == worker.department and workers.role.name != "admin"%}
                 <tr class="table-success " >
-                  <td>{{ workers.role.name }}</td>
+                  <td>{% if workers.role.name == 'user' %}<span class="orange-bold-text">Ответственный</span>{% elif workers.role.name == 'admin' %}<span class="red-bold-text">Администратор</span> {% else %}Пользователь{% endif %}</td>
                   <td>{{ workers.name }}</td>
                   <td>{{ workers.fio }}</td>
                   <td>{{ workers.position }}</td>

@@ -10,7 +10,7 @@ saveButton.addEventListener('click', () => {
   const id          = document.querySelector('#worker-id').value;
   const department  = document.querySelector('#worker-department').value;
   const role        = document.querySelector('#worker-role').value;
-
+  const password    = document.querySelector('#worker-password').value;
   // Проверки на пустое значение (и пробелы)
   if (!name.trim()) { 
     alert("Пожалуйста, заполните поле - Логин:");
@@ -25,7 +25,7 @@ saveButton.addEventListener('click', () => {
     // role: role,
     fio: fio,
     name: name,
-    // password: "",
+    password: password,
     department: department,
     position: position,
     description: description
@@ -41,10 +41,17 @@ saveButton.addEventListener('click', () => {
   body: JSON.stringify(data)
   })
   .then(response => {
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
+    if (!response.ok) {
+      return response.json().then(data => {
+        if (data.message === 'UNIQUE constraint failed: worker.name') {
+          alert('Пользователь с таким логином уже существует. Пожалуйста, выберите другой логин.');
+          throw new Error('Duplicate user');
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      });
+    }
+    return response.json();
   })
   .then(data => {
   console.log('Response from server:', data);
