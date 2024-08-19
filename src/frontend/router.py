@@ -12,7 +12,8 @@ from database.models import Worker
 from database.database import get_session
 from .dependency import get_worker_or_redirect
 
-
+import subprocess
+import traceback
 
 # отладка
 import logging
@@ -116,5 +117,19 @@ async def get_workers(
         {"request": request, "worker": worker, "data": data},
     )
 
+# @router.post("/base_export_script")
+# async def base_export_script():
+#     # Запускаем внешний скрипт
+#     try:
+#         result = subprocess.run(["python", "./scripts/base_export_script.py"], check=True, capture_output=True, text=True)
+#         return {"message": "True", "output": result.stdout}
+#     except subprocess.CalledProcessError as e:
+#         return {"message": "False", "error": str(e), "stderr": e.stderr, "traceback": traceback.format_exc()}
 
+@router.get("/base_export_script")
+async def base_export_script(
+    session: AsyncSession = Depends(get_session),
+):
+    data = await CRUDWorker.export_sqlite_to_excel(session)
+    return data
 

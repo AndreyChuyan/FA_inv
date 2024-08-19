@@ -65,20 +65,3 @@ class Arm(Base):
     conn_arm_worker = relationship(
         "Worker", back_populates="conn_worker_arm"
     )
-
-    # def __str__(self):
-    #     return f"Arm: {self.name} department: {self.department} ID: {self.id}"
-
-
-# class Inventory(Base):
-#     __tablename__ = "inventory"
-#     id = Column(Integer, primary_key=True)
-#     id_worker = Column(Integer, ForeignKey("worker.id"), default=1)
-#     id_arm = Column(Integer, ForeignKey("arm.id"), default=1)
-
-#     conn_inventory_worker = relationship(
-#         "Worker", back_populates="conn_worker_inventory"
-#     )
-#     conn_inventory_arm = relationship(
-#         "Arm", back_populates="conn_arm_inventory"
-#         )

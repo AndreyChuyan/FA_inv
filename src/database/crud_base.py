@@ -7,6 +7,7 @@ from .models import Arm, Worker
 from sqlalchemy import update, delete
 from typing import List, TypeVar, Type
 from sqlalchemy.orm import declarative_base
+import pandas as pd 
 
 # отладка
 import logging
@@ -66,24 +67,6 @@ class CRUDBase:
             return False
 
     @classmethod
-    
-        # async def update_by_id(cls, session: AsyncSession, id: int, data: dict) -> model | None:
-        # """Обновление существующего объекта по ID"""
-        # try:
-        #     obj = await session.get(cls.model, id)
-        #     if not obj:
-        #         return None
-        #     for key, value in data.items():
-        #         setattr(obj, key, value)
-        #     await session.commit()
-        #     await session.refresh(obj)
-        #     return obj
-        # except IntegrityError:
-        #     await session.rollback()
-        #     return None
-        # except NoResultFound:
-        #     return None
-    
     async def update_by_id(cls, session: AsyncSession, id: int, data: dict) -> model | None:
         """Обновление существующего объекта по ID"""
         try:
@@ -105,3 +88,21 @@ class CRUDBase:
         except NoResultFound:
             return None
         
+    @classmethod
+    async def export_sqlite_to_excel(cls, session: AsyncSession, output_excel_file: str = "./export_db.xlsx"):
+        async with session.begin():
+            # Выполняем асинхронный запрос к базе данных для получения всех имен таблиц
+            result = await session.execute(select(["name"]).select_from("sqlite_master").where("type='table'"))
+            tables = [row[0] for row in result.fetchall()]
+
+            # Создаем Excel файл
+            with pd.ExcelWriter(output_excel_file, engine='xlsxwriter') as writer:
+                # Экспортируем данные каждой таблицы в отдельный лист Excel
+                for table in tables:
+                    # Используем синхронный метод для чтения данных из таблицы
+                    query = f'SELECT * FROM {table}'
+                    df = pd.read_sql(query, session.bind)
+                    df.to_excel(writer, sheet_name=table)
+
+            print(f"Данные успешно экспортированы в {output_excel_file}")
+            return {"message": "Export successful", "file": output_excel_file}
