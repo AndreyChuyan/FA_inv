@@ -73,7 +73,7 @@ async def get_workers(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
-    data = await CRUDWorker.get_all(session)
+    data = await CRUDWorker.get_all_worker_sorted(session)
     # log.debug(f"Debug --- /workers data_users= {data_users}")
     # log.debug(f"Debug --- /workers data_users[0][0].name= {data_users[0][0].name}")
     # data = [{"id": i, **dct} for i, dct in enumerate(data, start=1)]
@@ -93,7 +93,7 @@ async def get_arms(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
-    data = await CRUDArm.get_all(session)
+    data = await CRUDArm.get_all_arm_sorted(session)
     data_worker = await CRUDWorker.get_all(session)
 
     log.debug(f"Debug --- /arms data= {data}")

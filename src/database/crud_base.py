@@ -5,19 +5,27 @@ from fastapi import HTTPException
 from .database import Base
 from .models import Arm, Worker
 from sqlalchemy import update, delete
+from typing import List, TypeVar, Type
+from sqlalchemy.orm import declarative_base
 
 # отладка
 import logging
 log = logging.getLogger("uvicorn")
 
+# Декларация Base
+Base = declarative_base()
+ModelType = TypeVar("ModelType", bound=Base)
+
 class CRUDBase:
-    model: Base = Base
+    model: Type[ModelType] = Base
 
     @classmethod
-    async def get_all(cls, session: AsyncSession) -> list[model]:
+    async def get_all(cls, session: AsyncSession, order_by=None) -> list[model]:
         """Получение всех объектов"""
         query = select(cls.model)
         # log.debug(f'Debug --- get_all query={query}')
+        if order_by:
+            query = query.order_by(*order_by)
         result = await session.execute(query)
         return result.scalars().all()
 
