@@ -9,6 +9,7 @@ from typing import List, TypeVar, Type
 from sqlalchemy.orm import declarative_base
 import pandas as pd 
 
+
 # отладка
 import logging
 log = logging.getLogger("uvicorn")
@@ -92,7 +93,8 @@ class CRUDBase:
     async def export_sqlite_to_excel(cls, session: AsyncSession, output_excel_file: str = "./export_db.xlsx"):
         async with session.begin():
             # Выполняем асинхронный запрос к базе данных для получения всех имен таблиц
-            result = await session.execute(select(["name"]).select_from("sqlite_master").where("type='table'"))
+            # result = await session.execute(select(["name"]).select_from("sqlite_master").where("type='table'"))
+            result = select(cls.model)
             tables = [row[0] for row in result.fetchall()]
 
             # Создаем Excel файл
