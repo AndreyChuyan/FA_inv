@@ -60,9 +60,9 @@
       <table class="table table-hover table-shadow table-rounded ">
         <thead>
           <tr>
-            <th scope="col" >Роль</th>
-            <th scope="col" >Логин</th>
             <th scope="col" >Имя</th>
+            <th scope="col" >Логин</th>
+            <th scope="col" >Роль</th>
             <th scope="col" >Должность</th>
             <th scope="col" >Описание</th>
             <th scope="col" >Действия</th>
@@ -73,9 +73,9 @@
             {% set workers = worker_tuple %}
               {% if workers.department == worker.department and workers.role.name != "admin"%}
                 <tr class="table-success " >
-                  <td>{% if workers.role.name == 'user' %}<span class="orange-bold-text">Ответственный</span>{% elif workers.role.name == 'admin' %}<span class="red-bold-text">Администратор</span> {% else %}Пользователь{% endif %}</td>
-                  <td>{{ workers.name }}</td>
                   <td>{{ workers.fio }}</td>
+                  <td>{{ workers.name }}</td>
+                  <td>{% if workers.role.name == 'user' %}<span class="orange-bold-text">Ответственный</span>{% elif workers.role.name == 'admin' %}<span class="red-bold-text">Администратор</span> {% else %}Пользователь{% endif %}</td>
                   <td>{{ workers.position }}</td>
                   <td>{{ workers.description }}</td>
                   <td>

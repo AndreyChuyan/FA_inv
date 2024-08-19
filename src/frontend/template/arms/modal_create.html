@@ -26,7 +26,7 @@
           </div>
           <div class="mb-3">
             <!-- Выпадающий список -->
-            <label for="cr_fio" class="col-form-label">Пользователь:</label>
+            <label for="cr_fio" class="col-form-label">Пользователь компьютера <p>(выберите ранее созданного сотрудника)</p></label>
             <select class="form-control" id="cr_fio">
               {% for tuple_worker in data_worker %}
                 {% if tuple_worker.department == worker.department %}  
@@ -38,43 +38,43 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="cr-title" class="col-form-label">Учетное имя:</label>
+            <label for="cr-title" class="col-form-label">Учетное имя (например: k1-222-1)</label>
             <input type="text" class="form-control" id="cr-title">
           </div>
           <div class="mb-3">
-            <label for="cr-location" class="col-form-label">Расположение (кабинет):</label>
+            <label for="cr-location" class="col-form-label">Расположение (кабинет) (например: 222)</label>
             <input type="text" class="form-control" id="cr-location">
           </div>
           <div class="mb-3">
-            <label for="cr-name" class="col-form-label">Название:</label>
+            <label for="cr-name" class="col-form-label">Название (например: Aquarius Cmp)</label>
             <input type="text" class="form-control" id="cr-name">
           </div>
           <div class="mb-3">
-            <label for="cr-model" class="col-form-label">Модель:</label>
+            <label for="cr-model" class="col-form-label">Модель (например: NS575s)</label>
             <input type="text" class="form-control" id="cr-model">
           </div>
           <div class="mb-3">
-            <label for="cr-release" class="col-form-label">Год выпуска:</label>
+            <label for="cr-release" class="col-form-label">Год выпуска (например: 2019)</label>
             <input type="text" class="form-control" id="cr-release">
           </div>
           <div class="mb-3">
-            <label for="cr-num_serial" class="col-form-label">Заводской номер:</label>
+            <label for="cr-num_serial" class="col-form-label">Заводской номер (например: FGC45678XZ)</label>
             <input type="text" class="form-control" id="cr-num_serial">
           </div>
           <div class="mb-3">
-            <label for="cr-num_invent" class="col-form-label">Инвентарный номер:</label>
+            <label for="cr-num_invent" class="col-form-label">Инвентарный номер (например: 00004158)</label>
             <input type="text" class="form-control" id="cr-num_invent">
           </div>
           <div class="mb-3">
-            <label for="cr-num_service" class="col-form-label">Сервисный номер:</label>
+            <label for="cr-num_service" class="col-form-label">Сервисный номер (например: 22277712)</label>
             <input type="text" class="form-control" id="cr-num_service">
           </div>
           <div class="mb-3">
-            <label for="cr-price" class="col-form-label">Стоимость:</label>
+            <label for="cr-price" class="col-form-label">Стоимость (например:67000)</label>
             <input type="text" class="form-control" id="cr-price">
           </div>
           <div class="mb-3">
-            <label for="cr-formular" class="col-form-label">Номер формуляра:</label>
+            <label for="cr-formular" class="col-form-label">Номер формуляра (например: 567)</label>
             <input type="text" class="form-control" id="cr-formular">
           </div>
           <div class="mb-3">
@@ -85,7 +85,7 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="cr-description" class="col-form-label">Описание:</label>
+            <label for="cr-description" class="col-form-label">Описание (выберите тип компьютера)</label>
             <select class="form-control" id="cr-description">
               <option value="Рабочий компьютер">Рабочий компьютер</option>
               <option value="Буферный компьютер">Буферный компьютер</option>
