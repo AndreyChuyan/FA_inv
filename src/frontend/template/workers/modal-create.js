@@ -1,4 +1,9 @@
-﻿const saveButton_create = document.querySelector('#createWorkerModal .btn-primary');
+﻿import { validatePassword } from '../../assets/js/validators.js';
+
+// import { validatePassword } from './validators.js';
+
+const saveButton_create = document.querySelector('#createWorkerModal .btn-primary');
+
 
 saveButton_create.addEventListener('click', () => {
   const cr_fio = document.querySelector('#worker_cr_fio').value;
@@ -15,11 +20,12 @@ saveButton_create.addEventListener('click', () => {
     return; 
   }
 
-  // Проверки на пустое значение (и пробелы)
-  if (!cr_password.trim()) { 
-    alert("Пожалуйста, заполните поле - Пароль:");
-    return; 
-  }  
+// Вызов функции проверки пароля соответсия требованиям
+const passwordError = validatePassword(cr_password);
+if (passwordError) {
+  alert(passwordError);
+  return;
+}
 
   const data = {
     fio: cr_fio,

@@ -1,4 +1,7 @@
-﻿// Получает кнопку "Сохранить" в модальном окне и сохраняет её в переменную saveButton
+﻿// импортировать конкретную функцию (не дефолтную)
+import { validatePasswordMode } from '../../assets/js/validators.js';
+
+// Получает кнопку "Сохранить" в модальном окне и сохраняет её в переменную saveButton
 const saveButton = document.querySelector('#updateModal .btn-primary');
 // Добавляет обработчик события клика на кнопку "Сохранить"
 saveButton.addEventListener('click', () => {
@@ -17,7 +20,12 @@ saveButton.addEventListener('click', () => {
     return; 
   }
 
-
+// Вызов функции проверки пароля соответсия требованиям
+const passwordError = validatePasswordMode(password);
+if (passwordError) {
+  alert(passwordError);
+  return;
+}
 
   // Передает значения полей в роутер с параметрами
   // Собрать данные, которые вы хотите отправить на сервер, в объект JavaScript:
