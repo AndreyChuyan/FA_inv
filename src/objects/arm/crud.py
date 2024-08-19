@@ -20,5 +20,5 @@ class CRUDArm(CRUDBase):
         """Получение всех компьютеров в сортировке"""
         order_by = [cls.model.title]
         data = await cls.get_all(session, order_by=order_by)
-        log.debug(f'Debug --- get_all_arm_sorted data={data}')
+        # log.debug(f'Debug --- get_all_arm_sorted data={data}')
         return data

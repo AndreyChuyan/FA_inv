@@ -1,12 +1,13 @@
 ﻿from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.exc import IntegrityError, NoResultFound
+from sqlalchemy.orm import class_mapper
 from fastapi import HTTPException
 from .database import Base
 from .models import Arm, Worker
 from sqlalchemy import update, delete
 from typing import List, TypeVar, Type
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, joinedload
 import pandas as pd 
 
 
@@ -88,23 +89,38 @@ class CRUDBase:
             return None, error_info
         except NoResultFound:
             return None
-        
+
+class Exporter:
     @classmethod
-    async def export_sqlite_to_excel(cls, session: AsyncSession, output_excel_file: str = "./export_db.xlsx"):
-        async with session.begin():
-            # Выполняем асинхронный запрос к базе данных для получения всех имен таблиц
-            # result = await session.execute(select(["name"]).select_from("sqlite_master").where("type='table'"))
-            result = select(cls.model)
-            tables = [row[0] for row in result.fetchall()]
+    async def export_sqlite_to_excel(cls, session: AsyncSession, output_excel_file: str = "../export/export_db.xlsx"):
+        try:
+            async with session.begin():
+                # Создаем Excel writer
+                with pd.ExcelWriter(output_excel_file, engine='openpyxl') as writer:
+                    # Экспортируем таблицу Worker
+                    query = select(Worker)
+                    result = await session.execute(query)
+                    objects = result.scalars().all()
+                    # log.debug(f'Debug --- export_sqlite_to_excel workers= {objects}')
+                    # Преобразуем данные в DataFrame
+                    data = [worker.as_dict() for worker in objects]
+                    object_df = pd.DataFrame(data)
+                    # log.debug(f'Debug --- export_sqlite_to_excel object_df= {object_df}')
+                    object_df.to_excel(writer, sheet_name='Worker', index=False)
 
-            # Создаем Excel файл
-            with pd.ExcelWriter(output_excel_file, engine='xlsxwriter') as writer:
-                # Экспортируем данные каждой таблицы в отдельный лист Excel
-                for table in tables:
-                    # Используем синхронный метод для чтения данных из таблицы
-                    query = f'SELECT * FROM {table}'
-                    df = pd.read_sql(query, session.bind)
-                    df.to_excel(writer, sheet_name=table)
+                    # Экспортируем таблицу Arm
+                    query = select(Arm)
+                    result = await session.execute(query)
+                    objects = result.scalars().all()
+                    # log.debug(f'Debug --- export_sqlite_to_excel workers= {objects}')
+                    # Преобразуем данные в DataFrame
+                    data = [arm.as_dict() for arm in objects]
+                    object_df = pd.DataFrame(data)
+                    # log.debug(f'Debug --- export_sqlite_to_excel object_df= {object_df}')
+                    object_df.to_excel(writer, sheet_name='Arm', index=False)
+            # Если всё прошло успешно
+            return "Export_true"
 
-            print(f"Данные успешно экспортированы в {output_excel_file}")
-            return {"message": "Export successful", "file": output_excel_file}
+        except Exception as e:
+            # Если произошла ошибка
+            return f"{str(e)}"

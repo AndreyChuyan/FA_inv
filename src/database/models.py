@@ -38,6 +38,17 @@ class Worker(Base):
         "Arm", back_populates="conn_arm_worker"
     )
 
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "role": self.role.name,  # предполагая, что Enum имеет атрибут `name`
+            "fio": self.fio,
+            "name": self.name,
+            "password": self.password,
+            "department": self.department,
+            "position": self.position,
+            "description": self.description
+        }
     # def __str__(self):
     #     return f"Worker: {self.name} Role: {self.role} ID: {self.id}"
 
@@ -65,3 +76,24 @@ class Arm(Base):
     conn_arm_worker = relationship(
         "Worker", back_populates="conn_worker_arm"
     )
+
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "department_arm": self.department_arm,
+            "location": self.location,
+            "name": self.name,
+            "model": self.model,
+            "release": self.release,
+            "num_serial": self.num_serial,
+            "num_invent": self.num_invent,
+            "num_service": self.num_service,
+            "price": self.price,
+            "formular": self.formular,
+            "state": self.state,
+            "description": self.description,
+            "description2": self.description2,
+            "description3": self.description3,
+            "id_worker": self.id_worker
+        }

@@ -1,4 +1,4 @@
-﻿from fastapi import APIRouter, Request, Depends, status, Form
+﻿from fastapi import APIRouter, Request, Depends, status, HTTPException
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -7,7 +7,7 @@ from objects.worker.dependency import get_correct_worker_frontend, get_current_w
 from objects.worker.crud import CRUDWorker
 from objects.arm.crud import CRUDArm
 
-# from database.crud_base import CRUDBase
+from database.crud_base import Exporter
 from database.models import Worker
 from database.database import get_session
 from .dependency import get_worker_or_redirect
@@ -97,9 +97,9 @@ async def get_arms(
     data = await CRUDArm.get_all_arm_sorted(session)
     data_worker = await CRUDWorker.get_all(session)
 
-    log.debug(f"Debug --- /arms data= {data}")
-    log.debug(f"Debug --- /arms data_users= {data_worker}")
-    log.debug(f"Debug --- /arms data_users[0].name= {data_worker[0].name}")
+    # log.debug(f"Debug --- /arms data= {data}")
+    # log.debug(f"Debug --- /arms data_users= {data_worker}")
+    # log.debug(f"Debug --- /arms data_users[0].name= {data_worker[0].name}")
     return templates.TemplateResponse(
         "arms/index.html",
         {"request": request, "worker": worker, "data": data, "data_worker": data_worker},
@@ -130,6 +130,11 @@ async def get_workers(
 async def base_export_script(
     session: AsyncSession = Depends(get_session),
 ):
-    data = await CRUDWorker.export_sqlite_to_excel(session)
-    return data
+    data = await Exporter.export_sqlite_to_excel(session)
+    log.debug(f"Debug --- base_export_script data= {data}")
+    if "Export_true" in data:
+        raise HTTPException(status_code=status.HTTP_200_OK, detail="File created successfully.")
+    else:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=data)
+
 
