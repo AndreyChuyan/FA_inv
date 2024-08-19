@@ -32,7 +32,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
+# app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
+app.add_middleware(SessionMiddleware, secret_key="secret_secret_key")
 
 # app.mount("/assets", StaticFiles(directory="frontend/assets"), name="assets")
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
