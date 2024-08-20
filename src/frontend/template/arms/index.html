@@ -102,7 +102,7 @@
                       <td>{{ object.price }}</td>
                       <td>{{ object.formular }}</td>
                       <td>{{ object.state }}</td>
-                      <td {% if object.description == "Буферный компьютер" %}style="color: orange;"{% elif object.description == "Абонентский терминал" %}style="color: green;"{% endif %}>{{ object.description }} </td>
+                      <td {% if object.description == "Буферный компьютер" %}style="color: orange;"{% elif object.description == "Абонентский терминал" %}style="color: blue;"{% elif object.description == "Рабочий компьютер" %}style="color: green;"{% endif %}>{{ object.description }}</td>
                       <td>
                         <!-- Кнопка для редактирования -->
                         <div style="display: flex;">

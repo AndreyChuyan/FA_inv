@@ -30,13 +30,7 @@
   </style>
 </head>
 
-<!-- карточка для создания -->
-<div class="d-flex flex-wrap justify-content-center align-items-center">
-  <a class="nav-link ">
-    </div>
-  </div>
-  </a>
-</div>
+
 
 
 <div class="row">
@@ -58,11 +52,10 @@
             <th scope="col" >Заводской номер</th>
             <th scope="col" >Инвентарный номер</th>
             <th scope="col" >Сервисный номер</th>
-            <th scope="col" >Стоимость</th>
-            <th scope="col" >Номер формуляра</th>
+            <!-- <th scope="col" >Стоимость</th> -->
+            <!-- <th scope="col" >Номер формуляра</th> -->
             <th scope="col" >Состояние</th>
             <th scope="col" >Описание</th>
-            <th scope="col" >Действия</th>
           </tr>
         </thead>
         <tbody class="text-center">
@@ -91,44 +84,12 @@
                       <td>{{ object.num_serial }}</td>
                       <td>{{ object.num_invent }}</td>
                       <td>{{ object.num_service }}</td>
-                      <td>{{ object.price }}</td>
-                      <td>{{ object.formular }}</td>
+                      <!-- <td>{{ object.price }}</td> -->
+                      <!-- <td>{{ object.formular }}</td> -->
                       <td>{{ object.state }}</td>
                       <!-- <td>{{ object.description }}</td> -->
-                      <td {% if object.description == "Буферный компьютер" %}style="color: orange;"{% elif object.description == "Абонентский терминал" %}style="color: green;"{% endif %}>{{ object.description }}</td>
-                      <td>
-                        <!-- Кнопка для редактирования -->
-                        <div style="display: flex;">
-                          <button type="button" class="btn btn-primary btn-sm" style="background-color: #3498db; color: white; font-size: 11px;"
-                            data-bs-toggle="modal" 
-                            data-bs-target="#modalUpdate"
-                            data-bs-id="{{object.id}}"
-                            data-bs-user="{{varUserName}}" 
-                            data-bs-title="{{object.title}}"
-                            data-bs-location="{{object.location}}"
-                            data-bs-name="{{object.name}}"
-                            data-bs-model="{{object.model}}"
-                            data-bs-release="{{object.release}}"
-                            data-bs-num_serial="{{object.num_serial}}"
-                            data-bs-num_invent="{{object.num_invent}}"
-                            data-bs-num_service="{{object.num_service}}"
-                            data-bs-price="{{object.price}}"
-                            data-bs-formular="{{object.formular}}"
-                            data-bs-state="{{object.state}}"
-                            data-bs-description="{{object.description}}"
-                            data-bs-workerdepartment= "{{worker.department}}"
-                            data-bs-user_id="{{varUserId}}"
-                            console.log(data-bs-user)
-                            >
-                            Редакт
-                          </button>
-                          <!-- Кнопка для удаления -->
-                          <button type="button" class="btn btn-danger btn-sm" style="color: white; font-size: 11px;" 
-                            onclick="deleteArm('{{ object.id }}')">
-                            Уд
-                          </button>
-                        </div>
-                      </td>
+                      <td {% if object.description == "Буферный компьютер" %}style="color: orange;"{% elif object.description == "Абонентский терминал" %}style="color: blue;"{% elif object.description == "Рабочий компьютер" %}style="color: green;"{% endif %}>{{ object.description }}</td>
+                      
                     </tr>
                   </tr>
                 {% endif %}
