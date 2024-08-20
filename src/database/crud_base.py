@@ -45,7 +45,7 @@ class CRUDBase:
         except IntegrityError as e:
             await session.rollback()
             error_info = str(e.orig)
-            log.debug(f'Debug --- create error_info={error_info}')
+            # log.debug(f'Debug --- create error_info={error_info}')
             return None, error_info
 
     @classmethod
@@ -62,10 +62,10 @@ class CRUDBase:
         result = await session.execute(query)
         if result.rowcount == 1:
             await session.commit()
-            log.debug(f"Debug --- worker_delete_by_id: Deleted worker with id= {id}")
+            # log.debug(f"Debug --- worker_delete_by_id: Deleted worker with id= {id}")
             return True
         else:
-            log.debug(f"Debug --- worker_delete_by_id: No worker found with id= {id}")
+            # log.debug(f"Debug --- worker_delete_by_id: No worker found with id= {id}")
             return False
 
     @classmethod
@@ -85,7 +85,7 @@ class CRUDBase:
         except IntegrityError as e:
             await session.rollback()
             error_info = str(e.orig)
-            log.debug(f'Debug --- create error_info={error_info}')
+            # log.debug(f'Debug --- create error_info={error_info}')
             return None, error_info
         except NoResultFound:
             return None
@@ -99,7 +99,7 @@ class CRUDBase:
             query = query.order_by(*order_by)
         
         result = await session.execute(query)
-        log.debug(f'Debug --- get_all_arm_user result.scalars().all()= {result.scalars().all()}')
+        # log.debug(f'Debug --- get_all_arm_user result.scalars().all()= {result.scalars().all()}')
         return result.scalars().all()
 
 

@@ -1,0 +1,24 @@
+# Версия docker-compose
+version: '3'
+# Список наших сервисов (контейнеров)
+services:
+    app:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      volumes:
+        - db:/app/db
+        - export:/app/export    
+      ports:
+      - "80:8000"  # Пример маппинга порта, 8080 на хосте к 80 в контейнере
+      # общая сеть
+      networks:
+          - network-app
+
+volumes:
+  db:
+  export:
+
+networks:
+  network-app:
+    driver: bridge

@@ -37,10 +37,25 @@
 
 ```bash
 # Windows
+# Напрямую с интерпретатора
 python -m venv .venv
 .\.venv\Scripts\activate
 pip install -r requirements.txt
 cd .\src\
 python main.py
+
+# Контейнер Docker
+docker build -t app-inventory .
+docker run -d -p 80:8000 app-inventory 
+
+    ## для удаления
+    docker stop app-inventory 
+    docker rm -f app-inventory
+
+# Docker-Compose
+docker-compose up
+    # запуск в фоне
+    docker-compose up -d
+
 
 ```

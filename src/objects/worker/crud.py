@@ -30,7 +30,7 @@ class CRUDWorker(CRUDBase):
         """Получение всех компьютеров в сортировке"""
         order_by = [cls.model.fio]
         data = await cls.get_all(session, order_by=order_by)
-        log.debug(f'Debug --- get_all_arm_sorted data={data}')
+        # log.debug(f'Debug --- get_all_arm_sorted data={data}')
         return data
 
     @classmethod
@@ -49,16 +49,16 @@ class CRUDWorker(CRUDBase):
 
             if result.rowcount == 1:
                 await session.commit()
-                log.debug(f"Debug --- delete_worker_and_update_arms: Deleted worker with id={worker_id} and updated related Arms")
+                # log.debug(f"Debug --- delete_worker_and_update_arms: Deleted worker with id={worker_id} and updated related Arms")
                 return True
             else:
                 await session.rollback()
-                log.debug(f"Debug --- delete_worker_and_update_arms: No worker found with id={worker_id}")
+                # log.debug(f"Debug --- delete_worker_and_update_arms: No worker found with id={worker_id}")
                 return False
 
         except Exception as e:
             await session.rollback()
-            log.error(f"Error --- delete_worker_and_update_arms: Failed to delete worker with id={worker_id}. Error: {str(e)}")
+            # log.error(f"Error --- delete_worker_and_update_arms: Failed to delete worker with id={worker_id}. Error: {str(e)}")
             return False
 
 

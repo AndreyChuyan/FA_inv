@@ -43,7 +43,7 @@ async def get_by_id(
     Получение информации о пользователе по ID.
     """
     object = await CRUDInventory.get_by_id(session, id)
-    log.debug(f'Debug --- get_inventory_by_id object={object}')
+    # log.debug(f'Debug --- get_inventory_by_id object={object}')
     return object
 
 
@@ -53,7 +53,7 @@ async def get_all(session: AsyncSession = Depends(get_session)):
     Получение списка всех пользователей.
     """
     object = await CRUDInventory.get_all(session)
-    log.debug(f'Debug --- get_all_inventory users={object}')
+    # log.debug(f'Debug --- get_all_inventory users={object}')
     return object
 
 

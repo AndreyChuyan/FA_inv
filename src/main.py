@@ -62,8 +62,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 
 
 
-
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, workers=2, timeout_keep_alive=600, access_log=True, use_colors=True, reload=True)

@@ -30,7 +30,7 @@ async def get_auth(
     worker: Worker | None = Depends(get_correct_worker_frontend)
 ):
     if worker:
-        log.debug(f"Debug --- get_correct_worker_frontend worker.name= {worker.name}")
+        # log.debug(f"Debug --- get_correct_worker_frontend worker.name= {worker.name}")
         return templates.TemplateResponse("index.html", {"request": request, "worker": worker})
     else:
         return RedirectResponse(url="/auth", status_code=status.HTTP_301_MOVED_PERMANENTLY)
@@ -145,7 +145,7 @@ async def base_export_script(
     session: AsyncSession = Depends(get_session),
 ):
     data = await Exporter.export_sqlite_to_excel(session)
-    log.debug(f"Debug --- base_export_script data= {data}")
+    # log.debug(f"Debug --- base_export_script data= {data}")
     if "Export_true" in data:
         raise HTTPException(status_code=status.HTTP_200_OK, detail="File created successfully.")
     else:

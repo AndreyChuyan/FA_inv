@@ -53,7 +53,7 @@ async def get_by_id(
     Получение информации о пользователе по ID.
     """
     object = await CRUDArm.get_by_id(session, id)
-    log.debug(f'Debug --- get_arm_by_id object={object}')
+    # log.debug(f'Debug --- get_arm_by_id object={object}')
     return object
 
 
@@ -66,7 +66,7 @@ async def get_all(
     Получение списка всех пользователей.
     """
     object = await CRUDArm.get_all(session)
-    log.debug(f'Debug --- get_all_arm users={object}')
+    # log.debug(f'Debug --- get_all_arm users={object}')
     return object
 
 
@@ -79,7 +79,7 @@ async def update_by_id(
     """
     Обновление компьютера
     """
-    log.debug(f'Debug --- arm_update_by_id object.name={schema.name}')
+    # log.debug(f'Debug --- arm_update_by_id object.name={schema.name}')
     data = schema.dict()
     object = await CRUDArm.update_by_id(session, id, data)
     # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')

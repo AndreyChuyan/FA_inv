@@ -101,7 +101,7 @@ async def create(
     worker = data.pop("worker", None)
     new_user, error_info = await CRUDWorker.create(session, data)
     if new_user is None:
-        log.debug(f'Debug --- router create - error_info {error_info}')
+        # log.debug(f'Debug --- router create - error_info {error_info}')
         if "UNIQUE constraint failed: worker.name" in error_info:
             raise DuplicateObjectException("UNIQUE constraint failed: worker.name")
         else:
@@ -152,12 +152,12 @@ async def update_by_id(
         user.password = None
     else:
         user.password = hash_password(user.password)
-    log.debug(f'Debug --- worker_update_by_id user.password={user.password}')
+    # log.debug(f'Debug --- worker_update_by_id user.password={user.password}')
     data = user.dict()
     user, error_info = await CRUDWorker.update_by_id(session, id, data)
     # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')
     if user is None:
-        log.debug(f'Debug --- router create - error_info {error_info}')
+        # log.debug(f'Debug --- router create - error_info {error_info}')
         if "UNIQUE constraint failed: worker.name" in error_info:
             raise DuplicateObjectException("UNIQUE constraint failed: worker.name")
         else:
