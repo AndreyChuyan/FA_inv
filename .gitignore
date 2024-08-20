@@ -5,3 +5,4 @@ __pycache__
 .env
 .export/export_db.xlsx
 .db/inventory.db
+.code-workspace
