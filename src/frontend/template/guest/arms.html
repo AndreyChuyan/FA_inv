@@ -48,7 +48,7 @@
             <th scope="col" >Расположение</th>
             <th scope="col" >Название</th>
             <th scope="col" >Модель</th>
-            <th scope="col" >Год выпуска</th>
+            <th scope="col" >Год выпуска, дата ввода</th>
             <th scope="col" >Заводской номер</th>
             <th scope="col" >Инвентарный номер</th>
             <th scope="col" >Сервисный номер</th>
@@ -64,15 +64,20 @@
               {% if object.department_arm == worker.department %}
                 {% for tuple2 in data_worker %}
                   {% if tuple2.id == object.id_worker %}
+                    {% set varUserName = tuple2.name %}
+                    {% set varUserId = tuple2.id %}
+
                     <tr class="table-success">
                       <td>
-                        <!-- Кнопка для выбора -->
                         <div style="display: flex;">
-                          <!-- Выделенный текст -->
-                          <span style="background-color: #0b79c2; color: white; padding: 5px;">
-                              {% set varUserName = tuple2.name %}
-                              {% set varUserId = tuple2.id %}
-                              {{varUserName}}
+                          <span style="padding: 5px; 
+                            {% if varUserName == 'Нет пользователя' %}
+                              background-color: #ff0000; 
+                            {% else %}
+                              background-color: #0b79c2; 
+                            {% endif %}
+                            color: white;">
+                            {{varUserName}}
                           </span>
                         </div>
                       </td>

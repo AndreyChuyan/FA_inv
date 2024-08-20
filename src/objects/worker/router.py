@@ -174,5 +174,5 @@ async def delete_by_id(
     """
     Удаление пользователя по ID
     """
-    success = await CRUDWorker.delete_by_id(session, id)
+    success = await CRUDWorker.delete_worker_and_update_arms(session, id)
     return success

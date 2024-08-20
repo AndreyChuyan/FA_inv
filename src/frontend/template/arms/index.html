@@ -24,7 +24,7 @@
       }
           th {
             text-align: center; /* Выравнивание текста в надписях по центру */
-            font-size: 10px; /* Размер шрифта для заголовков и данных таблицы */
+            font-size: 11px; /* Размер шрифта для заголовков и данных таблицы */
           /* Другие стили для ячеек таблицы */
       }
   </style>
@@ -42,7 +42,6 @@
       <div class="card-body">
         <h5 class="card-title" style="text-align: center;">Создать новый компьютер</h5>
     </div>
-    
   </a>
 </div>
 
@@ -57,8 +56,8 @@
       <table class="table table-hover table-shadow table-rounded">
         <thead>
           <tr>
-            <th scope="col" >Учетное имя</th>
             <th scope="col" >Пользователь</th>
+            <th scope="col" >Учетное имя</th>
             <th scope="col" >Расположение</th>
             <th scope="col" >Название</th>
             <th scope="col" >Модель</th>
@@ -79,19 +78,24 @@
               {% if object.department_arm == worker.department %}
                 {% for tuple2 in data_worker %}
                   {% if tuple2.id == object.id_worker %}
+                    {% set varUserName = tuple2.name %}
+                    {% set varUserId = tuple2.id %}
+
                     <tr class="table-success">
-                      <td>{{ object.title }}</td>
                       <td>
-                        <!-- Кнопка для выбора -->
                         <div style="display: flex;">
-                          <!-- Выделенный текст -->
-                          <span style="background-color: #0b79c2; color: white; padding: 5px;">
-                              {% set varUserName = tuple2.name %}
-                              {% set varUserId = tuple2.id %}
-                              {{varUserName}}
+                          <span style="padding: 5px; 
+                            {% if varUserName == 'Нет пользователя' %}
+                              background-color: #ff0000; 
+                            {% else %}
+                              background-color: #0b79c2; 
+                            {% endif %}
+                            color: white;">
+                            {{varUserName}}
                           </span>
                         </div>
                       </td>
+                      <td>{{ object.title }}</td>
                       <td>{{ object.location }}</td>
                       <td>{{ object.name }}</td>
                       <td>{{ object.model }}</td>
@@ -102,7 +106,7 @@
                       <td>{{ object.price }}</td>
                       <td>{{ object.formular }}</td>
                       <td>{{ object.state }}</td>
-                      <td {% if object.description == "Буферный компьютер" %}style="color: orange;"{% elif object.description == "Абонентский терминал" %}style="color: blue;"{% elif object.description == "Рабочий компьютер" %}style="color: green;"{% endif %}>{{ object.description }}</td>
+                      <td>{{ object.description }}</td>
                       <td>
                         <!-- Кнопка для редактирования -->
                         <div style="display: flex;">

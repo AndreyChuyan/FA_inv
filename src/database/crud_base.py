@@ -90,6 +90,20 @@ class CRUDBase:
         except NoResultFound:
             return None
 
+    @classmethod
+    async def get_all_arm_user(cls, session: AsyncSession, order_by=None) -> list[tuple]:
+        """Получение всех объектов ARM с связанными пользователями"""
+        query = select(Arm, Worker).join(Worker, Arm.id_worker == Worker.id)
+        
+        if order_by:
+            query = query.order_by(*order_by)
+        
+        result = await session.execute(query)
+        log.debug(f'Debug --- get_all_arm_user result.scalars().all()= {result.scalars().all()}')
+        return result.scalars().all()
+
+
+
 class Exporter:
     @classmethod
     async def export_sqlite_to_excel(cls, session: AsyncSession, output_excel_file: str = "../export/export_db.xlsx"):
@@ -124,3 +138,4 @@ class Exporter:
         except Exception as e:
             # Если произошла ошибка
             return f"{str(e)}"
+

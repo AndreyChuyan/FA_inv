@@ -33,5 +33,32 @@ class CRUDWorker(CRUDBase):
         log.debug(f'Debug --- get_all_arm_sorted data={data}')
         return data
 
+    @classmethod
+    async def delete_worker_and_update_arms(cls, session: AsyncSession, worker_id: int) -> bool:
+        """
+        Удаление объекта Worker по ID и обновление связанных записей Arm
+        """
+        try:
+            # Обновление записей Arm, связанных с удаляемым Worker
+            update_query = update(Arm).where(Arm.id_worker == worker_id).values(id_worker=0)
+            await session.execute(update_query)
+
+            # Удаление Worker
+            delete_query = delete(Worker).where(Worker.id == worker_id)
+            result = await session.execute(delete_query)
+
+            if result.rowcount == 1:
+                await session.commit()
+                log.debug(f"Debug --- delete_worker_and_update_arms: Deleted worker with id={worker_id} and updated related Arms")
+                return True
+            else:
+                await session.rollback()
+                log.debug(f"Debug --- delete_worker_and_update_arms: No worker found with id={worker_id}")
+                return False
+
+        except Exception as e:
+            await session.rollback()
+            log.error(f"Error --- delete_worker_and_update_arms: Failed to delete worker with id={worker_id}. Error: {str(e)}")
+            return False
 
 

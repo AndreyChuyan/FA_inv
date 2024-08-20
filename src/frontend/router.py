@@ -96,9 +96,10 @@ async def get_arms(
 ):
     data = await CRUDArm.get_all_arm_sorted(session)
     data_worker = await CRUDWorker.get_all(session)
+    data_arm_user = await CRUDWorker.get_all_arm_user(session)
     return templates.TemplateResponse(
         "arms/index.html",
-        {"request": request, "worker": worker, "data": data, "data_worker": data_worker},
+        {"request": request, "worker": worker, "data": data, "data_worker": data_worker, "data_arm_user": data_arm_user},
     )
 
 @router.get("/workers_admin")
