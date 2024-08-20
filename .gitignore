@@ -3,3 +3,5 @@ __pycache__/main.cpython-312.pyc
 .venv
 __pycache__
 .env
+.export/export_db.xlsx
+.db/inventory.db

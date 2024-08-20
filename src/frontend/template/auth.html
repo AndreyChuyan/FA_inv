@@ -26,6 +26,7 @@
                     <label for="password">Пароль</label>
                     <input type="password" class="form-control" name="password" id="password" required>
                 </div>
+                <div class="form-group"> <label for="kostil"></label> </div>
                 <button type="submit" class="btn btn-custom btn-block">Войти</button>
             </form>
             {% if not_auth %}
@@ -33,15 +34,20 @@
                 Логин или пароль не верный.
             </div>
             {% endif %}
-            <!-- <div class="text-center mt-3">
-                <a href="/register">Нет аккаунта? Регистрация</a>
-            </div> -->
+            <div class="text-center mt-3">
+                Нет аккаунта? <br> Обратитесь к ответственному за учет
+                <!-- <a href="/register">Нет аккаунта? Регистрация</a> -->
+            </div>
         </div>
     </div>
 
     <!-- Подключение Bootstrap JS -->
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
     <script src="/frontend/assets/js/bootstrap.min.js"></script>
+
+    <footer style="text-align: center;">
+        <p>&copy; 2024 Чуян А.А. Все права защищены.</p>
+    </footer>
 </body>
 
 </html>

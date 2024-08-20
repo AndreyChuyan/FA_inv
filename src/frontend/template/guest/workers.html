@@ -1,0 +1,76 @@
+{% extends "base/base.html" %}
+
+
+
+{% block title %}Все пользователи{% endblock %}
+
+
+{% block content %}
+
+
+<head>
+  <style>
+      /* Изменение шрифта для таблицы */
+      table {
+          font-family: Arial, sans-serif; /* Новый шрифт */
+          /* Другие стили таблицы */
+      }
+      td {
+          font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
+          /* Другие стили для ячеек таблицы */
+      }
+          th {
+            text-align: center; /* Выравнивание текста в надписях по центру */
+            font-size: 14px; /* Размер шрифта для заголовков и данных таблицы */
+          /* Другие стили для ячеек таблицы */
+      }
+
+      .orange-bold-text {
+        color: rgb(204, 99, 7);
+        font-weight: bold;
+      }
+      .red-bold-text {
+        color: rgb(254, 63, 0);
+        font-weight: bold;
+      }
+  </style>
+</head>
+
+
+<div class="row ">
+  <div class="col-12">
+    <!-- Заголовок таблицы-->
+    <h3 class="mb-4"></h3>
+    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Ваш логин: {{ worker.name }}</h3>
+    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Подразделение: {{ worker.department }}</h3>
+    <!-- Таблица -->
+    <div class="table-responsive">
+      <table class="table table-hover table-shadow table-rounded ">
+        <thead>
+          <tr>
+            <th scope="col" >Имя</th>
+            <th scope="col" >Логин</th>
+            <th scope="col" >Должность</th>
+            <th scope="col" >Описание</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          {% for worker_tuple in data %}
+            {% set workers = worker_tuple %}
+                <tr class="table-success " >
+                  <td>{{ workers.fio }}</td>
+                  <td>{{ workers.name }}</td>
+                  <td>{{ workers.position }}</td>
+                  <td>{{ workers.description }}</td>
+
+                </tr>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

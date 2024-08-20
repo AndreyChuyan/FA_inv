@@ -96,10 +96,6 @@ async def get_arms(
 ):
     data = await CRUDArm.get_all_arm_sorted(session)
     data_worker = await CRUDWorker.get_all(session)
-
-    # log.debug(f"Debug --- /arms data= {data}")
-    # log.debug(f"Debug --- /arms data_users= {data_worker}")
-    # log.debug(f"Debug --- /arms data_users[0].name= {data_worker[0].name}")
     return templates.TemplateResponse(
         "arms/index.html",
         {"request": request, "worker": worker, "data": data, "data_worker": data_worker},
@@ -117,14 +113,31 @@ async def get_workers(
         {"request": request, "worker": worker, "data": data},
     )
 
-# @router.post("/base_export_script")
-# async def base_export_script():
-#     # Запускаем внешний скрипт
-#     try:
-#         result = subprocess.run(["python", "./scripts/base_export_script.py"], check=True, capture_output=True, text=True)
-#         return {"message": "True", "output": result.stdout}
-#     except subprocess.CalledProcessError as e:
-#         return {"message": "False", "error": str(e), "stderr": e.stderr, "traceback": traceback.format_exc()}
+@router.get("/workers_guest")
+async def get_workers(
+    request: Request,
+    worker: Worker = Depends(get_worker_or_redirect),
+    session: AsyncSession = Depends(get_session),
+):
+    data = await CRUDWorker.get_all_worker_sorted(session)
+    return templates.TemplateResponse(
+        "guest/workers.html",
+        {"request": request, "worker": worker, "data": data},
+    )
+
+@router.get("/arms_guest")
+async def get_arms(
+    request: Request,
+    worker: Worker = Depends(get_worker_or_redirect),
+    session: AsyncSession = Depends(get_session),
+):
+    data = await CRUDArm.get_all_arm_sorted(session)
+    data_worker = await CRUDWorker.get_all(session)
+    return templates.TemplateResponse(
+        "guest/arms.html",
+        {"request": request, "worker": worker, "data": data, "data_worker": data_worker},
+    )
+
 
 @router.get("/base_export_script")
 async def base_export_script(
