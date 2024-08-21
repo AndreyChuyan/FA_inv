@@ -1,1 +1,0 @@
-﻿print("base_export_script_echo")
