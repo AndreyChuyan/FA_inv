@@ -51,6 +51,7 @@ pip install -r requirements.txt
 cd .\src\
 python main.py
 
+
 # Контейнер Docker
 docker build -t app-inventory .
 docker run -d -p 80:8000 app-inventory 
