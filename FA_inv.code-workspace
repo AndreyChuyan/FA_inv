@@ -4,7 +4,10 @@
       "path": "."
     },
     {
-      "path": "../linux/python"
+      "path": "../linux"
+    },
+    {
+      "path": "../lup"
     }
   ]
 }

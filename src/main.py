@@ -11,11 +11,10 @@ from database.database import create_tables
 from objects.worker.router import router as worker_router
 from frontend.router import router as frontend_router
 from objects.arm.router import router as arm_router
-# from objects.inventory.router import router as inventory_router
 from exception import RedirectException
 from config import SECRET_KEY
-from exception import DuplicateObjectException
-from fastapi.exceptions import RequestValidationError
+# from exception import DuplicateObjectException
+# from fastapi.exceptions import RequestValidationError
 
 # отладка
 import logging
@@ -65,4 +64,5 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 if __name__ == "__main__":
     import uvicorn
 
+    # uvicorn.run("main:app", host="0.0.0.0", port=8000, workers=2, timeout_keep_alive=600, access_log=True, use_colors=True, reload=True)
     uvicorn.run("main:app", host="0.0.0.0", port=8000, workers=2, timeout_keep_alive=600, access_log=True, use_colors=True, reload=True)

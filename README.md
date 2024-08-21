@@ -44,6 +44,13 @@ pip install -r requirements.txt
 cd .\src\
 python main.py
 
+#Linux
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cd .\src\
+python main.py
+
 # Контейнер Docker
 docker build -t app-inventory .
 docker run -d -p 80:8000 app-inventory 
@@ -56,6 +63,7 @@ docker run -d -p 80:8000 app-inventory
 docker-compose up
     # запуск в фоне
     docker-compose up -d
-
+    # удаление
+    docker-compose down
 
 ```
