@@ -4,5 +4,5 @@ __pycache__/main.cpython-312.pyc
 __pycache__
 .env
 export_db.xlsx
-inventory.db
-.code-workspace
+*.code-workspace
+FA_inv.code-workspace
