@@ -30,17 +30,17 @@
   </style>
 </head>
 
+<h5 class="mb-4" style="margin-bottom: 60px; text-align: center;">Страница предназначена для создания, редактирования и удаления сведений о компьютерах кафедры</h5>
+
+
 <!-- карточка для создания -->
 <div class="d-flex flex-wrap justify-content-center align-items-center">
-  <a class="nav-link " href="#"
-  data-bs-toggle="modal"
-  data-bs-target="#modalCreateArm" 
-  data-bs-department-arm= "{{worker.department}}"
-  >
-    <div class="card" style="width: 18rem; margin: 10px;">
-      <img src="../frontend/assets/img/arm.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
+  <a class="nav-link " href="#" data-bs-toggle="modal" data-bs-target="#modalCreateArm" data-bs-department-arm= "{{worker.department}}" style="text-decoration: none;" >
+    <div class="d-flex align-items-center card" style="margin: 10px; border: 1px solid #ccc; padding: 10px; display: flex; justify-content: center;">
+      <img src="../frontend/assets/img/arm.jpg" alt="..." style="width: 100px; height: auto; margin-right: 10px;">
+      <div>
         <h5 class="card-title" style="text-align: center;">Создать новый компьютер</h5>
+      </div>
     </div>
   </a>
 </div>
@@ -50,7 +50,7 @@
   <div class="col-12">
     <!-- Заголовок таблицы-->
     <h3 class="mb-4"></h3>
-    <h3 class="mb-4" style="margin-bottom: 60px; text-align: center;">Подразделение: {{ worker.department }}</h3>
+
     <!-- Таблица -->
     <div class="table-responsive">
       <table class="table table-hover table-shadow table-rounded">

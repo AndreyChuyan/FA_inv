@@ -38,7 +38,9 @@
 ```bash
 # Windows
 # Напрямую с интерпретатора
+# создание окружения
 python -m venv .venv
+# переход в окружение
 .\.venv\Scripts\activate
 pip install -r requirements.txt
 cd .\src\
