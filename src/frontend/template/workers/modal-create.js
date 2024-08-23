@@ -1,4 +1,4 @@
-﻿import { validatePassword } from '../../assets/js/validators.js';
+﻿import { validatePassword, validateNumeric } from '../../assets/js/validators.js';
 
 // import { validatePassword } from './validators.js';
 
@@ -16,16 +16,34 @@ saveButton_create.addEventListener('click', () => {
 
   // Проверки на пустое значение (и пробелы)
   if (!cr_name.trim()) { 
-    alert("Пожалуйста, заполните поле - Логин:");
+    alert("Пожалуйста, заполните поле - Логин");
     return; 
   }
 
-// Вызов функции проверки пароля соответсия требованиям
-const passwordError = validatePassword(cr_password);
-if (passwordError) {
-  alert(passwordError);
-  return;
-}
+  if (!cr_fio.trim()) { 
+    alert("Пожалуйста, заполните поле - Имя");
+    return; 
+  }
+
+  // Вызов функции проверки пароля соответсия требованиям
+  const passwordError = validatePassword(cr_password);
+  if (passwordError) {
+    alert(passwordError);
+    return;
+  }
+
+  if (!cr_position.trim()) { 
+    alert("Пожалуйста, заполните поле - Должность");
+    return; 
+  }
+
+  // Вызов функции проверки телефона
+  const phoneError = validateNumeric(cr_description);
+  if (phoneError) {
+    alert(phoneError);
+    return;
+  }
+
 
   const data = {
     fio: cr_fio,

@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi import HTTPException, Request
 from fastapi.requests import Request
@@ -31,8 +31,10 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-# app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
-app.add_middleware(SessionMiddleware, secret_key="secret_secret_key")
+
+load_dotenv()  # Загружает переменные окружения из .env файла
+app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
+# app.add_middleware(SessionMiddleware, secret_key="secret_secret_key")
 
 # app.mount("/assets", StaticFiles(directory="frontend/assets"), name="assets")
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
