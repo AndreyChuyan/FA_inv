@@ -30,19 +30,19 @@ async def create(
     """
     data = arm.dict()
     object = data.pop("arm", None)
-    object_resp, error_info = await CRUDArm.create(session, data)
-    log.info(f'Создан компьютер Логин= {object_resp.title} Имя= {object_resp.name}')
+    object, error_info = await CRUDArm.create(session, data)
     # обработка ошибки
-    if object_resp is None:
+    if object is None:
         if "UNIQUE constraint failed: arm.title" in error_info:
             raise DuplicateObjectException("UNIQUE constraint failed: arm.title")
         else:
         # Обработка других типов ошибок
             raise HTTPException(status_code=400, detail="Failed to create arm")
-    if object:
-        arm["id"] = object_resp.id
-        await CRUDArm.create(session, object)
-    return object_resp
+    # if object:
+    #     arm["id"] = object_resp.id
+    #     await CRUDArm.create(session, object)
+    log.info(f'Создан компьютер Логин= {object.title} Имя= {object.name}')
+    return object
 
 
 @router.get("/{worker_id}", response_model=ArmOut)

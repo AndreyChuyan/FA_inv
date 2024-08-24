@@ -15,7 +15,7 @@ if (createModal) {
     console.log('modalBodyInputDepartment:', modalBodyInputDepartment);
     
     // формирует текст  и устанавливает его в соответствующий элемент модального окна modalTitle.
-    modalTitle.textContent = `Создание пользователя`
+    modalTitle.textContent = `Добавление компьютера`
     // Устанавливает значение в поле ввода (input) модального окна (modalBodyInputName) равным значению переменной name.
     modalBodyInputDepartment.value = department
 

@@ -63,7 +63,6 @@ async def create(
     data = user.dict()
     worker = data.pop("worker", None)
     new_user, error_info = await CRUDWorker.create(session, data)
-    # log.info(f'Создан пользователь Логин= {new_user.name} Имя= {new_user.fio}')
     if new_user is None:
         log.debug(f'Debug --- router create - error_info {error_info}')
         if "UNIQUE constraint failed: worker.name" in error_info:
@@ -74,6 +73,7 @@ async def create(
     # if worker:
     #     user["id"] = new_user.id
     #     await CRUDWorker.create(session, worker)
+    log.info(f'Создан пользователь Логин= {new_user.name} Имя= {new_user.fio}')
     return new_user
 
 @router.get("/{worker_id}", response_model=WorkerOut)

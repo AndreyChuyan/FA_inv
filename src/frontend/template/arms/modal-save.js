@@ -18,6 +18,40 @@ saveButton.addEventListener('click', () => {
   const state             = document.querySelector('#arm-state').value;
   const description       = document.querySelector('#arm-description').value;
   const department        = document.querySelector('#arm-department').value;
+  
+    // Проверки на пустое значение (и пробелы)
+    if (!title.trim()) { 
+      alert("Пожалуйста, заполните поле - Учетное имя");
+      return; 
+    }
+  
+    // Проверка на наличие ровно 4 знаков
+    if (title.trim().length < 6) {
+      alert("Учетное имя должно содержать не меньше 6 знаков");
+      return;
+    }
+  
+    // Проверки на пустое значение (и пробелы)
+    if (!location.trim()) { 
+      alert("Пожалуйста, заполните поле - Расположение");
+      return; 
+    }
+  
+      // Проверки на пустое значение (и пробелы)
+      if (!name.trim()) { 
+          alert("Пожалуйста, заполните поле - Название");
+          return; 
+          }
+  
+      // Проверки на пустое значение (и пробелы)
+      if (!num_serial.trim()) { 
+          alert("Пожалуйста, заполните поле - Заводской номер");
+          return; 
+        }
+  
+    
+  
+  
   // Передает значения полей в роутер с параметрами
   // Собрать данные, которые вы хотите отправить на сервер, в объект JavaScript:
   const data = {
@@ -47,25 +81,38 @@ saveButton.addEventListener('click', () => {
   },
   body: JSON.stringify(data)
   })
+  // проверка на конфликт дублирования
   .then(response => {
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
+    if (!response.ok) {
+        return response.json().then(data => {
+            if (data.message === 'UNIQUE constraint failed: arm.title') {
+                alert('Компьютер с таким учетным именем уже существует. Пожалуйста, выберите другое имя.');
+                throw new Error('Duplicate object');
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        });
+    }
+    // только если запрос прошел успешно, возвращаем данные
+    return response.json();
   })
   .then(data => {
-  console.log('Response from server:', data);
+      console.log('Response from server:', data);
+
+      const modal = document.querySelector('#modalUpdate');
+      const bsModal = bootstrap.Modal.getInstance(modal);
+      
+      // только если запрос прошел успешно без конфликтов, закрываем модальное окно
+      bsModal.hide();
+      
+      // Устанавливаем задержку перед обновлением страницы
+      setTimeout(() => {
+          // Обновляем текущую страницу
+          window.location.reload();
+      }, 500); // 0.5 секунды
   })
-
-    // Закрываем модальное окно после успешного запроса
-    const modal = document.querySelector('#modalUpdate');
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.hide();
-
-  // Устанавливаем задержку перед обновлением страницы
-  setTimeout(() => {
-    // Обновляем текущую страницу
-    window.location.reload();
-  }, 500); // 1 секунда
-})
+  .catch(error => {
+      console.error('There was a problem with fetch operation:', error);
+  });
+});
 

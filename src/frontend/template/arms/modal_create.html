@@ -5,13 +5,15 @@
     max-height: 90vh; /* 80% высоты видимого окна */
     overflow-y: auto; /* Включить вертикальный скроллинг */
   }
+
+
 </style>
 
 <div class="modal fade" id="modalCreateArm" tabindex="-1" aria-labelledby="CreateLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalCreateArm">Создание компьютера</h1>
+        <h1 class="modal-title fs-5" id="modalCreateArm">Добавление компьютера</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -27,7 +29,7 @@
           <div class="mb-3">
             <!-- Выпадающий список -->
             <label for="cr_fio" class="col-form-label">Пользователь компьютера <p>(выберите ранее созданного сотрудника)</p></label>
-            <select class="form-control" id="cr_fio">
+            <select class="form-control rose-input" id="cr_fio">
               {% for tuple_worker in data_worker %}
                 {% if tuple_worker.department == worker.department %}  
                   {{tuple_worker.name}}
@@ -39,15 +41,15 @@
           </div>
           <div class="mb-3">
             <label for="cr-title" class="col-form-label">Учетное имя (например: k1-222-1)</label>
-            <input type="text" class="form-control" id="cr-title">
+            <input type="text" class="form-control rose-input" id="cr-title">
           </div>
           <div class="mb-3">
             <label for="cr-location" class="col-form-label">Расположение (кабинет) (например: 222)</label>
-            <input type="text" class="form-control" id="cr-location">
+            <input type="text" class="form-control rose-input" id="cr-location">
           </div>
           <div class="mb-3">
             <label for="cr-name" class="col-form-label">Название (например: Aquarius Cmp)</label>
-            <input type="text" class="form-control" id="cr-name">
+            <input type="text" class="form-control rose-input" id="cr-name">
           </div>
           <div class="mb-3">
             <label for="cr-model" class="col-form-label">Модель (например: NS575s)</label>
@@ -59,7 +61,7 @@
           </div>
           <div class="mb-3">
             <label for="cr-num_serial" class="col-form-label">Заводской номер (например: FGC45678XZ)</label>
-            <input type="text" class="form-control" id="cr-num_serial">
+            <input type="text" class="form-control rose-input" id="cr-num_serial">
           </div>
           <div class="mb-3">
             <label for="cr-num_invent" class="col-form-label">Инвентарный номер (например: 00004158)</label>
