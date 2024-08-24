@@ -4,6 +4,9 @@
   }
 
   .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 15px;
   }
 
@@ -19,61 +22,37 @@
 
   .navbar-brand img {
     margin-bottom: 5px;
+    max-height: 40px;
   }
 
   .user-info {
     text-align: center;
-  }
-
-  .label {
-    display: inline-block;
-    width: auto;
-    margin-right: 5px;
-    width: 250px; /* Задайте ширину по своему усмотрению */
-  }
-    
-  .value {
-    font-weight: bold;
-    flex: 1; /* Заставляет значение занимать оставшееся пространство */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   @media (max-width: 991px) {
     .container-fluid {
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
     }
 
     .navbar-brand, .user-info {
       margin-bottom: 10px;
     }
   }
-
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <a class="navbar-brand" href="/">
-      <img src="/frontend/assets/img/logo_min.jpg" alt="Инвентарный учет Logo" id="brand-logo" style="max-height: 40px;">
+      <img src="/frontend/assets/img/logo_min.jpg" alt="Инвентарный учет Logo" id="brand-logo">
       <span>На главную</span>
     </a>
-
-    <div class="user-info">
-      <div class="d-flex align-items-center">
-        <span class="label">Ваш логин:</span>
-        <span class="value">{{ worker.name }}</span>
-      </div>
-      <div class="d-flex align-items-center">
-        <span class="label">Ваше подразделение:</span>
-        <span class="value">{{ worker.department }}</span>
-      </div>
-    </div>
-
     <a class="navbar-brand" href="/logout">
-      <img src="/frontend/assets/img/icon_exit.jpg" alt="Выход" id="exit" style="max-height: 40px;">
+      <img src="/frontend/assets/img/icon_exit.jpg" alt="Выход" id="exit">
       <span>Выйти</span>
     </a>
   </div>
 </nav>
-
-
-
