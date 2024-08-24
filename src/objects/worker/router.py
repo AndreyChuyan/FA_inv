@@ -50,43 +50,6 @@ async def fio_for_access_token_frontend(
     return response
 
 
-# @router.post("/register")
-# async def register_user(
-#     name: str = Form(...),
-#     password: str = Form(...),
-#     email: str = Form(...),
-#     session: AsyncSession = Depends(get_session),
-# ):
-#     password = hash_password(password)
-#     data = {"username": username, "password": password, "email": email}
-#     user = await CRUDUser.create(session, data)
-#     access_token = create_access_token(data={"username": user.username})
-#     # print(access_token)repod1
-#     response = RedirectResponse(url="/auth", status_code=status.HTTP_303_SEE_OTHER)
-#     response.set_cookie(key="access_token", value=access_token)
-#     return response
-
-# --- Standart CRUD
-# @router.post("/", response_model=WorkerOut, status_code=status.HTTP_201_CREATED)
-# async def create(
-#     user: WorkerCreate, 
-#     session: AsyncSession = Depends(get_session),
-#     # current_user: Worker = Depends(get_current_worker),
-#     ):
-#     """
-#     Создание нового пользователя.
-#     """
-#     user.password = hash_password(user.password)
-#     data = user.dict()
-#     worker = data.pop("worker", None)
-#     new_user = await CRUDWorker.create(session, data)
-#     if new_user is None:
-#         raise exception_unique_field
-#     if worker:
-#         user["id"] = new_user.id
-#         await CRUDWorker.create(session, worker)
-#     return new_user
-
 @router.post("/", response_model=WorkerOut, status_code=status.HTTP_201_CREATED)
 async def create(
     user: WorkerCreate, 
@@ -100,6 +63,7 @@ async def create(
     data = user.dict()
     worker = data.pop("worker", None)
     new_user, error_info = await CRUDWorker.create(session, data)
+    log.info(f'Создан пользователь Логин= {new_user.name} Имя= {new_user.fio}')
     if new_user is None:
         # log.debug(f'Debug --- router create - error_info {error_info}')
         if "UNIQUE constraint failed: worker.name" in error_info:
@@ -134,6 +98,7 @@ async def get_all(
     """
     users = await CRUDWorker.get_all(session)
     # log.debug(f'Debug --- get_all_worker')
+
     return users
 
 

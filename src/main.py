@@ -20,6 +20,13 @@ from config import SECRET_KEY
 import logging
 log = logging.getLogger("uvicorn")
 log.setLevel(logging.DEBUG)
+# Настройка формата логов
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+# Создаем консольный обработчик и добавляем ему форматтер
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+# Добавляем обработчик к логгеру
+log.addHandler(console_handler)
 
 
 @asynccontextmanager

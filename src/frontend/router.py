@@ -76,7 +76,7 @@ async def get_workers(
 ):
     data = await CRUDWorker.get_all_worker_sorted(session)
     # log.debug(f"Debug --- /workers data_users= {data_users}")
-    # log.debug(f"Debug --- /workers data_users[0][0].name= {data_users[0][0].name}")
+    # log.debug(f"Debug --- /workers data_users[0][0].name= {data[0][0].name}")
     # data = [{"id": i, **dct} for i, dct in enumerate(data, start=1)]
     # print(data)
     # workers = await CRUDWorker.get_all(session)

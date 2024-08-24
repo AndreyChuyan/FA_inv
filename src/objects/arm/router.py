@@ -31,6 +31,7 @@ async def create(
     data = arm.dict()
     object = data.pop("arm", None)
     object_resp, error_info = await CRUDArm.create(session, data)
+    log.info(f'Создан компьютер Логин= {object_resp.title} Имя= {object_resp.name}')
     # обработка ошибки
     if object_resp is None:
         if "UNIQUE constraint failed: arm.title" in error_info:
