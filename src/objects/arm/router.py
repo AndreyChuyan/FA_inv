@@ -91,6 +91,7 @@ async def update_by_id(
         else:
         # Обработка других типов ошибок
             raise HTTPException(status_code=400, detail="Failed to create arm")
+    log.info(f'Обновлен компьютер Логин= {object.title} Имя= {object.name}')
     return object
 
 @router.delete("/{id}", response_model=bool)

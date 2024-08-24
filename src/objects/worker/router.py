@@ -20,7 +20,6 @@ log = logging.getLogger("uvicorn")
 
 router = APIRouter(prefix="/worker", tags=["worker"])
 
-
 # --- Авторизация
 @router.post("/token")
 async def fio_for_access_token(
@@ -128,6 +127,7 @@ async def update_by_id(
         else:
         # Обработка других типов ошибок
             raise HTTPException(status_code=400, detail="Failed to create user")
+    log.info(f'Обновлен пользователь Логин= {user.name} Имя= {user.fio}')
     return user
 
 @router.delete("/{id}", response_model=bool)

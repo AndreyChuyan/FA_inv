@@ -18,23 +18,32 @@ from config import SECRET_KEY
 
 # отладка
 import logging
+def configure_logging():
+    # Получить логгер Uvicorn
+    log = logging.getLogger("uvicorn")
+    # Удалить все существующие обработчики (handlers)
+    while log.handlers:
+        log.removeHandler(log.handlers[0])
+    # Настроить формат логов
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+    # Создать консольный обработчик и добавить форматтер
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+    # Добавить обработчик к логгеру
+    log.addHandler(console_handler)
+    # Установить уровень логирования
+    log.setLevel(logging.DEBUG)
+
+configure_logging()
 log = logging.getLogger("uvicorn")
-log.setLevel(logging.DEBUG)
-# Настройка формата логов
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-# Создаем консольный обработчик и добавляем ему форматтер
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(formatter)
-# Добавляем обработчик к логгеру
-log.addHandler(console_handler)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Приложение запускается...")
+    log.info(f'Приложение запущено')
     # await create_tables()
     yield
-    print("Приложение останавливается...")
+    log.info(f'Приложение остановлено')
 
 
 app = FastAPI(lifespan=lifespan)
@@ -74,4 +83,12 @@ if __name__ == "__main__":
     import uvicorn
 
     # uvicorn.run("main:app", host="0.0.0.0", port=8000, workers=2, timeout_keep_alive=600, access_log=True, use_colors=True, reload=True)
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, workers=2, timeout_keep_alive=600, access_log=True, use_colors=True, reload=True)
+    uvicorn.run("main:app", 
+                host="0.0.0.0", 
+                port=8000, 
+                workers=2, 
+                timeout_keep_alive=600,
+                log_level="info",  # Установить уровень логирования в critical 
+                access_log=True, 
+                use_colors=True, 
+                reload=True)
