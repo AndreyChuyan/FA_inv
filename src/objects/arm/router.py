@@ -41,7 +41,7 @@ async def create(
     # if object:
     #     arm["id"] = object_resp.id
     #     await CRUDArm.create(session, object)
-    log.info(f'Создан компьютер Логин= {object.title} Имя= {object.name}')
+    log.info(f'Создан компьютер Подразделение: {object.department_arm} Логин: {object.title} Имя: {object.name}')
     return object
 
 
@@ -91,7 +91,7 @@ async def update_by_id(
         else:
         # Обработка других типов ошибок
             raise HTTPException(status_code=400, detail="Failed to create arm")
-    log.info(f'Обновлен компьютер Логин= {object.title} Имя= {object.name}')
+    log.info(f'Обновлен компьютер Подразделение: {object.department_arm} Логин: {object.title} Имя: {object.name}')
     return object
 
 @router.delete("/{id}", response_model=bool)

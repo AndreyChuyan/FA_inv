@@ -72,7 +72,7 @@ async def create(
     # if worker:
     #     user["id"] = new_user.id
     #     await CRUDWorker.create(session, worker)
-    log.info(f'Создан пользователь Логин= {new_user.name} Имя= {new_user.fio}')
+    log.info(f'Создан пользователь Подразделение: {new_user.department} Логин: {new_user.name} Имя: {new_user.fio}')
     return new_user
 
 @router.get("/{worker_id}", response_model=WorkerOut)
@@ -127,7 +127,7 @@ async def update_by_id(
         else:
         # Обработка других типов ошибок
             raise HTTPException(status_code=400, detail="Failed to create user")
-    log.info(f'Обновлен пользователь Логин= {user.name} Имя= {user.fio}')
+    log.info(f'Обновлен пользователь Подразделение: {user.department} Логин: {user.name} Имя: {user.fio}')
     return user
 
 @router.delete("/{id}", response_model=bool)
