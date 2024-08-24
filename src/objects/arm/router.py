@@ -82,8 +82,15 @@ async def update_by_id(
     """
     # log.debug(f'Debug --- arm_update_by_id object.name={schema.name}')
     data = schema.dict()
-    object = await CRUDArm.update_by_id(session, id, data)
+    object, error_info = await CRUDArm.update_by_id(session, id, data)
     # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')
+    # обработка ошибки
+    if object is None:
+        if "UNIQUE constraint failed: arm.title" in error_info:
+            raise DuplicateObjectException("UNIQUE constraint failed: arm.title")
+        else:
+        # Обработка других типов ошибок
+            raise HTTPException(status_code=400, detail="Failed to create arm")
     return object
 
 @router.delete("/{id}", response_model=bool)

@@ -38,7 +38,7 @@ export function validatePasswordMode(password) {
 
 
 // Функция для проверки строки на наличие только цифр
-export function validateNumeric(number) {
+export function validateTelephone(number) {
   // Убираем пробелы в начале и конце строки
   const trimmedNumber = number.trim();
   
@@ -48,9 +48,14 @@ export function validateNumeric(number) {
   }
   
   // Проверка на наличие только цифр
-  const numericRegex = /^[0-9]+$/;
+  const numericRegex =/^\+?[0-9]+$/;
   if (!numericRegex.test(trimmedNumber)) {
-    return "Пожалуйста, введите корректный номер телефона, только цифры!";
+    return "Пожалуйста, введите корректный номер телефона, только цифры и опционально знак +!";
+  }
+
+  // Проверка на наличие не менее 4 символов
+  if (trimmedNumber.length < 11) {
+    return "Пожалуйста, введите номер телефона длиной не менее 11 символов!";
   }
 
   // Если все проверки пройдены, возвращаем пустую строку (или null)

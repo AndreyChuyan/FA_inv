@@ -1,4 +1,4 @@
-﻿import { validatePassword, validateNumeric } from '../../assets/js/validators.js';
+﻿import { validatePassword, validateTelephone } from '../../assets/js/validators.js';
 
 // import { validatePassword } from './validators.js';
 
@@ -38,7 +38,7 @@ saveButton_create.addEventListener('click', () => {
   }
 
   // Вызов функции проверки телефона
-  const phoneError = validateNumeric(cr_description);
+  const phoneError = validateTelephone(cr_description);
   if (phoneError) {
     alert(phoneError);
     return;
@@ -79,18 +79,19 @@ saveButton_create.addEventListener('click', () => {
   })
   .then(data => {
     console.log('Response from server:', data);
-    
-    const modal = document.querySelector('#createWorkerModal');
-    const bsModal = bootstrap.Modal.getInstance(modal);
-    bsModal.hide();
 
+
+      // Закрываем модальное окно после успешного запроса
+      const modal = document.querySelector('#updateModal');
+      const bsModal = new bootstrap.Modal(modal);
+      bsModal.hide();
 
       // Устанавливаем задержку перед обновлением страницы
       setTimeout(() => {
         // Обновляем текущую страницу
         window.location.reload();
       }, 500); // 1 секунда
-  })
+    })
   .catch(error => {
     console.error('There was a problem with fetch operation:', error);
   });

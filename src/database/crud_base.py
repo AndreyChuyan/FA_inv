@@ -85,7 +85,7 @@ class CRUDBase:
         except IntegrityError as e:
             await session.rollback()
             error_info = str(e.orig)
-            # log.debug(f'Debug --- create error_info={error_info}')
+            log.debug(f'Debug --- create error_info={error_info}')
             return None, error_info
         except NoResultFound:
             return None

@@ -1,5 +1,5 @@
 ﻿// импортировать конкретную функцию (не дефолтную)
-import { validatePasswordMode } from '../../assets/js/validators.js';
+import { validatePasswordMode, validateTelephone } from '../../assets/js/validators.js';
 
 // Получает кнопку "Сохранить" в модальном окне и сохраняет её в переменную saveButton
 const saveButton = document.querySelector('#updateModal .btn-primary');
@@ -20,12 +20,31 @@ saveButton.addEventListener('click', () => {
     return; 
   }
 
+  if (!fio.trim()) { 
+    alert("Пожалуйста, заполните поле - Имя");
+    return; 
+  }
+
 // Вызов функции проверки пароля соответсия требованиям
 const passwordError = validatePasswordMode(password);
 if (passwordError) {
   alert(passwordError);
   return;
 }
+
+if (!position.trim()) { 
+  alert("Пожалуйста, заполните поле - Должность");
+  return; 
+}
+
+  // Вызов функции проверки телефона
+  const phoneError = validateTelephone(description);
+  if (phoneError) {
+    alert(phoneError);
+    return;
+  }
+
+
 
   // Передает значения полей в роутер с параметрами
   // Собрать данные, которые вы хотите отправить на сервер, в объект JavaScript:
@@ -48,6 +67,7 @@ if (passwordError) {
   },
   body: JSON.stringify(data)
   })
+  // проверка на конфликт дублирования
   .then(response => {
     if (!response.ok) {
       return response.json().then(data => {
@@ -62,17 +82,21 @@ if (passwordError) {
     return response.json();
   })
   .then(data => {
-  console.log('Response from server:', data);
-  })
+    console.log('Response from server:', data);
 
-    // Закрываем модальное окно после успешного запроса
-    const modal = document.querySelector('#updateModal');
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.hide();
 
-  // Устанавливаем задержку перед обновлением страницы
-  setTimeout(() => {
-    // Обновляем текущую страницу
-    window.location.reload();
-  }, 500); // 1 секунда
-})
+      // Закрываем модальное окно после успешного запроса
+      const modal = document.querySelector('#updateModal');
+      const bsModal = new bootstrap.Modal(modal);
+      bsModal.hide();
+
+      // Устанавливаем задержку перед обновлением страницы
+      setTimeout(() => {
+        // Обновляем текущую страницу
+        window.location.reload();
+      }, 500); // 1 секунда
+    })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+});
