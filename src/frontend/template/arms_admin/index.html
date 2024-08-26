@@ -19,12 +19,15 @@
       td {
           font-size: 10px; /* Размер шрифта для заголовков и данных таблицы */
           /* Другие стили для ячеек таблицы */
+          white-space: normal;
       }
           th {
             text-align: center; /* Выравнивание текста в надписях по центру */
             font-size: 11px; /* Размер шрифта для заголовков и данных таблицы */
           /* Другие стили для ячеек таблицы */
       }
+          /* Класс для разрешения переноса строк */
+
   </style>
 </head>
 
@@ -58,7 +61,7 @@
             <th scope="col" >Расположение</th>
             <th scope="col" >Название</th>
             <th scope="col" >Модель</th>
-            <th scope="col" >Год выпуска</th>
+            <th scope="col" >Год выпуска, дата ввода</th>
             <th scope="col" >Заводской номер</th>
             <th scope="col" >Инвентарный номер</th>
             <th scope="col" >Сервисный номер</th>
@@ -69,7 +72,7 @@
             <th scope="col" >Действия</th>
           </tr>
         </thead>
-        <tbody class="text-center">
+        <tbody class="text-center word-wrap" >
           {% for tuple in data %}
             {% set object = tuple %}
 
@@ -97,13 +100,13 @@
                       <td>{{ object.name }}</td>
                       <td>{{ object.model }}</td>
                       <td>{{ object.release }}</td>
-                      <td>{{ object.num_serial }}</td>
+                      <td> {{ object.num_serial }}</td>
                       <td>{{ object.num_invent }}</td>
                       <td>{{ object.num_service }}</td>
                       <td>{{ object.price }}</td>
                       <td>{{ object.formular }}</td>
                       <td>{{ object.state }}</td>
-                      <td>{{ object.description }}</td>
+                      <td style="word-break: normal;">{{ object.description }}</td>
                       <td>
                         <!-- Кнопка для редактирования -->
                         <div style="display: flex;">

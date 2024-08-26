@@ -1,4 +1,9 @@
 ﻿.rose-input {
-  border: 1px solid #f44336;  /* Красный цвет границы (Hex значение розового цвета) */
-  background-color: #ffe6e6;  /* Светло-розовый цвет фона */
+  border: 1px solid #4c4b49;  /* Красный цвет границы (Hex значение розового цвета) */
+  background-color: #eae9d8;  /* Светло-розовый цвет фона */
+}
+.word-wrap {
+  white-space: normal; /* Разрешить перенос строк */
+  overflow-wrap: break-word; /* Разрешает перенос для длинных слов */
+  word-break: break-all; /* Разрешает разрыв слов для переноса */
 }
