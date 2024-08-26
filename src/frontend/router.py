@@ -114,6 +114,19 @@ async def get_workers(
         {"request": request, "worker": worker, "data": data},
     )
 
+@router.get("/arms_admin")
+async def get_arms(
+    request: Request,
+    worker: Worker = Depends(get_worker_or_redirect),
+    session: AsyncSession = Depends(get_session),
+):
+    data = await CRUDArm.get_all_arm_sorted(session)
+    data_worker = await CRUDWorker.get_all(session)
+    return templates.TemplateResponse(
+        "arms_admin/index.html",
+        {"request": request, "worker": worker, "data": data, "data_worker": data_worker},
+    )
+
 @router.get("/workers_guest")
 async def get_workers(
     request: Request,

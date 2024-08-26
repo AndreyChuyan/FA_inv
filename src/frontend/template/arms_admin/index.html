@@ -1,8 +1,6 @@
 {% extends "base/base.html" %}
 
-
 {% block title %}Все компьютеры{% endblock %}
-
 
 {% block content %}
 
@@ -30,7 +28,7 @@
   </style>
 </head>
 
-<h5 class="mb-4" style="margin-bottom: 60px; text-align: center;">Страница предназначена для создания,<br> редактирования и удаления сведений о компьютерах подразделения</h5>
+<h5 class="mb-4" style="margin-bottom: 60px; text-align: center;">Страница предназначена для создания, редактирования и удаления <br>сведений о компьютерах системы</h5>
 
 <!-- карточка для создания -->
 <div class="d-flex flex-wrap justify-content-center align-items-center">
@@ -43,6 +41,7 @@
     </div>
   </a>
 </div>
+
 
 <div class="row">
   <div class="col-12">
@@ -73,7 +72,7 @@
         <tbody class="text-center">
           {% for tuple in data %}
             {% set object = tuple %}
-              {% if object.department_arm == worker.department %}
+
                 {% for tuple2 in data_worker %}
                   {% if tuple2.id == object.id_worker %}
                     {% set varUserName = tuple2.name %}
@@ -142,7 +141,7 @@
                   </tr>
                 {% endif %}
               {% endfor %}
-            {% endif %}
+
           {% endfor %}
         </tbody>
       </table>

@@ -1,0 +1,105 @@
+﻿<!-- Modal -->
+<style>
+  /* Ограниение высоты модального окна */
+  .modal-content {
+    max-height: 90vh; /* 80% высоты видимого окна */
+    overflow-y: auto; /* Включить вертикальный скроллинг */
+  }
+
+
+</style>
+
+<div class="modal fade" id="modalCreateArm" tabindex="-1" aria-labelledby="CreateLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalCreateArm">Добавление компьютера</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!-- скрытое поле для хранения значения -->
+          <div>
+            <input type="hidden" id="cr-department-arm">
+          </div>
+          <!-- поля значений -->
+          <div class="mb-3">
+            <h1 class="modal-title fs-5" id="modalCreateArm">Подразделение: {{worker.department}}</h1>
+          </div>
+          <div class="mb-3">
+            <!-- Выпадающий список -->
+            <label for="cr_fio" class="col-form-label">Пользователь компьютера <p>(выберите ранее созданного сотрудника)</p></label>
+            <select class="form-control rose-input" id="cr_fio">
+              {% for tuple_worker in data_worker %}
+                {% if tuple_worker.department == worker.department %}  
+                  {{tuple_worker.name}}
+                  <option value="{{tuple_worker.id}}">{{tuple_worker.name}}</option>
+                {% endif %}
+              {% endfor %}
+              <!-- Добавьте дополнительные элементы, если нужно -->
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="cr-title" class="col-form-label">Учетное имя (например: k1-222-1)</label>
+            <input type="text" class="form-control rose-input" id="cr-title">
+          </div>
+          <div class="mb-3">
+            <label for="cr-location" class="col-form-label">Расположение (кабинет) (например: 222)</label>
+            <input type="text" class="form-control rose-input" id="cr-location">
+          </div>
+          <div class="mb-3">
+            <label for="cr-name" class="col-form-label">Название (например: Aquarius Cmp)</label>
+            <input type="text" class="form-control rose-input" id="cr-name">
+          </div>
+          <div class="mb-3">
+            <label for="cr-model" class="col-form-label">Модель (например: NS575s)</label>
+            <input type="text" class="form-control" id="cr-model">
+          </div>
+          <div class="mb-3">
+            <label for="cr-release" class="col-form-label">Год выпуска, дата ввода (например: 2019, 2021)</label>
+            <input type="text" class="form-control" id="cr-release">
+          </div>
+          <div class="mb-3">
+            <label for="cr-num_serial" class="col-form-label">Заводской номер (например: FGC45678XZ)</label>
+            <input type="text" class="form-control rose-input" id="cr-num_serial">
+          </div>
+          <div class="mb-3">
+            <label for="cr-num_invent" class="col-form-label">Инвентарный номер (например: 00004158)</label>
+            <input type="text" class="form-control" id="cr-num_invent">
+          </div>
+          <div class="mb-3">
+            <label for="cr-num_service" class="col-form-label">Сервисный номер (например: 22277712)</label>
+            <input type="text" class="form-control" id="cr-num_service">
+          </div>
+          <div class="mb-3">
+            <label for="cr-price" class="col-form-label">Стоимость (например:67000)</label>
+            <input type="text" class="form-control" id="cr-price">
+          </div>
+          <div class="mb-3">
+            <label for="cr-formular" class="col-form-label">Номер формуляра (например: 567)</label>
+            <input type="text" class="form-control" id="cr-formular">
+          </div>
+          <div class="mb-3">
+            <label for="cr-state" class="col-form-label">Состояние:</label>
+            <select class="form-control" id="cr-state">
+              <option value="В работе">В работе</option>
+              <option value="Неисправен">Неисправен</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="cr-description" class="col-form-label">Описание (выберите тип компьютера)</label>
+            <select class="form-control" id="cr-description">
+              <option value="Рабочий компьютер">Рабочий компьютер</option>
+              <option value="Буферный компьютер">Буферный компьютер</option>
+              <option value="Абонентский терминал">Абонентский терминал</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>

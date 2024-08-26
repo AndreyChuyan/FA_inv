@@ -1,0 +1,103 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateModalLabel">Updade_worker</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!-- скрытое поле для хранения значения -->
+          <div>
+            <input type="hidden" id="arm-id">
+          </div>
+          <div>
+            <input type="hidden" id="arm-department">
+          </div>
+          <!-- поля значений -->
+
+
+          <div class="mb-3">
+            <label for="arm-user" class="col-form-label">Пользователь: </label>
+            <select class="form-control rose-input" id="arm-user">
+              <!-- <option value="1" selected>obi</option> -->
+              {% for tuple_worker in data_worker %}
+                {% if tuple_worker.department == worker.department %}
+                  <option value="{{tuple_worker.id}}">{{tuple_worker.name}}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+
+
+          
+          <div class="mb-3">
+            <label for="arm-title" class="col-form-label">Учетное имя:</label>
+            <input type="text" class="form-control rose-input" id="arm-title">
+          </div>
+          <div class="mb-3">
+            <label for="arm-location" class="col-form-label">Расположение:</label>
+            <input type="text" class="form-control rose-input" id="arm-location">
+          </div>
+          <div class="mb-3">
+            <label for="arm-name" class="col-form-label">Название:</label>
+            <input type="text" class="form-control rose-input" id="arm-name">
+          </div>
+          <div class="mb-3">
+            <label for="arm-model" class="col-form-label">Модель:</label>
+            <input type="text" class="form-control" id="arm-model">
+          </div>
+          <div class="mb-3">
+            <label for="arm-release" class="col-form-label">Год выпуска, дата ввода:</label>
+            <input type="text" class="form-control" id="arm-release">
+          </div>
+          <div class="mb-3">
+            <label for="arm-num_serial" class="col-form-label">Заводской номер:</label>
+            <input type="text" class="form-control rose-input" id="arm-num_serial">
+          </div>
+          <div class="mb-3">
+            <label for="arm-num_invent" class="col-form-label">Инвентарный номер:</label>
+            <input type="text" class="form-control" id="arm-num_invent">
+          </div>
+          <div class="mb-3">
+            <label for="arm-num_service" class="col-form-label">Сервисный номер:</label>
+            <input type="text" class="form-control" id="arm-num_service">
+          </div>
+          <div class="mb-3">
+            <label for="arm-price" class="col-form-label">Стоимость:</label>
+            <input type="text" class="form-control" id="arm-price">
+          </div>
+          <div class="mb-3">
+            <label for="arm-formular" class="col-form-label">Номер формуляра:</label>
+            <input type="text" class="form-control" id="arm-formular">
+          </div>
+
+
+          <div class="mb-3">
+            <label for="arm-state" class="col-form-label">Состояние:</label>
+            <select class="form-control" id="arm-state">
+              <option value="В работе">В работе</option>
+              <option value="Неисправен">Неисправен</option>
+              <!-- Добавьте дополнительные элементы, если нужно -->
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="arm-description" class="col-form-label">Описание:</label>
+            <select class="form-control" id="arm-description">
+              <option value="Рабочий компьютер">Рабочий компьютер</option>
+              <option value="Буферный компьютер">Буферный компьютер</option>
+              <option value="Абонентский терминал">Абонентский терминал</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
