@@ -6,4 +6,4 @@ __pycache__
 export_db.xlsx
 *.code-workspace
 FA_inv.code-workspace
-db/inventory.db
+inventory.db
