@@ -38,7 +38,7 @@
 ```bash
 # Подготовка
 # в директории main создайте файл окружения .env с содержимым секретного ключа для генерации токена
-.env
+echo "" > ./src/.env
 SECRET_KEY=*******
 
 # запуск
@@ -48,10 +48,12 @@ SECRET_KEY=*******
 python -m venv .venv
 # переход в окружение
 .\.venv\Scripts\activate
+python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
-# для записей завиимостей 
-# pip freeze > requirements.txt
+# pip freeze > requirements.txt # для записей завиимостей 
+# deactivate # выход из виртуального окружения
 
+# запуск
 cd .\src\
 python main.py
 

@@ -1,4 +1,5 @@
-﻿from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+﻿from sqlalchemy import inspect
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 
@@ -20,5 +21,10 @@ async def get_session() -> AsyncSession:
 # Функция для создания таблиц
 async def create_tables():
     async with engine.begin() as conn:
-        # await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
+        # Проверка наличия таблиц в базе данных
+        inspector = inspect(conn)
+        if not inspector.get_table_names():
+            # Если таблицы отсутствуют, создаем их
+            await conn.run_sync(Base.metadata.create_all)
+        else:
+            print("Таблицы уже существуют.")
