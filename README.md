@@ -49,6 +49,8 @@ python -m venv .venv
 # переход в окружение
 .\.venv\Scripts\activate
 pip install -r requirements.txt
+# для записей завиимостей pip freeze > requirements.txt
+
 cd .\src\
 python main.py
 
