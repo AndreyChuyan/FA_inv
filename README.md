@@ -41,6 +41,8 @@
 echo "" > ./src/.env
 SECRET_KEY=*******
 
+mkdir db
+mkdir export
 # запуск
 # Windows
 # Напрямую с интерпретатора
