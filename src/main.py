@@ -15,6 +15,8 @@ from exception import RedirectException
 from config import SECRET_KEY
 # from exception import DuplicateObjectException
 # from fastapi.exceptions import RequestValidationError
+from prometheus_fastapi_instrumentator import Instrumentator
+
 
 # отладка
 import logging
@@ -77,6 +79,8 @@ async def http_exception_handler(request: Request, exc: HTTPException):
         content={"message": exc.detail},
     )
 
+# Инициализация и активация Instrumentator для сборки метрик
+Instrumentator().instrument(app).expose(app)
 
 
 if __name__ == "__main__":

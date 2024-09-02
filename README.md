@@ -83,3 +83,23 @@ docker-compose up
     docker-compose down
 
 ```
+
+# Просмотр логов
+sudo tail -f /var/log/python_app_inventory.log
+
+
+# Promethus метрики
+```bash
+python_info
+get_auth_requests_total         # число реквестов главной страницы
+get_auth_requests_error_total   # число реквестов ошибок авторизации
+get_logout_requests_total       # число реквестов выхода из приложения
+get_workers_requests_total      # число запросов к пользователям
+get_arms_requests_total         # число запросов к армам
+
+worker_create_total             # число созданных пользователей
+arm_create_total                # число созданных пользователей
+
+rate(get_workers_requests_total[5m]) #частота запросов в течение 5 минут
+
+

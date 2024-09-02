@@ -15,6 +15,8 @@ from .dependency import get_worker_or_redirect
 import subprocess
 import traceback
 
+from prometheus_client import Counter
+
 # отладка
 import logging
 log = logging.getLogger("uvicorn")
@@ -22,6 +24,14 @@ log = logging.getLogger("uvicorn")
 router = APIRouter(prefix="", tags=["frontend"])
 
 templates = Jinja2Templates(directory="frontend/template")
+
+# prometheus
+REQUESTS_AUTH = Counter('get_auth_requests_total', 'Get Auth requested')
+REQUESTS_AUTH_ERROR = Counter('get_auth_requests_error_total', 'Get Auth requested')
+REQUESTS_LOGOUT = Counter('get_logout_requests_total', 'Get Logout requested')
+REQUESTS_REGISTER = Counter('get_register_requests_total', 'Get Register requested')
+REQUESTS_WORKERS = Counter('get_workers_requests_total', 'Get Workers requested')
+REQUESTS_ARMS = Counter('get_arms_requests_total', 'Get Arms requested')
 
 
 @router.get("/")
@@ -31,6 +41,7 @@ async def get_auth(
 ):
     if worker:
         # log.debug(f"Debug --- get_correct_worker_frontend worker.name= {worker.name}")
+        REQUESTS_AUTH.inc()
         return templates.TemplateResponse("index.html", {"request": request, "worker": worker})
     else:
         return RedirectResponse(url="/auth", status_code=status.HTTP_301_MOVED_PERMANENTLY)
@@ -46,6 +57,8 @@ async def get_fio(
     if user:
         return RedirectResponse(url="/", status_code=status.HTTP_301_MOVED_PERMANENTLY)
     # в противном случае обрабатывается шаблон "auth.html" с передачей объекта запроса request и значения not_auth в качестве контекста (context) для шаблона
+    if not_auth == True:
+        REQUESTS_AUTH_ERROR.inc()
     return templates.TemplateResponse(
         "auth.html", {"request": request, "not_auth": not_auth}
     )
@@ -54,6 +67,7 @@ async def get_fio(
 @router.get("/logout", response_class=RedirectResponse)
 async def get_logout():
     # Создает объект RedirectResponse, который перенаправляет пользователя на главную страницу сайта (url="/").
+    REQUESTS_LOGOUT.inc()
     response = RedirectResponse(url="/")
     response.delete_cookie("access_token")
     return response
@@ -74,14 +88,8 @@ async def get_workers(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
+    REQUESTS_WORKERS.inc()
     data = await CRUDWorker.get_all_worker_sorted(session)
-    # log.debug(f"Debug --- /workers data_users= {data_users}")
-    # log.debug(f"Debug --- /workers data_users[0][0].name= {data[0][0].name}")
-    # data = [{"id": i, **dct} for i, dct in enumerate(data, start=1)]
-    # print(data)
-    # workers = await CRUDWorker.get_all(session)
-    # arms = await CRUDArm.get_all(session)
-    # # disciplines = await CRUDDiscipline.get_all(session)
 
     return templates.TemplateResponse(
         "workers/index.html",
@@ -94,6 +102,7 @@ async def get_arms(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
+    REQUESTS_ARMS.inc()
     data = await CRUDArm.get_all_arm_sorted(session)
     data_worker = await CRUDWorker.get_all(session)
     # data_arm_user = await CRUDWorker.get_all_arm_user(session)
@@ -108,6 +117,7 @@ async def get_workers(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
+    REQUESTS_WORKERS.inc()
     data = await CRUDWorker.get_all_worker_sorted(session)
     return templates.TemplateResponse(
         "workers_admin/index.html",
@@ -120,6 +130,7 @@ async def get_arms(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
+    REQUESTS_ARMS.inc()
     data = await CRUDArm.get_all_arm_sorted(session)
     data_worker = await CRUDWorker.get_all(session)
     return templates.TemplateResponse(
@@ -133,6 +144,7 @@ async def get_workers(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
+    REQUESTS_WORKERS.inc()
     data = await CRUDWorker.get_all_worker_sorted(session)
     return templates.TemplateResponse(
         "guest/workers.html",
@@ -145,6 +157,7 @@ async def get_arms(
     worker: Worker = Depends(get_worker_or_redirect),
     session: AsyncSession = Depends(get_session),
 ):
+    REQUESTS_ARMS.inc()
     data = await CRUDArm.get_all_arm_sorted(session)
     data_worker = await CRUDWorker.get_all(session)
     return templates.TemplateResponse(

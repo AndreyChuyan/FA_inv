@@ -13,12 +13,17 @@ from .auth import hash_password, verify_password, create_access_token
 from .exceptions import exception_user_not_found, exception_auth
 from exception import DuplicateObjectException
 
+from prometheus_client import Counter
+
 # отладка
 import logging
 
 log = logging.getLogger("uvicorn")
 
 router = APIRouter(prefix="/worker", tags=["worker"])
+
+# promethus
+WORKER_CREATE = Counter('worker_create_total', 'Get Workers created')
 
 # --- Авторизация
 @router.post("/token")
@@ -73,6 +78,7 @@ async def create(
     #     user["id"] = new_user.id
     #     await CRUDWorker.create(session, worker)
     log.info(f'Создан пользователь Подразделение: {new_user.department} Логин: {new_user.name} Имя: {new_user.fio}')
+    WORKER_CREATE.inc()
     return new_user
 
 @router.get("/{worker_id}", response_model=WorkerOut)

@@ -11,12 +11,18 @@ from database.crud_base import CRUDBase
 from objects.worker.dependency import get_current_worker
 from exception import DuplicateObjectException
 
+from prometheus_client import Counter
+
 # отладка
 import logging
 
 log = logging.getLogger("uvicorn")
 
 router = APIRouter(prefix="/arm", tags=["arm"])
+
+# promethus
+ARM_CREATE = Counter('arm_create_total', 'Get Arms created')
+
 
 # --- Standart CRUD
 @router.post("/", response_model=ArmOut, status_code=status.HTTP_201_CREATED)
@@ -42,6 +48,7 @@ async def create(
     #     arm["id"] = object_resp.id
     #     await CRUDArm.create(session, object)
     log.info(f'Создан компьютер Подразделение: {object.department_arm} Логин: {object.title} Имя: {object.name}')
+    ARM_CREATE.inc()
     return object
 
 
