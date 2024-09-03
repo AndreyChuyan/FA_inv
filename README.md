@@ -100,6 +100,8 @@ get_arms_requests_total         # число запросов к армам
 worker_create_total             # число созданных пользователей
 arm_create_total                # число созданных пользователей
 
-rate(get_workers_requests_total[5m]) #частота запросов в течение 5 минут
-
+rate(get_auth_requests_total{}[20m])             # Частота запросов в течение 5 минут
+rate(get_auth_requests_error_total{}[20m])       # Частота ошибок авторизации
+rate(worker_create_total{}[20m])                 # Частота создания пользователей
+rate(arm_create_total{}[20m])                    # Частота создания армов
 
