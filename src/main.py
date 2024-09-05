@@ -91,7 +91,8 @@ if __name__ == "__main__":
                 port=8000, 
                 workers=2, 
                 timeout_keep_alive=600,
-                log_level="critical",  #    log_level="info", - для всех логов
+                # log_level="critical",  
+                log_level="info", 
                 access_log=True, 
                 use_colors=True, 
                 reload=True)

@@ -24,21 +24,24 @@
           </div>
           <!-- поля значений -->
           <div class="mb-3">
-            <h1 class="modal-title fs-5" id="modalCreateArm">Подразделение: {{worker.department}}</h1>
+
           </div>
           <div class="mb-3">
             <!-- Выпадающий список -->
-            <label for="cr_fio" class="col-form-label">Пользователь компьютера <p>(выберите ранее созданного сотрудника)</p></label>
-            <select class="form-control rose-input" id="cr_fio">
-              {% for tuple_worker in data_worker %}
-                {% if tuple_worker.department == worker.department %}  
-                  {{tuple_worker.name}}
-                  <option value="{{tuple_worker.id}}">{{tuple_worker.name}}</option>
-                {% endif %}
-              {% endfor %}
-              <!-- Добавьте дополнительные элементы, если нужно -->
+            <label for="cr_fio" class="col-form-label">
+                Пользователь компьютера
+                <p>(выберите ранее созданного сотрудника)</p>
+            </label>
+            <select class="form-control rose-input" id="cr_fio" onchange="setDepartmentValue()">
+                {% for tuple_worker in data_worker %}
+                    <option value="{{tuple_worker.id}}" data-department="{{tuple_worker.department}}">
+                        {{tuple_worker.name}}
+                    </option>
+                {% endfor %}
             </select>
-          </div>
+            <input type="hidden" name="cr_dep" id="cr_dep" value="">
+        </div>
+
           <div class="mb-3">
             <label for="cr-title" class="col-form-label">Учетное имя (например: k1-222-1)</label>
             <input type="text" class="form-control rose-input" id="cr-title">
@@ -104,3 +107,29 @@
     </div>
   </div>
 </div>
+
+<!-- JavaScript для обновления скрытого поля -->
+<script>
+  function setDepartmentValue() {
+      // Получаем выбранный элемент
+      var selectElement = document.getElementById('cr_fio');
+      console.log('Selected element:', selectElement);
+
+      var selectedOption = selectElement.options[selectElement.selectedIndex];
+      console.log('Selected option:', selectedOption);
+
+      // Извлекаем значение атрибута data-department
+      var department = selectedOption.getAttribute('data-department');
+      console.log('Department:', department);
+
+      // Устанавливаем значение в скрытое поле
+      document.getElementById('cr_dep').value = department;
+      console.log('cr_dep field value:', document.getElementById('cr_dep').value);
+  }
+
+  // Инициализируем значение скрытого поля при загрузке страницы
+  window.onload = function() {
+      console.log('Page loaded');
+      setDepartmentValue();
+  }
+</script>

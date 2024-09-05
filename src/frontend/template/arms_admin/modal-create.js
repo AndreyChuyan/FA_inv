@@ -13,8 +13,10 @@ saveButton_create.addEventListener('click', () => {
   const cr10  = document.querySelector('#cr-formular').value;
   const cr11  = document.querySelector('#cr-state').value;
   const cr12  = document.querySelector('#cr-description').value;
-  const cr13  = document.querySelector('#cr-department-arm').value;
+  const cr13  = document.querySelector('#cr_dep').value;
   const cr14  = document.querySelector('#cr_fio').value;
+
+  console.log('cr_dep:', cr13);
 
   // Проверки на пустое значение (и пробелы)
   if (!cr1.trim()) { 

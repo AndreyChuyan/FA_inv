@@ -23,9 +23,9 @@
             <select class="form-control rose-input" id="arm-user">
               <!-- <option value="1" selected>obi</option> -->
               {% for tuple_worker in data_worker %}
-                {% if tuple_worker.department == worker.department %}
+
                   <option value="{{tuple_worker.id}}">{{tuple_worker.name}}</option>
-                {% endif %}
+
               {% endfor %}
             </select>
           </div>

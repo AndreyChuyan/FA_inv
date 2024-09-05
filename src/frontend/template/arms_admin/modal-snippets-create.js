@@ -9,7 +9,7 @@ if (createModal) {
     // Извлекает информацию из атрибута  кнопки, которая вызвала модальное окно, и сохраняет это значение в переменные
     const department = button.getAttribute('data-bs-department-arm')
 
-    // Обновляет содержимое заголовка модального окна (modalTitle) текстом "New message to " и значением переменной name
+    // Обновляет содержимое заголовка модального окна (modalTitle)
     const modalTitle = createModal.querySelector('.modal-title')
     const modalBodyInputDepartment = createModal.querySelector('#cr-department-arm')
     console.log('modalBodyInputDepartment:', modalBodyInputDepartment);

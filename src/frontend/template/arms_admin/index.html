@@ -17,7 +17,7 @@
         max-width: 90px; /* Задайте максимальную ширину для ячеек */
       }
       td {
-          font-size: 11px; /* Размер шрифта для данных таблицы */
+          font-size: 10px; /* Размер шрифта для данных таблицы */
           /* Другие стили для ячеек таблицы */
           white-space: normal;
       }
@@ -56,6 +56,7 @@
       <table class="table table-hover table-shadow table-rounded">
         <thead>
           <tr>
+            <th scope="col" >Подразделение</th>
             <th scope="col" >Пользователь</th>
             <th scope="col" >Учетное имя</th>
             <th scope="col" >Расположение</th>
@@ -82,8 +83,9 @@
                     {% set varUserId = tuple2.id %}
 
                     <tr class="table-success">
+                      <td style="font-size: 10px";>{{ object.department_arm }}</td>
                       <td>
-                        <div style="display: flex;">
+                        <div style="display: flex; font-size: 13px">
                           <span style="padding: 5px; 
                             {% if varUserName == 'Нет пользователя' %}
                               background-color: #ff0000; 
@@ -100,7 +102,7 @@
                       <td>{{ object.name }}</td>
                       <td>{{ object.model }}</td>
                       <td>{{ object.release }}</td>
-                      <td> {{ object.num_serial }}</td>
+                      <td>{{ object.num_serial }}</td>
                       <td>{{ object.num_invent }}</td>
                       <td>{{ object.num_service }}</td>
                       <td>{{ object.price }}</td>
@@ -182,9 +184,9 @@
 
 </script>
 
-{% include "arms/modal_mode.html" %}
-{% include "arms/modal_create.html" %}
-{% include "arms/scripts.html" %}
+{% include "arms_admin/modal_mode.html" %}
+{% include "arms_admin/modal_create.html" %}
+{% include "arms_admin/scripts.html" %}
 
 
 {% endblock %}

@@ -135,7 +135,7 @@ async def get_arms(
     data_worker = await CRUDWorker.get_all(session)
     return templates.TemplateResponse(
         "arms_admin/index.html",
-        {"request": request, "worker": worker, "data": data, "data_worker": data_worker},
+        {"request": request, "worker": worker, "data": data, "data_worker": data_worker}
     )
 
 @router.get("/workers_guest")

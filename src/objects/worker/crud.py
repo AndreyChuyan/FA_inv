@@ -4,7 +4,7 @@ from sqlalchemy.exc import NoResultFound
 from database.models import Worker, Arm
 from database.crud_base import CRUDBase
 from sqlalchemy import update, delete
-
+from sqlalchemy import distinct
 
 # отладка
 import logging
@@ -61,4 +61,12 @@ class CRUDWorker(CRUDBase):
             # log.error(f"Error --- delete_worker_and_update_arms: Failed to delete worker with id={worker_id}. Error: {str(e)}")
             return False
 
-
+    # @classmethod
+    # async def get_worker_unique_departments(cls, session: AsyncSession) -> list[str]:
+    #     """Получение уникальных подразделений"""
+    #     # Используем distinct для выбора уникальных значений
+    #     query = select(distinct(cls.model.department)).order_by(cls.model.department)
+        
+    #     result = await session.execute(query)
+    #     data = result.scalars().all()
+    #     return data
