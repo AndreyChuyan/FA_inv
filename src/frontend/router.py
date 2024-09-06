@@ -15,7 +15,8 @@ from .dependency import get_worker_or_redirect
 import subprocess
 import traceback
 
-from prometheus_client import Counter
+from prometheus_client import Counter, Summary, Histogram
+import time
 
 # отладка
 import logging
@@ -32,19 +33,24 @@ REQUESTS_LOGOUT = Counter('get_logout_requests_total', 'Get Logout requested')
 REQUESTS_REGISTER = Counter('get_register_requests_total', 'Get Register requested')
 REQUESTS_WORKERS = Counter('get_workers_requests_total', 'Get Workers requested')
 REQUESTS_ARMS = Counter('get_arms_requests_total', 'Get Arms requested')
-
+# Гистограмма для измерения времени обработки
+REQUEST_PROCESSING_TIME = Histogram("request_processing_time_seconds", "Processing time for requests")
 
 @router.get("/")
 async def get_auth(
     request: Request, 
     worker: Worker | None = Depends(get_correct_worker_frontend)
 ):
+    start_time = time.time()  # Начальное время (если вы не хотите использовать гистограмму как декоратор)
     if worker:
         # log.debug(f"Debug --- get_correct_worker_frontend worker.name= {worker.name}")
         REQUESTS_AUTH.inc()
-        return templates.TemplateResponse("index.html", {"request": request, "worker": worker})
+        response = templates.TemplateResponse("index.html", {"request": request, "worker": worker})
     else:
-        return RedirectResponse(url="/auth", status_code=status.HTTP_301_MOVED_PERMANENTLY)
+        response = RedirectResponse(url="/auth", status_code=status.HTTP_301_MOVED_PERMANENTLY)
+    # время задержки ответа
+    REQUEST_PROCESSING_TIME.observe(time.time() - start_time)
+    return response 
 
 
 @router.get("/auth")
