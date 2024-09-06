@@ -92,8 +92,13 @@ sudo tail -f /var/log/python_app_inventory.log
 
 
 # Promethus метрики
+## Graphana дашборды 
+![Alt текст](.md/12.jpg)
+
+дашборд доступен по FA_inv/Инвентарный учет-1725356679506.json
+
+## Метрики
 ```bash
-python_info
 get_auth_requests_total         # число реквестов главной страницы
 get_auth_requests_error_total   # число реквестов ошибок авторизации
 get_logout_requests_total       # число реквестов выхода из приложения
@@ -110,6 +115,5 @@ rate(arm_create_total{}[20m])                    # Частота создани
 
 sum(rate(request_processing_time_seconds_sum[5m])) / sum(rate(request_processing_time_seconds_count[5m]))     # Средняя время обработки запроса за 5 минут
 
-# Graphana дашборды 
-FA_inv/Инвентарный учет-1725356679506.json
+
 
