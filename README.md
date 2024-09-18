@@ -51,8 +51,8 @@ mkdir export
 # Напрямую с интерпретатора
 # создание окружения
 python -m venv .venv
-# переход в окружение
-.\.venv\Scripts\activate
+# переход в окружение 
+source .venv/bin/activate
 python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
 # pip freeze > requirements.txt # для записей завиимостей 

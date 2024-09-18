@@ -49,7 +49,7 @@ if (!position.trim()) {
   // Передает значения полей в роутер с параметрами
   // Собрать данные, которые вы хотите отправить на сервер, в объект JavaScript:
   const data = {
-    // role: role,
+    role: "",
     fio: fio,
     name: name,
     password: password,

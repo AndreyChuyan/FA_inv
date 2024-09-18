@@ -78,6 +78,8 @@ class CRUDBase:
             for key, value in data.items():
                 if key == "password" and value is None:
                     continue  # Пропускаем обновление пароля, если он не предоставлен
+                if key == "role" and value is None:
+                    continue  # Пропускаем обновление роли, если он не предоставлен
                 setattr(obj, key, value)
             await session.commit()
             await session.refresh(obj)

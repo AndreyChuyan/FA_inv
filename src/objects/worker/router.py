@@ -122,7 +122,9 @@ async def update_by_id(
         user.password = None
     else:
         user.password = hash_password(user.password)
-    # log.debug(f'Debug --- worker_update_by_id user.password={user.password}')
+    if user.role == "":
+        user.role = None
+    log.debug(f'Debug --- worker_update_by_id user.role={user.role}')
     data = user.dict()
     user, error_info = await CRUDWorker.update_by_id(session, id, data)
     # log.debug(f'Debug --- worker_update_by_id session, id, data= {session} {id} {data}')

@@ -14,6 +14,7 @@ if (updateModal) {
     const description = button.getAttribute('data-bs-4')
     const id = button.getAttribute('data-bs-5')
     const department = button.getAttribute('data-bs-6')
+    const role = button.getAttribute('data-bs-7')
     
 
 
@@ -25,6 +26,7 @@ if (updateModal) {
     const modalBodyInput_Description = updateModal.querySelector('#worker-description')
     const modalBodyInput_Id = updateModal.querySelector('#worker-id')
     const modalBodyInput_Department = updateModal.querySelector('#worker-department')
+    const modalBodyInput_Role = updateModal.querySelector('#worker-role')
 
     // формирует текст  и устанавливает его в соответствующий элемент модального окна modalTitle.
     modalTitle.textContent = `редактирование ${name}`
@@ -35,6 +37,6 @@ if (updateModal) {
     modalBodyInput_Description.value = description
     modalBodyInput_Id.value = id
     modalBodyInput_Department.value = department
-
+    modalBodyInput_Role.value - role
   })
 }
