@@ -14,4 +14,4 @@ COPY . .
 
 WORKDIR src
 
-CMD python main.py
+CMD ["python", "main.py"]
