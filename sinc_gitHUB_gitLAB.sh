@@ -1,9 +1,21 @@
 #!/bin/bash
 
-# Скрипт синхронизирует код между GitHub и GitLab
+# Скрипт синхронизирует код между GitHub и GitLab\
+# Создате файл .env 
+# REPO_NAME="имя репозитория"
+
+if [ -f .env ]; then
+    # Загрузить переменные и экспортировать их
+    set -a
+    source .env
+    set +a
+else
+    echo '.env файл c переменной REPO_NAME="имя репозитория" не найден'
+    exit 1
+fi
 
 # Настройки
-REPO_NAME="${REPO_NAME:-FA_inv}"
+# REPO_NAME="${REPO_NAME:-FA_inv}"
 GITHUB_REPO_URL="${GITHUB_REPO_URL:-git@github.com:AndreyChuyan/$REPO_NAME.git}"
 GITLAB_REPO_URL="${GITLAB_REPO_URL:-git@gitlab.ch.loc:root/$REPO_NAME.git}"
 LOCAL_REPO_DIR="/tmp/git/$REPO_NAME"
